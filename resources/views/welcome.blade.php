@@ -10,6 +10,60 @@
 @endsection
 
 @section('section')
+    <div id="myCarousel" class="carousel slider carousel-fade" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="overlay-image" style="background-image:url(images/inicio.jpg)">
+                    <div class="slider-container">
+                        <h2 class="slider-title">Comics Funko Shop</h2>
+                        <p class="slider-txt">Los funko de tus personajes favoritos en un solo lugar</p>
+                        <a href="#" class="a-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="overlay-image" style="background-image:url(images/inicio.jpg)">
+                    <div class="slider-container">        
+                        <h2 class="slider-title">Comics Funko DC</h2>
+                        <p class="slider-txt">Los mejores funko de DC están justo aquí</p>
+                        <a href="#" class="a-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="overlay-image" style="background-image:url(images/inicio.jpg)">
+                    <div class="slider-container">
+                        <h2 class="slider-title">Comics Funko Marvel</h2>
+                        <p class="slider-txt">Los mejores funko de Marvel están justo aquí</p>
+                        <a href="#" class="a-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="overlay-image" style="background-image:url(images/inicio.jpg)">
+                    <div class="slider-container">
+                        <h2 class="slider-title">Próximamente</h2>
+                        <p class="slider-txt">Disfruta de cashback del 21 al 24 de noviembre</p>
+                        <a href="#" class="a-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#myCarousel" class="carousel-control-prev" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a href="#myCarousel" class="carousel-control-next" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <!--
     <div class="container-slider">
         <div class="slider" id="slider">
             <div class="slider__section">
@@ -46,6 +100,7 @@
         <div class="slider__btn slider__btn--right" id="btn-right">&#62;</div>
         <div class="slider__btn slider__btn--left" id="btn-left">&#60;</div>
     </div>
+    -->
 
     <div class="row ms-1 me-1">
         <div class="card mx-auto col-md-3 col-10 mt-5 pt-4">

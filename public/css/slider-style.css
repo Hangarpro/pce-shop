@@ -1,4 +1,59 @@
   /* ESTILOS DE SLIDER */
+
+  .carousel-item {
+    height: 300px;
+    margin: 50px 0;
+    background: #777;
+    color: white;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+  }
+  .slider-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 50px;
+    color: white;
+    text-align: center;
+  }
+  .overlay-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.8;
+  }
+  .slider-title{
+    font-size: 2.2em;
+    margin: 0;
+  }
+  .slider-txt{
+    margin: 5px 0;
+  }
+  .a-btn {
+    display: block;
+    border: 2px solid white;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 190px;
+    margin: 20px auto;
+    transition: all 0.5s;
+  }
+  .a-btn:hover{
+    background: #FF4E00;
+    color: white;
+  }
+
+
+
+  /*
   .container-slider{
     margin: 50px 0;
     position: relative;
@@ -89,3 +144,4 @@
     background: #FF4E00;
     color: white;
   }
+  */
