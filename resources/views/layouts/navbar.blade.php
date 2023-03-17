@@ -10,13 +10,31 @@
 
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{url('/')}}">Home</a>
+                <li class="{{ (request()->segment(1) == '') ? 'active' : '' }}"> 
+                    <a class="nav-link" href="{{url('/')}}">
+                        Home
+                    </a>
                 </li>
-                <li><a class="nav-link" href="{{url('/productos')}}">Productos</a></li>
-                <li><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
-                <li><a class="nav-link" href="services.html">Espacio</a></li>
-                <li><a class="nav-link" href="contact.html">Contáctanos</a></li>
+                <li class="{{ (request()->segment(1) == 'productos') ? 'active' : '' }}"> 
+                    <a class="nav-link" href="{{url('/productos')}}">
+                        Productos
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="about.html">
+                        Acerca de nosotros
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="services.html">
+                        Espacio
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="contact.html">
+                        Contáctanos
+                    </a>
+                </li>
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
