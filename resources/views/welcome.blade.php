@@ -10,6 +10,7 @@
 @endsection
 
 @section('section')
+    <!--SLIDER-->
     <div id="myCarousel" class="carousel slider carousel-fade" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
@@ -62,87 +63,29 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
     </div>
+    <!--SLIDER-->
 
-    <!--
-    <div class="container-slider">
-        <div class="slider" id="slider">
-            <div class="slider__section">
-                <img src="img/inicio.jpg" alt="" class="slider__img">
-                <div class="slider__content">
-                    <h2 class="slider__title">Comics Funko Shop</h2>
-                    <p class="slider__txt">Los funko de tus personajes favoritos en un solo lugar</p>
-                </div>
-            </div>
-            <div class="slider__section">
-                <img src="{!! asset('images/inicio.jpg') !!}" alt="" class="slider__img">
-                <div class="slider__content">
-                    <h2 class="slider__title">Funko Pop DC</h2>
-                    <p class="slider__txt">Los mejores funko de DC están justo aquí</p>
-                    <a href="dc_product.php" class="btn-shop">Comprar Ahora</a>
-                </div>
-            </div>
-            <div class="slider__section">
-                <img src="img/marvel.jpg" alt="" class="slider__img">
-                <div class="slider__content">
-                    <h2 class="slider__title">Funko Pop Marvel</h2>
-                    <p class="slider__txt">Los mejores funko de Marvel los encuentras aquí</p>
-                    <a href="marvel_product.php" class="btn-shop">Comprar Ahora</a>
-                </div>
-            </div>
-            <div class="slider__section">
-                <img src="img/promocion.jpg" alt="" class="slider__img">
-                <div class="slider__content">
-                    <h2 class="slider__title">Próximamente</h2>
-                    <p class="slider__txt">Disfruta de cashback del 21 al 24 de noviembre</p>
-                </div>
-            </div>
-        </div>
-        <div class="slider__btn slider__btn--right" id="btn-right">&#62;</div>
-        <div class="slider__btn slider__btn--left" id="btn-left">&#60;</div>
-    </div>
-    -->
-
+    <!--CARDS-->
     <div class="row ms-1 me-1">
-        <div class="card mx-auto col-md-3 col-10 mt-5 pt-4">
-            <div class="d-flex justify-content-end">
-                <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
+        @for ($i = 0; $i < 8; $i++)
+            <div class="card mx-auto col-md-3 col-10 mt-3 pt-4">
+                <div class="d-flex justify-content-end">
+                    <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
+                </div>
+                <img class='mx-auto img-thumbnail' style="border:none"
+                    src="{!! asset('images/product-2.png') !!}"
+                    width="auto" height="auto"/>
+                <div class="card-body text-center mx-auto">
+                    <h5 class="card-title">Sofa Chair</h5>
+                    <p class="card-text">$1,399</p>
+                    <button type="button" class="btn btn-info">Ver producto</button>
+                </div>
             </div>
-            <img class='mx-auto img-thumbnail' style="border:none"
-                src="{!! asset('images/product-2.png') !!}"
-                width="auto" height="auto"/>
-            <div class="card-body text-center mx-auto">
-                <h5 class="card-title">Sofa Chair</h5>
-                <p class="card-text">$1,399</p>
-                <button type="button" class="btn btn-info">Ver producto</button>
-            </div>
-        </div>
-        <div class="card mx-auto col-md-3 col-10 mt-5 pt-4">
-            <div class="d-flex justify-content-end">
-                <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
-            </div>
-            <img class='mx-auto img-thumbnail' style="border:none"
-                src="{!! asset('images/product-2.png') !!}"
-                width="auto" height="auto"/>
-            <div class="card-body text-center mx-auto">
-                <h5 class="card-title">Sofa Chair</h5>
-                <p class="card-text">$1,399</p>
-                <button type="button" class="btn btn-info">Ver producto</button>
-            </div>
-        </div>
-        <div class="card mx-auto col-md-3 col-10 mt-5 pt-4">
-            <div class="d-flex justify-content-end">
-                <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
-            </div>
-            <img class='mx-auto img-thumbnail' style="border:none"
-                src="{!! asset('images/product-2.png') !!}"
-                width="auto" height="auto"/>
-            <div class="card-body text-center mx-auto">
-                <h5 class="card-title">Sofa Chair</h5>
-                <p class="card-text">$1,399</p>
-                <button type="button" class="btn btn-info">Ver producto</button>
-            </div>
-        </div>
+        @endfor 
     </div>
+    <!--END CARDS-->
+
+    <!--START TESTIMONIALS-->
     <div class="testimonial-section">
         <div class="container">
             <div class="row">

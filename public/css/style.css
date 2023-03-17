@@ -8,7 +8,7 @@
 body {
   overflow-x: hidden;
   position: relative; }
-
+ 
 body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
@@ -29,6 +29,10 @@ a {
     text-decoration: none; }
   a.more {
     font-weight: 600; }
+
+.mt-5 {
+  margin-top: 1rem!important;
+}
 
 .custom-navbar {
   background: #3b5d50 !important;
@@ -316,7 +320,7 @@ a {
   .we-help-section .imgs-grid {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (1fr)[27];
+    -ms-grid-columns: repeat(27, 1fr);
     grid-template-columns: repeat(27, 1fr);
     position: relative; }
     .we-help-section .imgs-grid:before {
@@ -378,7 +382,7 @@ a {
       position: absolute;
       left: 0;
       top: 8px; }
-
+      
 .popular-product {
   padding: 0 0 7rem 0; }
   .popular-product .product-item-sm h3 {
