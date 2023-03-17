@@ -2,7 +2,7 @@
 
     <div class="container">
         <img src="{!! asset('images/cover.png') !!}" alt="" width="50">
-        <a class="navbar-brand" href="index.html">PCE<span>.</span></a>
+        <a class="navbar-brand" href="{{url('/')}}">PCE<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,9 +11,9 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="{{url('/')}}">Home</a>
                 </li>
-                <li><a class="nav-link" href="shop.html">Shop</a></li>
+                <li><a class="nav-link" href="{{url('/productos')}}">Productos</a></li>
                 <li><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
                 <li><a class="nav-link" href="services.html">Espacio</a></li>
                 <li><a class="nav-link" href="contact.html">Contáctanos</a></li>
