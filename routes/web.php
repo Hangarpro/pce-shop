@@ -19,3 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/productos', [ProductoController::class, 'index']);
+
+Route::get('/login', function () {
+    return view('login/index');
+});
+
+Route::get('/register', function () {
+    return view('registro/index');
+});
