@@ -27,3 +27,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('registro/index');
 });
+
+Route::get('/profile', function () {
+    return view('profile/index');
+});
