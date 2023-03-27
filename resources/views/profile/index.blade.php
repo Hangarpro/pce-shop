@@ -30,6 +30,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link" href="#pass" role="tab" data-toggle="tab">
+                                            <i>Cambiar contraseña</i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#address" role="tab" data-toggle="tab">
                                             <i>Direcciones</i>
                                         </a>
@@ -56,8 +61,33 @@
                                                 <label for="inputEmail" class="form-label">Correo electrónico: <b>deadpoolvswolverine23@hotmail.com</b></label>
                                             </div>
                                             <div class="mb-3">
-                                                <button class="btn btn-primary">Editar Perfil</button>
+                                                <a class="btn btn-primary" href="{{url('/edit')}}">Editar Perfil</a>
                                             </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane text-center gallery" id="pass">
+                            <div class="row">
+                                <div class="mb-4 d-flex justify-content-center align-items-center">
+                                    <div class="col-4 p-5">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="actualPass" class="form-label">Contraseña actual</label>
+                                                <input type="password" class="form-control" id="actualPass">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="newPass" class="form-label">Nueva contraseña</label>
+                                                <input type="password" class="form-control" id="newPass">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="confirmPass" class="form-label">Repetir nueva contraseña</label>
+                                                <input type="password" class="form-control" id="confirmPass">
+                                            </div>
+                                            <div class="d-grid">
+                                                <button class="btn btn-primary" type="submit">Cambiar contraseña</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
