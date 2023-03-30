@@ -94,29 +94,107 @@
                         </div>
                     </div>
                     <div class="tab-pane text-center gallery" id="address">
-                        <div class="row">
-
+                        <div class="row col-md-4 col-sm-12 mx-auto mt-4 mb-4">
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                            aria-controls="flush-collapseOne">
+                                            Nombre dirección #1
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <p class="text-start"><b>Perry el ortitorico</b><br>
+                                                Tujefe #66<br>
+                                                Chametla<br>
+                                                La Paz, Baja California Sur 28490<br>
+                                                México<br>
+                                                Número de teléfono: 612 107 2052
+                                            </p>
+                                            <p class="text-end">
+                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                            aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            Nombre dirección #2
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <p class="text-start"><b>Añañin</b><br>
+                                                Bailarina #77<br>
+                                                Amaraquelinda<br>
+                                                La Paz, Baja California Sur 28490<br>
+                                                México<br>
+                                                Número de teléfono: 612 107 2052
+                                            </p>
+                                            <p class="text-end">
+                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                            aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Nombre dirección #3
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <p class="text-start"><b>Nombre quien recibe</b><br>
+                                                Calle y número<br>
+                                                Colonia<br>
+                                                Ciudad, Estado CP<br>
+                                                País<br>
+                                                Número de teléfono
+                                            </p>
+                                            <p class="text-end">
+                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado direcciones registradas</p>
+                        <a class="btn btn-primary mb-4" href="#">Añadir dirección</a>
                     </div>
                     <div class="tab-pane text-center gallery" id="products">
                         <div class="row">
                             <label class="">Filtrar por fecha:</label>
                             <form class="mt-2">
                                 <div class="row g-3">
-                                <div class="col-md-3 col-sm-6 mx-auto">
-                                    <input type="date" name="fechaInicio" class="form-control">
+                                    <div class="col-md-3 col-sm-6 mx-auto">
+                                        <input type="date" name="fechaInicio" class="form-control">
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 mx-auto">
+                                        <h4 for="">_</h4>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-6 mx-auto">
+                                        <input type="date" name="fechaFinal" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 col-sm-12 mx-auto">
+                                        <button type="submit" name="guardar" class="btn btn-primary">Filtrar</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-1 col-sm-1 mx-auto">
-                                    <h4 for="">_</h4>
-                                </div>
-                                    
-                                <div class="col-md-3 col-sm-6 mx-auto">
-                                    <input type="date" name="fechaFinal" class="form-control">
-                                </div>
-                                <div class="col-md-3 col-sm-12 mx-auto">
-                                    <button type="submit" name="guardar" class="btn btn-primary">Filtrar</button>
-                                </div>
-                            </div>
                             </form>
 
                             <div class="container-fluid mt-2">
