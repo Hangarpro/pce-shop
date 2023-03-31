@@ -62,7 +62,7 @@
                                             <b>deadpoolvswolverine23@hotmail.com</b></label>
                                     </div>
                                     <div class="mb-3">
-                                        <a class="btn btn-primary" href="{{ url('/edit') }}">Editar Perfil</a>
+                                        <a class="btn btn-primary" href="{{ url('/profile/edit') }}">Editar Perfil</a>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                                 Número de teléfono: 612 107 2052
                                             </p>
                                             <p class="text-end">
-                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="{{ url('/profile/address') }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
                                                 <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
                                             </p>
                                         </div>
@@ -140,7 +140,7 @@
                                                 Número de teléfono: 612 107 2052
                                             </p>
                                             <p class="text-end">
-                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="{{ url('/profile/address') }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
                                                 <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
                                             </p>
                                         </div>
@@ -165,7 +165,7 @@
                                                 Número de teléfono
                                             </p>
                                             <p class="text-end">
-                                                <a href="#" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                <a href="{{ url('/profile/address') }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
                                                 <a href="#" class="fa-solid fa-trash text-decoration-none text-danger"></a>
                                             </p>
                                         </div>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                         <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado direcciones registradas</p>
-                        <a class="btn btn-primary mb-4" href="#">Añadir dirección</a>
+                        <a class="btn btn-primary mb-4" href="{{ url('/profile/address') }}">Añadir dirección</a>
                     </div>
                     <div class="tab-pane text-center gallery" id="products">
                         <div class="row">

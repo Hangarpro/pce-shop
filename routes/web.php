@@ -31,3 +31,11 @@ Route::get('/register', function () {
 Route::get('/profile', function () {
     return view('profile/index');
 });
+
+Route::get('/profile/edit', function () {
+    return view('profile/editUser');
+});
+
+Route::get('/profile/address', function () {
+    return view('profile/addEditAddress');
+});
