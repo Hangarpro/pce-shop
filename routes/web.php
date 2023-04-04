@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('registro/index');
 });
+
+Route::post('/register', 'UsuarioController@store');
 
 Route::get('/profile', function () {
     return view('profile/index');
