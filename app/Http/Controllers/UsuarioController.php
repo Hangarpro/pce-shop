@@ -30,7 +30,20 @@ class UsuarioController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'correo' => 'required',
+            'contrasena' => 'required'
+        ]);
+
+
+        $user = User::create([
+            'nombre' => $request->nombre,
+            'correo' => $request->correo,
+            'contrasena' => Hash::make($request->contrasena)
+        ]);
+
+        return redirect()->back()->with('info', 'Su registro ha sido completado');
     }
 
     /**

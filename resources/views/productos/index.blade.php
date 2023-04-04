@@ -8,7 +8,10 @@
     <h2 class="mt-2">Todos nuestros productos</h2>
     <!--CARDS-->
     <div class="row ms-1 me-1">
-        @foreach ($productos as $producto)
+        @foreach ($productos as $num=>$producto)
+            @if($num % 3 == 0)
+                <div class="row ms-1 me-1"></div>
+            @endif
             <div class="card mx-auto col-md-3 col-10 mt-4 pt-4 productdiv">
                 <div class="d-flex justify-content-end">
                     <span class="badge rounded-pill text-bg-warning float-left">{{$producto->marca}}</span>
