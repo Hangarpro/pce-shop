@@ -29,7 +29,7 @@ Route::get('/register', function () {
     return view('registro/index');
 });
 
-Route::post('/register', 'UsuarioController@store');
+Route::post('/register', [UsuarioController::class, 'store']);
 
 Route::get('/profile', function () {
     return view('profile/index');
