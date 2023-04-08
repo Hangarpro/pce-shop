@@ -52,6 +52,13 @@ Route::get('/profile/address', function () {
     return view('profile/addEditAddress');
 });
 
+Route::post('/profile/address', [DireccionesController::class, 'store']);
+
+Route::put('/profile/address/{id}', [DireccionesController::class, 'update']);
+
+Route::delete('/profile/address/{id}', [DireccionesController::class, 'destroy']);
+
+
 Route::get('/cart', function () {
     return view('cart/index');
 });
