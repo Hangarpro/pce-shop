@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\DireccionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::get('/login', function () {
     return view('login/index');
 });
 
+Route::post('/login', [UsuarioController::class, 'login']);
+
 Route::get('/register', function () {
     return view('registro/index');
 });
@@ -42,6 +45,8 @@ Route::get('/profile', function () {
 Route::get('/profile/edit', function () {
     return view('profile/editUser');
 });
+
+Route::post('profile/edit', [UsuarioController::class, 'updateUsuario']);
 
 Route::get('/profile/address', function () {
     return view('profile/addEditAddress');
