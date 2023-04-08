@@ -43,7 +43,7 @@
                         <img src="{!! asset('images/user.svg') !!}">
                     </a>
                 </li>
-                <li><a class="nav-link" href="cart.html"><img src="{!! asset('images/cart.svg') !!}"></a></li>
+                <li><a class="nav-link" href="{{ url('/cart') }}"img src="{!! asset('images/cart.svg') !!}"></a></li>
             </ul>
         </div>
     </div>

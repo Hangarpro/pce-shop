@@ -23,7 +23,7 @@
                 <div class="card-body text-center mx-auto">
                     <h5 class="card-title">{{$producto->nombre}}</h5>
                     <p class="card-text">${{$producto->precio}}</p>
-                    <button type="button" class="btn btn-info">Ver producto</button>
+                    <a type="button" href="{{url('/productos/details')}}" class="btn btn-info">Ver producto</a>
                 </div>
             </div>
         @endforeach 

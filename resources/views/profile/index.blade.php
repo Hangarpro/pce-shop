@@ -71,7 +71,7 @@
                     <div class="tab-pane text-center gallery" id="pass">
                         <div class="row">
                             <div class="mb-4 d-flex justify-content-center align-items-center">
-                                <div class="col-4 p-5">
+                                <div class="col-md-4 col-sm-12 p-5">
                                     <form>
                                         <div class="mb-3">
                                             <label for="actualPass" class="form-label">Contraseña actual</label>

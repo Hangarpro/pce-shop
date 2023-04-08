@@ -21,6 +21,10 @@ Route::get('/', function () {
 
 Route::get('/productos', [ProductoController::class, 'index']);
 
+Route::get('/productos/details', function () {
+    return view('productos/details');
+});
+
 Route::get('/login', function () {
     return view('login/index');
 });
@@ -41,4 +45,16 @@ Route::get('/profile/edit', function () {
 
 Route::get('/profile/address', function () {
     return view('profile/addEditAddress');
+});
+
+Route::get('/cart', function () {
+    return view('cart/index');
+});
+
+Route::get('/payment', function () {
+    return view('cart/payment');
+});
+
+Route::get('/paid', function () {
+    return view('cart/finish');
 });
