@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +38,6 @@ class UsuarioController extends Controller
             'contrasena' => 'required'
         ]);
 
-
         $usuario = Usuario::create([
             'nombre' => $request->nombre,
             'correo' => $request->correo,
@@ -45,6 +45,25 @@ class UsuarioController extends Controller
         ]);
 
         return redirect()->back()->with('info', 'Su registro ha sido completado');
+    }
+
+    function login(Request $request)
+    {
+        $this->validate($request, [
+            'correo' => 'required|email',
+            'contrasena' => 'required|alphaNum|min:8'
+        ]);
+
+        $datos_usuario = array(
+            'correo' => $request->get('correo'),
+            'contrasena' => $request->get('contrasena')
+        );
+
+        if(Auth::attempt($datos_usuario)) {
+            return redirect('/productos');
+        } else {
+            return redirect()->back()->with('info', 'Error en el inicio de sesión');
+        }
     }
 
     /**
@@ -60,16 +79,48 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario): Response
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario): RedirectResponse
+    public function updateUsuario(Request $request)
     {
-        //
+        $usuario = Usuario::find(Auth::user()->id);
+        if(isset($request->nombre))
+            $usuario->nombre = $request->nombre;
+        if(isset($request->correo))
+            $usuario->correo = $request->correo;
+        //$usuario->contrasena => Hash::make($request->contrasena)
+        $usuario->save();
+
+        return redirect()->back()->with('info', 'Datos actualizados correctamente');
     }
+
+    public function updateContrasena(Request $request, $id)
+    {
+        $request->validate([ 
+            'contrasena' => 'required',
+            'contrasena_nueva' => 'required',
+        ]);
+ 
+        $hashContrasena = Auth::user()->contrasena;
+        if (\Hash::check($request->contrasena , $hashContrasena)) {
+            if (\Hash::check($request->contrasena_nueva , $hashContrasena)) {
+ 
+                $usuario = Usuario::find(Auth::user()->id);
+                $usuario->contrasena = Hash::make($request->contrasena_nueva);
+                $users->save();
+                return redirect()->back()->with('info', 'Contraseña cambiada con éxito');
+            } else {
+                return redirect()->back()->with('info', 'La nueva contraseña no puede ser la anterior');
+            } 
+        } else {
+            return redirect()->back()->with('info', 'Contraseña incorrecta');
+        }
+    }
+    
 
     /**
      * Remove the specified resource from storage.
