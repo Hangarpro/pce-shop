@@ -205,17 +205,26 @@
                                                 <table id="example2" class="table table-bordered table-hover">
                                                     <thead>
                                                         <tr>
+                                                            <th>N.º de pedido</th>
                                                             <th>Fecha</th>
-                                                            <th>Total de la venta</th>
-                                                            <th>Productos comprados</th>
+                                                            <th>Productos</th>
+                                                            <th>Total</th>
+                                                            <th>Recibo</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>28 de noviembre de 2022</td>
-                                                            <td>$1,530.00</td>
+                                                            <td>#702-5785766-3794299</td>
+                                                            <td>07 de abril de 2023</td>
+                                                            <td><ul class="list-group">
+                                                                <li class="list-group-item">1 - PSG - Lionel Messi</li>
+                                                                <li class="list-group-item">1 - PSG - Lionel Messi</li>
+                                                                </ul></td>
+                                                            <td>$737.00</td>
                                                             <td>
-                                                                Imagen - Nombre - Cantidad
+                                                                <div class="justify-content-center">
+                                                                    <a href="{{url('/profile/order')}}" class="btn btn-primary"><i class="fa-solid fa-receipt me-1" style="color: #ffffff;"></i></i></i> Ver</a>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
