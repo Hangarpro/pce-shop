@@ -17,4 +17,8 @@ class Usuario extends Model
     protected $hidden = [
         'contrasena'
     ];
+
+    public function direcciones(){
+        return $this->hasMany(Direcciones::class);
+    }
 }

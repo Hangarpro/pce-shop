@@ -16,7 +16,9 @@ class UsuarioController extends Controller
      */
     public function index(): Response
     {
-        //
+        $usuario = Usuario::where('id', Auth::user()->id)->with('direcciones')->get();
+        
+        return $usuario;
     }
 
     /**
@@ -69,9 +71,9 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Usuario $usuario): Response
+    public function show()
     {
-        //
+        
     }
 
     /**

@@ -42,6 +42,8 @@ Route::get('/profile', function () {
     return view('profile/index');
 });
 
+Route::post('profile/edit', [UsuarioController::class, 'updateContrasena']);
+
 Route::get('/profile/edit', function () {
     return view('profile/editUser');
 });
