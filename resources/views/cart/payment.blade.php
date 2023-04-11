@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina')
-    Pop Culture Emporium | Log In
+    Pop Culture Emporium | Pago
 @endsection
 
 @section('style')

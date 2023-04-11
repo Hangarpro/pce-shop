@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina')
-    Pop Culture Emporium | Log In
+    Pop Culture Emporium | Pedido [No. de orden]
 @endsection
 
 @section('section')
@@ -13,7 +13,7 @@
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3 mt-2">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3">
                             <p class=""><a href="{{ url('/profile') }}" class="text-body text-decoration-none"><i
                                 class="fas fa-long-arrow-alt-left me-2"></i>Regresar a mis compras</a></p>
                                 <div class="page-title-right">
@@ -52,8 +52,8 @@
                                             </div>
                                             <!--end col-->
                                             <div class="col-lg-3 col-6">
-                                                <p class="text-muted mb-2 text-uppercase fw-semibold">Total Amount</p>
-                                                <h5 class="fs-14 mb-0">$<span id="total-amount">755.96</span></h5>
+                                                <p class="text-muted mb-2 text-uppercase fw-semibold">Total</p>
+                                                <h5 class="fs-14 mb-0">$<span id="total-amount">737.00</span></h5>
                                             </div>
                                             <!--end col-->
                                         </div>

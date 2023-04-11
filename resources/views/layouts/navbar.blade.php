@@ -21,17 +21,12 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="about.html">
+                    <a class="nav-link" href="{{url('/about')}}">
                         Acerca de nosotros
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="services.html">
-                        Espacio
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="contact.html">
+                    <a class="nav-link" href="{{url('/contact')}}">
                         Contáctanos
                     </a>
                 </li>

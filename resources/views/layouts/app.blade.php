@@ -22,7 +22,7 @@
             <div class="main-content">
 
                 <div class="page-content">
-                    <div class="container-fluid">
+                    <div class="container-fluid px-0">
 
                         <!-- start page title -->
                         
