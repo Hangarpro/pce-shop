@@ -24,6 +24,9 @@ Route::get('/about', function () {
     return view('about/index');
 });
 
+Route::get('/contact', function () {
+    return view('contact/index');
+});
 
 Route::get('/productos', [ProductoController::class, 'index']);
 

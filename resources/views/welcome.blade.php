@@ -90,7 +90,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
-                    <h2 class="section-title">Testimonials</h2>
+                    <h2 class="section-title">Acerca de nosotros</h2>
                 </div>
             </div>
 
@@ -111,19 +111,16 @@
 
                                         <div class="testimonial-block text-center">
                                             <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
-                                                    quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate
-                                                    velit imperdiet dolor tempor tristique. Pellentesque habitant morbi
-                                                    tristique senectus et netus et malesuada fames ac turpis egestas.
-                                                    Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+                                                <p>&ldquo;Colaboramos con las mejores paqueterías del país, teniendo un precio estándar y
+                                                    competitivo para cualquier lugar donde necesiten llegar nuestros productos, además de 
+                                                    ofrecer envío gratis en compras superiores a $1,299.00MXN.&rdquo;</p>
                                             </blockquote>
 
                                             <div class="author-info">
                                                 <div class="author-pic">
-                                                    <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                    <img src="images/truck.svg" alt="Free shiping" class="img-fluid">
                                                 </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+                                                <h3 class="font-weight-bold">Envío rápido &amp; gratuito</h3>
                                             </div>
                                         </div>
 
@@ -138,19 +135,16 @@
 
                                         <div class="testimonial-block text-center">
                                             <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
-                                                    quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate
-                                                    velit imperdiet dolor tempor tristique. Pellentesque habitant morbi
-                                                    tristique senectus et netus et malesuada fames ac turpis egestas.
-                                                    Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+                                                <p>&ldquo;El usuario es lo más importante para nosotros, por eso ofrecemos distintos medios de
+                                                    contacto que se pueden encontrar en la sección <a href="{{url('/contact')}}"> Contáctanos</a>
+                                                    para una fácil comunicación.&rdquo;</p>
                                             </blockquote>
 
                                             <div class="author-info">
                                                 <div class="author-pic">
-                                                    <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                    <img src="images/support.svg" alt="Support" class="img-fluid">
                                                 </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+                                                <h3 class="font-weight-bold">Soporte al usuario</h3>
                                             </div>
                                         </div>
 
@@ -165,19 +159,15 @@
 
                                         <div class="testimonial-block text-center">
                                             <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
-                                                    quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate
-                                                    velit imperdiet dolor tempor tristique. Pellentesque habitant morbi
-                                                    tristique senectus et netus et malesuada fames ac turpis egestas.
-                                                    Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+                                                <p>&ldquo;La interfaz de Pop Culture Emporium está pensada para una fácil y amigable navegación,
+                                                    siendo actualizada de manera constante para que el usuario  pueda encontrar y compras sus productos favoritos de manera sencilla.&rdquo;</p>
                                             </blockquote>
 
                                             <div class="author-info">
                                                 <div class="author-pic">
-                                                    <img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                    <img src="images/bag.svg" alt="fast & easy" class="img-fluid">
                                                 </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+                                                <h3 class="font-weight-bold">Compras rápidas y sencillas</h3>
                                             </div>
                                         </div>
 

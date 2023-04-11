@@ -43,7 +43,7 @@
                                 </div>
                                 <h3>Envío rápido &amp; gratuito</h3>
                                 <p>Colaboramos con las mejores paqueterías del país, teniendo un precio estándar y
-                                    competitivo para cualquiero lugar donde necesiten llegar
+                                    competitivo para cualquier lugar donde necesiten llegar
                                     nuestros productos, además de ofrecer envío gratis en compras superiores a $1,299.00
                                     MXN.
                                 </p>
