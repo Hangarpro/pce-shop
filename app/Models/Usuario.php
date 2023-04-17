@@ -18,6 +18,10 @@ class Usuario extends Model
         'contrasena'
     ];
 
+    public function getAuthPassword(){
+        return $this->contrasena;
+    }
+
     public function direcciones(){
         return $this->hasMany(Direcciones::class);
     }

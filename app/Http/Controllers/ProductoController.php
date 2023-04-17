@@ -16,4 +16,11 @@ class ProductoController extends Controller
             'productos' => DB::table('productos')->paginate(12)
         ]);
     }
+
+    public function show($id)
+    {
+        $producto = Producto::where('id', $id);
+
+        return $producto;
+    }
 }
