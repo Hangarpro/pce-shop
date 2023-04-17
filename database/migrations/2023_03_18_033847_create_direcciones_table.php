@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('pais');
+            $table->string('estado');
+            $table->string('ciudad');
+            $table->string('colonia');
             $table->string('calle');
             $table->integer('cpostal');
             $table->string('referencias');

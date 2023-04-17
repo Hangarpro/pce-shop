@@ -37,7 +37,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'correo' => 'required',
-            'contrasena' => 'required'
+            'contrasena' => 'required|confirmed'
         ]);
 
         $usuario = Usuario::create([
@@ -53,7 +53,7 @@ class UsuarioController extends Controller
     {
         $this->validate($request, [
             'correo' => 'required|email',
-            'contrasena' => 'required|alphaNum|min:8'
+            'contrasena' => 'required'
         ]);
 
         $datos_usuario = array(

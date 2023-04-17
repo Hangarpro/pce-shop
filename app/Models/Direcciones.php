@@ -9,6 +9,11 @@ class Direcciones extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'nombre',
+        'pais',
+        'estado',
+        'ciudad',
+        'colonia',
         'calle',
         'cpostal',
         'referencias'
