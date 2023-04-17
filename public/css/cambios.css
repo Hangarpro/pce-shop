@@ -1,0 +1,19 @@
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #3b5d50;
+}
+.nav-link {
+    color: #3b5d50;
+}
+.nav-link:focus, .nav-link:hover {
+    color: #f9bf29;
+}
+.active>.page-link, .page-link.active {
+    background-color: #405c54;
+    border-color: #405c54;
+}
+.page-link {
+    color: #405c54;
+}
+.pagination {
+    --bs-pagination-hover-color: #405c54;
+}

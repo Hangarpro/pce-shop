@@ -37,13 +37,14 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'correo' => 'required',
-            'contrasena' => 'required|confirmed'
+            'password' => 'required|confirmed'
         ]);
 
         $usuario = Usuario::create([
             'nombre' => $request->nombre,
             'correo' => $request->correo,
-            'contrasena' => Hash::make($request->contrasena)
+            'contrasena' => Hash::make($request->password)
+            //'contrasena' => $request->password
         ]);
 
         return redirect()->back()->with('info', 'Su registro ha sido completado');
@@ -52,7 +53,7 @@ class UsuarioController extends Controller
     function login(Request $request)
     {
         $this->validate($request, [
-            'correo' => 'required|email',
+            'correo' => 'required',
             'contrasena' => 'required'
         ]);
 

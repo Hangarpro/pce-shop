@@ -22,15 +22,15 @@
                 </div>
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center mt-2">
-                        <div class="profile-tabs">
+                        <div class="profile-tabs ">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#info" role="tab" data-toggle="tab">
+                                <li class="nav-item ">
+                                    <a class="nav-link active primary " href="#info" role="tab" data-toggle="tab">
                                         <i>Datos personales</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#pass" role="tab" data-toggle="tab">
+                                    <a class="nav-link primary" href="#pass" role="tab" data-toggle="tab">
                                         <i>Cambiar contraseña</i>
                                     </a>
                                 </li>
@@ -71,22 +71,40 @@
                     <div class="tab-pane text-center gallery" id="pass">
                         <div class="row">
                             <div class="mb-4 d-flex justify-content-center align-items-center">
-                                <div class="col-md-4 col-sm-12 p-5">
-                                    <form>
+                                <div class="col-4 p-5">
+                                    <form method="POST" action="">
                                         <div class="mb-3">
                                             <label for="actualPass" class="form-label">Contraseña actual</label>
                                             <input type="password" class="form-control" id="actualPass">
                                         </div>
+
+                                        {{-- 
+                                            <div class="mb-3">
+                                                <label for="newPass" class="form-label">Nueva contraseña</label>
+                                                <input type="password" class="form-control" id="newPass">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="confirmPass" class="form-label">Repetir nueva contraseña</label>
+                                                <input type="password" class="form-control" id="confirmPass">
+                                            </div> 
+                                        --}}
+
+
                                         <div class="mb-3">
-                                            <label for="newPass" class="form-label">Nueva contraseña</label>
-                                            <input type="password" class="form-control" id="newPass">
+                                            <label for="newPass" class="form-label">Nueva contraseña</label>    
+                                                <input id="password" type="password" class="form-control  @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">        @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>Las contraseñas no coinciden</strong>
+                                                    </span>
+                                                @enderror
                                         </div>
                                         <div class="mb-4">
-                                            <label for="confirmPass" class="form-label">Repetir nueva contraseña</label>
-                                            <input type="password" class="form-control" id="confirmPass">
+                                            <label for="confirmPass" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>  
+                                            <input id="password" type="password" class="form-control border Confirmar contraseña @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
                                         </div>
+                                        
                                         <div class="d-grid">
-                                            <button class="btn btn-primary" type="submit">Cambiar contraseña</button>
+                                            <button class="btn btn-primary" type="submit">Nueva contraseña</button>
                                         </div>
                                     </form>
                                 </div>
@@ -205,26 +223,17 @@
                                                 <table id="example2" class="table table-bordered table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>N.º de pedido</th>
                                                             <th>Fecha</th>
-                                                            <th>Productos</th>
-                                                            <th>Total</th>
-                                                            <th>Recibo</th>
+                                                            <th>Total de la venta</th>
+                                                            <th>Productos comprados</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>#702-5785766-3794299</td>
-                                                            <td>07 de abril de 2023</td>
-                                                            <td><ul class="list-group">
-                                                                <li class="list-group-item">1 - PSG - Lionel Messi</li>
-                                                                <li class="list-group-item">1 - PSG - Lionel Messi</li>
-                                                                </ul></td>
-                                                            <td>$737.00</td>
+                                                            <td>28 de noviembre de 2022</td>
+                                                            <td>$1,530.00</td>
                                                             <td>
-                                                                <div class="justify-content-center">
-                                                                    <a href="{{url('/profile/order')}}" class="btn btn-primary"><i class="fa-solid fa-receipt me-1" style="color: #ffffff;"></i></i></i> Ver</a>
-                                                                </div>
+                                                                Imagen - Nombre - Cantidad
                                                             </td>
                                                         </tr>
                                                     </tbody>

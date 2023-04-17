@@ -11,4 +11,7 @@
 <script src="https://kit.fontawesome.com/613e4ee7d3.js" crossorigin="anonymous"></script>
 <!-- App Css-->
 <link href="{!! asset('css/style.css') !!}" id="app-style" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="{!! asset('css/cambios.css') !!}" media="screen" />
+
 @yield('style')

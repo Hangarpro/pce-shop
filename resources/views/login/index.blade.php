@@ -8,18 +8,19 @@
 <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
     <div class="col-md-4 p-5 shadow-sm border rounded-3">
         <h2 class="text-center mb-4 text-primary">Iniciar sesión</h2>
-        <form>
+        <form method="POST" action="{{'/login'}}">
+            @csrf
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control border border-primary" id="inputEmail">
+                <input type="email" class="form-control border border-primary" id="inputEmail" name="correo">
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Contraseña</label>
-                <input type="password" class="form-control border border-primary" id="inputPassword">
+                <input type="password" class="form-control border border-primary" id="inputPassword" name="contrasena">
             </div>
             {{--<p class="small"><a class="text-primary" href="forget-password.html">Forgot password?</a></p>--}}
             <div class="d-grid">
-                <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+                <button class="btn btn-primary" >Iniciar Sesión</button>
             </div>
         </form>
         <div class="mt-3">
