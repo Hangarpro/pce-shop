@@ -47,7 +47,7 @@ class UsuarioController extends Controller
             //'contrasena' => $request->password
         ]);
 
-        return redirect()->back()->with('info', 'Su registro ha sido completado');
+        return redirect('/productos');
     }
 
     function login(Request $request)
@@ -57,13 +57,13 @@ class UsuarioController extends Controller
             'contrasena' => 'required'
         ]);
 
-        $datos_usuario = array(
-            'correo' => $request->get('correo'),
-            'contrasena' => $request->get('contrasena')
-        );
-
-        if(Auth::attempt($datos_usuario)) {
-            return redirect('/productos');
+        $usuario = Usuario::where('correo', '=', $request->correo)->first();
+        if($usuario) {
+            if(Hash::check($request->contrasena, $usuario->contrasena)) {
+                return redirect('/productos');
+            } else {
+                return redirect()->back()->with('info', 'Contraseña incorrecta');
+            }
         } else {
             return redirect()->back()->with('info', 'Error en el inicio de sesión');
         }
