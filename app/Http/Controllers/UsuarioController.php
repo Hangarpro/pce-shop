@@ -86,6 +86,15 @@ class UsuarioController extends Controller
         return view('profile.index', compact('usuario'));
     }
 
+    function loginShow() {
+        $usuario = array();
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        }
+
+        return view('login.index', compact('usuario'));
+    }
+
     /**
      * Display the specified resource.
      */

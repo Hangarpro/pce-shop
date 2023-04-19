@@ -36,9 +36,7 @@ Route::get('/productos/details', function () {
     return view('productos/details');
 });
 
-Route::get('/login', function () {
-    return view('login/index');
-});
+Route::get('/login', [UsuarioController::class, 'loginShow']);
 
 Route::post('/login', [UsuarioController::class, 'login']);
 
