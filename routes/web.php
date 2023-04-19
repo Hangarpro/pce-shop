@@ -48,9 +48,7 @@ Route::get('/register', function () {
 
 Route::post('/register', [UsuarioController::class, 'store']);
 
-Route::get('/profile', function () {
-    return view('profile/index');
-});
+Route::get('/profile', [UsuarioController::class, 'profile']);
 
 Route::post('profile/edit', [UsuarioController::class, 'updateContrasena']);
 

@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 class UsuarioController extends Controller
 {
@@ -16,7 +17,7 @@ class UsuarioController extends Controller
      */
     public function index(): Response
     {
-        $usuario = Usuario::where('id', Auth::user()->id)->with('direcciones')->get();
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first()->with('direcciones')->get();
         
         return $usuario;
     }
@@ -60,6 +61,7 @@ class UsuarioController extends Controller
         $usuario = Usuario::where('correo', '=', $request->correo)->first();
         if($usuario) {
             if(Hash::check($request->contrasena, $usuario->contrasena)) {
+                $request->session()->put('loginId', $usuario->id);
                 return redirect('/productos');
             } else {
                 return redirect()->back()->with('info', 'Contraseña incorrecta');
@@ -67,6 +69,21 @@ class UsuarioController extends Controller
         } else {
             return redirect()->back()->with('info', 'Error en el inicio de sesión');
         }
+    }
+
+    function logout(Request $request) {
+        $request->session()->flush();
+
+        return redirect('/login');
+    }
+
+    function profile() {
+        $usuario = array();
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        }
+
+        return view('profile.index', compact('usuario'));
     }
 
     /**
@@ -90,7 +107,7 @@ class UsuarioController extends Controller
      */
     public function updateUsuario(Request $request)
     {
-        $usuario = Usuario::find(Auth::user()->id);
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
         if(isset($request->nombre))
             $usuario->nombre = $request->nombre;
         if(isset($request->correo))
@@ -108,11 +125,13 @@ class UsuarioController extends Controller
             'contrasena_nueva' => 'required',
         ]);
  
-        $hashContrasena = Auth::user()->contrasena;
+        $usuarioContrasena = Usuario::where('id', '=', Session::get('loginId'))->first();
+        $hashContrasena->$usuarioContrasena->contrasena;
+
         if (\Hash::check($request->contrasena , $hashContrasena)) {
             if (\Hash::check($request->contrasena_nueva , $hashContrasena)) {
  
-                $usuario = Usuario::find(Auth::user()->id);
+                $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
                 $usuario->contrasena = Hash::make($request->contrasena_nueva);
                 $users->save();
                 return redirect()->back()->with('info', 'Contraseña cambiada con éxito');
