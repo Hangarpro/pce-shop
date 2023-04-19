@@ -7,6 +7,17 @@
 @section('section')
 <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
     <div class="col-md-4 p-5 shadow-sm border rounded-3">
+        <h1>
+            Nombre:
+            @auth
+                // The user is authenticated...
+                <h1>asd</h1>
+            @endauth
+            @guest
+                // The user is not authenticated...
+            @endguest
+                <pre>{{ Auth::user()}} </pre>
+        </h1>
         <h2 class="text-center mb-4 text-primary">Iniciar sesión</h2>
         <form method="POST" action="{{'/login'}}">
             @csrf
