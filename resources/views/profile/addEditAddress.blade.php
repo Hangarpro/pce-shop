@@ -11,11 +11,11 @@
             <form>
                 <div class="mb-3">
                     <label for="inputAddressName" class="form-label">Nombre de la dirección</label>
-                    <input type="text" class="form-control border" id="inputAddressName" placeholder="Ej. Casa, Oficina, ...">
+                    <input type="text" class="form-control border" value="{{old('nombreDireccion')}}" name="nombreDireccion" id="inputAddressName" placeholder="Ej. Casa, Oficina, ...">
                 </div>
                 <div class="mb-3">
                     <label for="inputUserName" class="form-label">Nombre de quién recibe</label>
-                    <input type="text" class="form-control border" id="inputUserName">
+                    <input type="text" class="form-control border" value="{{old('nombreUser')}}" name="nombreUser"  id="inputUserName">
                 </div>
                 <div class="mb-3">
                     <label for="inputStreet" class="form-label">Calle y número</label>
