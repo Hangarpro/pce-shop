@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('titulo_pagina')
-    Pop Culture Emporium | Contáctanos
+    Pop Culture Emporium | Dashboard
 @endsection
 
 @section('section')

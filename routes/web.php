@@ -85,3 +85,11 @@ Route::get('/paid', function () {
 Route::get('/dashboard', function () {
     return view('admin/statistics/index');
 });
+
+Route::get('/users', function () {
+    return view('admin/users/index');
+});
+
+Route::get('/usersAdd', function () {
+    return view('admin/users/addEdit');
+});

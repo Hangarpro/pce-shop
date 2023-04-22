@@ -42,13 +42,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{url('/dashboard')}}" class="nav-link active">
                                 <i class="fas fa-chart-bar nav-icon"></i>
                                 <p>Estadísticas</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/users')}}" class="nav-link">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>
