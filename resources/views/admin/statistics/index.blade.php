@@ -154,27 +154,6 @@
                         </div>
                         <!-- /.card -->
                     </section>
-
-                    <!-- Map card -->
-                    <div class="card bg-gradient-primary">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
-                                Visitantes por estado
-                            </h3>
-                            <!-- card tools -->
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
-                                    title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <div class="card-body" style="color: #a5bfdd">
-                            <div id="vmap" style="width: 450px; height: 300px;"></div>
-                        </div>
-                    </div>
                 </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

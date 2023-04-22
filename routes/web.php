@@ -82,6 +82,6 @@ Route::get('/paid', function () {
     return view('cart/finish');
 });
 
-Route::get('/dash', function () {
+Route::get('/dashboard', function () {
     return view('admin/statistics/index');
 });
