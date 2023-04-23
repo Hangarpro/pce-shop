@@ -32,21 +32,36 @@ class DireccionesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nombre' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required',
+            'colonia' => 'required',
             'calle' => 'required',
             'cpostal' => 'required'
         ]);
 
         if(isset($request->referencias)) {
             $direccion = Direcciones::create([
+                'nombre' => $request->nombre,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
                 'referencias'-> $request->referencias,
-                'usuario_id' => auth()->user()->id]);
+                'usuario_id' => Session::get('loginId')]);
         } else {
             $direccion = Direcciones::create([
+                'nombre' => $request->nombre,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
-                'usuario_id' => auth()->user()->id]);
+                'usuario_id' => Session::get('loginId')]);
         }
 
         return redirect()->back()->with('info', 'Direccion registrada correctamente');
@@ -57,7 +72,7 @@ class DireccionesController extends Controller
      */
     public function show($id)
     {
-        $direccion = Direcciones::where('usuario_id', auth()->user()->id);
+        $direccion = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
     }
 
     /**
