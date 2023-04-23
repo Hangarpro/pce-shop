@@ -90,6 +90,15 @@ class UsuarioController extends Controller
         return view('profile.index', compact('usuario'));
     }
 
+    function editProfile() {
+        $usuario = array();
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        }
+
+        return view('profile.editUser', compact('usuario'));
+    }
+
     function loginShow() {
         $usuario = array();
         if(Session::has('loginId')) {

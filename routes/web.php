@@ -50,9 +50,7 @@ Route::get('/profile', [UsuarioController::class, 'profile']);
 
 Route::post('profile/edit1', [UsuarioController::class, 'updateContrasena'])->name('editarPass');
 
-Route::get('/profile/edit', function () {
-    return view('profile/editUser');
-});
+Route::get('/profile/edit', [UsuarioController::class, 'editProfile']);
 
 Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('editarUser');;
 
