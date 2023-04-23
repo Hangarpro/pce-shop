@@ -48,13 +48,13 @@ Route::post('/register', [UsuarioController::class, 'store']);
 
 Route::get('/profile', [UsuarioController::class, 'profile']);
 
-Route::post('profile/edit', [UsuarioController::class, 'updateContrasena']);
+Route::post('profile/edit', [UsuarioController::class, 'updateContrasena'])->name('editarPass');
 
 Route::get('/profile/edit', function () {
     return view('profile/editUser');
 });
 
-Route::post('profile/edit', [UsuarioController::class, 'updateUsuario']);
+Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('editarUser');;
 
 Route::get('/profile/address', function () {
     return view('profile/addEditAddress');

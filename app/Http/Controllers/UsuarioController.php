@@ -15,11 +15,14 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request)
     {
-        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first()->with('direcciones')->get();
-        
-        return $usuario;
+        $usuario = array();
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        }
+
+        return view('login.index', compact('usuario'));
     }
 
     /**
@@ -61,7 +64,8 @@ class UsuarioController extends Controller
         $usuario = Usuario::where('correo', '=', $request->correo)->first();
         if($usuario) {
             if(Hash::check($request->contrasena, $usuario->contrasena)) {
-                $request->session()->put('loginId', $usuario->id);
+                Session::put('loginId', $usuario->id);
+                Session::put('nombreUsr', $usuario->nombre);
                 return redirect('/productos');
             } else {
                 return redirect()->back()->with('info', 'Contraseña incorrecta');
@@ -117,12 +121,19 @@ class UsuarioController extends Controller
     public function updateUsuario(Request $request)
     {
         $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
-        if(isset($request->nombre))
-            $usuario->nombre = $request->nombre;
-        if(isset($request->correo))
-            $usuario->correo = $request->correo;
+        if(isset($request->nombre)) {
+            Usuario::where('id', '=', Session::get('loginId'))->update([
+                'nombre' => \Hash::make($request->nombre)
+            ]);
+            Session::set('nombreUsr', $usuario->nombre);
+        }
+        if(isset($request->correo)) {
+            Usuario::where('id', '=', Session::get('loginId'))->update([
+                'correo' => \Hash::make($request->correo)
+            ]);
+        }
+
         //$usuario->contrasena => Hash::make($request->contrasena)
-        $usuario->save();
 
         return redirect()->back()->with('info', 'Datos actualizados correctamente');
     }
@@ -130,19 +141,21 @@ class UsuarioController extends Controller
     public function updateContrasena(Request $request, $id)
     {
         $request->validate([ 
+            'id' => 'required',
             'contrasena' => 'required',
-            'contrasena_nueva' => 'required',
+            'password' => 'required|confirmed',
         ]);
  
         $usuarioContrasena = Usuario::where('id', '=', Session::get('loginId'))->first();
-        $hashContrasena->$usuarioContrasena->contrasena;
+        $hashContrasena = $usuarioContrasena->contrasena;
 
-        if (\Hash::check($request->contrasena , $hashContrasena)) {
-            if (\Hash::check($request->contrasena_nueva , $hashContrasena)) {
- 
-                $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
-                $usuario->contrasena = Hash::make($request->contrasena_nueva);
-                $users->save();
+        if (\Hash::check($request->contrasena, $hashContrasena)) {
+            if (\Hash::check($request->password, $hashContrasena)) {
+                
+                Usuario::where('id', '=', Session::get('loginId'))->update([
+                    'contrasena' => \Hash::make($request->password)
+                ]);
+
                 return redirect()->back()->with('info', 'Contraseña cambiada con éxito');
             } else {
                 return redirect()->back()->with('info', 'La nueva contraseña no puede ser la anterior');
