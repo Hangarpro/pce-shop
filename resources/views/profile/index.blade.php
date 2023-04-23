@@ -75,6 +75,7 @@
                                     
                                     <form method="POST" action="{{ route('editarPass') }}" >
                                         @csrf
+                                        
                                         <input type="hidden" name="id" value="{{$usuario->id}}">
                                         <div class="mb-3">
                                             <label for="actualPass" class="form-label">Contraseña actual</label>

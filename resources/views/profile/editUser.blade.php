@@ -12,11 +12,11 @@
                 @csrf
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Nombre</label>
-                    <input type="text" required value="{{old('nombre')}}" name="nombre" class="form-control border border-primary" id="inputName"> 
+                    <input type="text" required name="nombre" class="form-control border border-primary" id="inputName"> 
                 </div>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">Correo electrónico</label>
-                    <input type="email" required value="{{old('correo')}}" name="correo" class="form-control border border-primary" id="inputEmail"> 
+                    <input type="email" required name="correo" class="form-control border border-primary" id="inputEmail"> 
                 </div>
                 <div class="d-grid">
                     <button class="btn btn-primary" >Editar</button>
