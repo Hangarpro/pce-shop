@@ -125,8 +125,8 @@
                                                     Número de teléfono: {{$direccion->telefono}}
                                                 </p>
                                                 <p class="text-end">
-                                                    <a href="{{ url('/profile/address/'.$direccion->id) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
-                                                    <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="event.preventDefault(); document.getElementById('deleteForm{{$direccion->id}}').submit();" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a>
+                                                    <a href="{{ url('/profile/address/edit/'.$direccion->id) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                    <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="showDeleteConfirmation({{$direccion->id}});" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a>
                                                     <form id="deleteForm{{$direccion->id}}" action="{{url('/profile/address/destroy/'.$direccion->id)}}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('delete')
@@ -240,5 +240,20 @@
           }
           return true;
         }
+
+        function showDeleteConfirmation(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará la información permanentemente.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm' + id).submit();
+            }
+        });
+    }
         </script>
 @endsection

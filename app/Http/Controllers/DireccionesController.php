@@ -141,13 +141,15 @@ class DireccionesController extends Controller
             'colonia' => 'required',
             'calle' => 'required',
             'cpostal' => 'required',
-            'telefono' => 'required'
+            'telefono' => 'required',
+            'userId' => 'required',
+            'direccId' => 'required'
         ]);
 
-        $direccion = Direcciones::find($request->id);
+        $direccion = Direcciones::find($request->direccId);
 
         if(isset($request->nombreDireccion)) {
-            Direcciones::where('id', '=', $request->id)->update([
+            Direcciones::where('id', '=', $request->direccId)->update([
                 'nombreDireccion' => $request->nombreDireccion,
                 'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
@@ -159,7 +161,7 @@ class DireccionesController extends Controller
                 'telefono'-> $request->telefono,
                 'usuario_id' => $request->userId]);
         } else {
-            Direcciones::where('id', '=', $request->id)->update([
+            Direcciones::where('id', '=', $request->direccId)->update([
                 'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
                 'estado' => $request->estado,

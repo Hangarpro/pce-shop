@@ -7,26 +7,33 @@
 @section('section')
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
-            <h2 class="text-center mb-4 text-primary">Añadir/Editar dirección</h2>
-            <form method="POST" action="/profile/address">
+            <h2 class="text-center mb-4 text-primary">Dirección</h2>
+            @if (isset($direccion))
+                <form method="PUT" action="{{ url('/profile/address/edit/'.$direccion->id) }}"> 
+            @else
+                <form method="POST" action="/profile/address">   
+            @endif            
                 @csrf
                 <input type="hidden" name="userId" value="{{$usuario->id}}">
+                @if(isset($direccion))
+                    <input type="hidden" name="direccId" value="{{$direccion->id}}">
+                @endif
                 <div class="mb-3">
                     <label for="inputAddressName" class="form-label">Nombre de la dirección (opcional)</label>
-                    <input type="text" class="form-control border" value="{{old('nombreDireccion')}}" name="nombreDireccion" id="inputAddressName" placeholder="Ej. Casa, Oficina, ...">
+                    <input type="text" class="form-control border" value="@if(isset($direccion)){{$direccion->nombreDireccion}}@else{{old('nombreDireccion')}}  @endif"  name="nombreDireccion" id="inputAddressName" placeholder="Ej. Casa, Oficina, ...">
                 </div>
                 <div class="mb-3">
                     <label for="inputUserName" class="form-label">Nombre de quién recibe</label>
-                    <input type="text" required class="form-control border" value="{{old('nombreUser')}}" name="nombreUser"  id="inputUserName">
+                    <input type="text" required class="form-control border" value="@if(isset($direccion)){{$direccion->nombreUser}}@else{{old('nombreUser')}}  @endif" name="nombreUser"  id="inputUserName">
                 </div>
                 <div class="mb-3">
                     <label for="inputStreet" class="form-label">Calle y número</label>
-                    <input type="text" required class="form-control border" value="{{old('calle')}}" name="calle" id="inputStreet">
+                    <input type="text" required class="form-control border" value="@if(isset($direccion)){{$direccion->calle}}@else{{old('calle')}}  @endif" name="calle" id="inputStreet">
                 </div>
                 <div class="row justify-content-between" style="display: flex">
                     <div class="col-md-5 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">País</label>
-                        <select name="pais" class="form-select border" name="pais" style="height: 50px">
+                        <select name="pais" class="form-select border"  name="pais" style="height: 50px">
                             <option value="Afganistán">Afganistán</option>
                             <option value="Albania">Albania</option>
                             <option value="Alemania">Alemania</option>
@@ -225,30 +232,35 @@
                     </div>
                     <div class="col-md-5 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Estado</label>
-                        <input type="text" required  class="form-control border" value="{{old('estado')}}" name="estado" id="inputSuburb">
+                        <input type="text" required  class="form-control border" value="@if(isset($direccion)){{$direccion->estado}}@else{{old('estado')}}  @endif" name="estado" id="inputSuburb">
                     </div>
                 </div>
                 <div class="row justify-content-between" style="display: flex">
                     <div class="col-md-4 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Ciudad</label>
-                    <input type="text" required class="form-control border" value="{{old('ciudad')}}" name="ciudad" id="inputSuburb">
+                    <input type="text" required class="form-control border" value="@if(isset($direccion)){{$direccion->ciudad}}@else{{old('ciudad')}}  @endif" name="ciudad" id="inputSuburb">
                     </div>
                     <div class="col-md-4 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Colonia</label>
-                        <input type="text" required class="form-control border" value="{{old('colonia')}}" name="colonia" id="inputSuburb">
+                        <input type="text" required class="form-control border" value="@if(isset($direccion)){{$direccion->colonia}}@else{{old('colonia')}}  @endif" name="colonia" id="inputSuburb">
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Código Postal</label>
-                    <input type="tel" required  class="form-control border" pattern="\\d{5}\ " value="{{old('cpostal')}}" name="cpostal" id="inputSuburb">
+                    <input type="tel" required  class="form-control border" pattern="\\d{5}\ " value="@if(isset($direccion)){{$direccion->cpostal}}@else{{old('cpostal')}}  @endif" name="cpostal" id="inputSuburb">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="inputSuburb" class="form-label">Número de teléfono</label>
-                    <input type="tel" required  class="form-control border" pattern="\\d{10}\ " value="{{old('telefono')}}" name="telefono" id="inputSuburb">
+                    <input type="tel" required  class="form-control border" pattern="\\d{10}\ " value="@if(isset($direccion)){{$direccion->telefono}}@else{{old('telefono')}}  @endif" name="telefono" id="inputSuburb">
                     
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-primary" >Añadir/Editar dirección</button>
+                    @if (isset($direccion))
+                        <button class="btn btn-primary" >editar dirección</button>
+                    @else
+                        <button class="btn btn-primary" >Añadir dirección</button>
+                    @endif
+                    
                 </div>
             </form>
         </div>
