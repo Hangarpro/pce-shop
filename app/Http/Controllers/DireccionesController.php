@@ -85,6 +85,13 @@ class DireccionesController extends Controller
         return view('profile.addEditAddress', compact('direcciones'));
     }
 
+    public function showDireccion(Request $request)
+    {
+        $direccion = Direcciones::find($request->id);
+
+        return view('profile.addEditAddress', compact('direccion'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
