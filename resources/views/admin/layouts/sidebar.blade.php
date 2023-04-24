@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/products')}}" class="nav-link">
                                 <i class="fa fa-shopping-bag nav-icon"></i>
                                 <p>Productos</p>
                             </a>

@@ -93,3 +93,7 @@ Route::get('/usersAdd', function () {
 Route::get('/sales', function () {
     return view('admin/sales/index');
 });
+
+Route::get('/products', function () {
+    return view('admin/products/index');
+});
