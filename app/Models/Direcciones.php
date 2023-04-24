@@ -9,15 +9,17 @@ class Direcciones extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombre',
+        'nombreDireccion',
+        'nombreUser',
         'pais',
         'estado',
         'ciudad',
         'colonia',
         'calle',
         'cpostal',
-        'referencias'
+        'telefono'
     ]; 
+    
     public function usuario_id(){
         return $this->belongsTo(Usuario::class);
     }
