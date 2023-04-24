@@ -80,16 +80,18 @@ class DireccionesController extends Controller
      */
     public function show($id)
     {
-        $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
 
-        return view('profile.addEditAddress', compact('direcciones'));
+        return view('profile.addEditAddress', compact('usuario', 'direcciones'));
     }
 
     public function showDireccion(Request $request)
     {
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
         $direccion = Direcciones::find($request->id);
 
-        return view('profile.addEditAddress', compact('direccion'));
+        return view('profile.addEditAddress', compact('usuario', 'direccion'));
     }
 
     /**
