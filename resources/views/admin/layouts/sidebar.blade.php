@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/sales')}}" class="nav-link">
                                 <i class="fas fa-shopping-cart nav-icon"></i>
                                 <p>Ventas</p>
                             </a>
