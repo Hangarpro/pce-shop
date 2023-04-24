@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombreDireccion');
+            $table->string('nombreUser');
             $table->string('pais');
             $table->string('estado');
             $table->string('ciudad');
             $table->string('colonia');
             $table->string('calle');
             $table->integer('cpostal');
-            $table->string('referencias');
+            $table->string('telefono');
 
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')

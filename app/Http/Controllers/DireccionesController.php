@@ -32,35 +32,38 @@ class DireccionesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
+            'nombreUser' => 'required',
             'pais' => 'required',
             'estado' => 'required',
             'ciudad' => 'required',
             'colonia' => 'required',
             'calle' => 'required',
-            'cpostal' => 'required'
+            'cpostal' => 'required',
+            'telefono' => 'required'
         ]);
 
-        if(isset($request->referencias)) {
+        if(isset($request->nombreDireccion)) {
             $direccion = Direcciones::create([
-                'nombre' => $request->nombre,
+                'nombreDireccion' => $request->nombreDireccion,
+                'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
                 'estado' => $request->estado,
                 'ciudad' => $request->ciudad,
                 'colonia' => $request->colonia,
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
-                'referencias'-> $request->referencias,
+                'telefono'-> $request->telefono,
                 'usuario_id' => Session::get('loginId')]);
         } else {
             $direccion = Direcciones::create([
-                'nombre' => $request->nombre,
+                'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
                 'estado' => $request->estado,
                 'ciudad' => $request->ciudad,
                 'colonia' => $request->colonia,
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
+                'telefono'-> $request->telefono,
                 'usuario_id' => Session::get('loginId')]);
         }
 
