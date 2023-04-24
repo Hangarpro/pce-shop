@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Models\Direcciones;
 use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -85,9 +86,20 @@ class UsuarioController extends Controller
         $usuario = array();
         if(Session::has('loginId')) {
             $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
         }
 
-        return view('profile.index', compact('usuario'));
+        return view('profile.index', compact('usuario', 'direcciones'));
+    }
+
+    function profileAddress() {
+        $usuario = array();
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
+        }
+
+        return view('profile.addEditAddress', compact('usuario', 'direcciones'));
     }
 
     function editProfile() {

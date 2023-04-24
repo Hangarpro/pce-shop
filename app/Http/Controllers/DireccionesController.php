@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\Direcciones;
+use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -81,9 +82,35 @@ class DireccionesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Direcciones $direcciones): Response
+    public function edit(Request $request)
     {
-        //
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        if(isset($request->nombreDireccion)) {
+            Direcciones::where('usuario_id', '=', Session::get('loginId'))->update([
+                'nombreDireccion' => $request->nombreDireccion,
+                'nombreUser' => $request->nombreUser,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
+                'calle' => $request->calle,
+                'cpostal' => $request->cpostal,
+                'telefono'-> $request->telefono,
+                'usuario_id' => Session::get('loginId')]);
+        } else {
+            Direcciones::where('usuario_id', '=', Session::get('loginId'))->update([
+                'nombreUser' => $request->nombreUser,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
+                'calle' => $request->calle,
+                'cpostal' => $request->cpostal,
+                'telefono' => $request->telefono,
+                'usuario_id' => Session::get('loginId')]);
+        }
+
+        return redirect()->back()->with('info', 'Datos actualizados correctamente');
     }
 
     /**
@@ -92,18 +119,42 @@ class DireccionesController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $request->validate([
+            'nombreUser' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => 'required',
+            'colonia' => 'required',
             'calle' => 'required',
-            'cpostal' => 'required'
+            'cpostal' => 'required',
+            'telefono' => 'required'
         ]);
 
-        $direccion = Direcciones::where('id', $request->id)->fisrt();
-        $direccion->calle = $request->calle;
-        $direccion->cpostal = $request->cpostal;
-        $direccion->referencias = $request->referencias;
-        $direccion->usuario_id = $request->usuario_id;
-        $direccion->save();
+        $direccion = Direcciones::find($request->id);
 
-        return redirect()->back()->with('info', 'Direccion actualizada correctamente');
+        if(isset($request->nombreDireccion)) {
+            $direccion->nombreDireccion = $request->nombreDireccion;
+            $direccion->nombreUser = $request->nombreUser;
+            $direccion->pais = $request->pais;
+            $direccion->estado = $request->estado;
+            $direccion->ciudad = $request->ciudad;
+            $direccion->colonia = $request->colonia;
+            $direccion->calle = $request->calle;
+            $direccion->cpostal = $request->cpostal;
+            $direccion->telefono = $request->telefono;
+            $direccion->usuario_id = Session::get('loginId');
+        } else {
+            $direccion->nombreUser = $request->nombreUser;
+            $direccion->pais = $request->pais;
+            $direccion->estado = $request->estado;
+            $direccion->ciudad = $request->ciudad;
+            $direccion->colonia = $request->colonia;
+            $direccion->calle = $request->calle;
+            $direccion->cpostal = $request->cpostal;
+            $direccion->telefono = $request->telefono;
+            $direccion->usuario_id = Session::get('loginId');
+        }
+
+        return redirect()->back()->with('info', 'Datos actualizados correctamente');
     }
 
     /**

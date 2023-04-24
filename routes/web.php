@@ -52,11 +52,9 @@ Route::post('profile/edit1', [UsuarioController::class, 'updateContrasena'])->na
 
 Route::get('/profile/edit', [UsuarioController::class, 'editProfile']);
 
-Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('editarUser');;
+Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('editarUser');
 
-Route::get('/profile/address', function () {
-    return view('profile/addEditAddress');
-});
+Route::get('/profile/address', [UsuarioController::class, 'profileAddress']);
 
 Route::post('/profile/address', [DireccionesController::class, 'store']);
 
