@@ -147,26 +147,28 @@ class DireccionesController extends Controller
         $direccion = Direcciones::find($request->id);
 
         if(isset($request->nombreDireccion)) {
-            $direccion->nombreDireccion = $request->nombreDireccion;
-            $direccion->nombreUser = $request->nombreUser;
-            $direccion->pais = $request->pais;
-            $direccion->estado = $request->estado;
-            $direccion->ciudad = $request->ciudad;
-            $direccion->colonia = $request->colonia;
-            $direccion->calle = $request->calle;
-            $direccion->cpostal = $request->cpostal;
-            $direccion->telefono = $request->telefono;
-            $direccion->usuario_id = Session::get('loginId');
+            Direcciones::where('id', '=', $request->id)->update([
+                'nombreDireccion' => $request->nombreDireccion,
+                'nombreUser' => $request->nombreUser,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
+                'calle' => $request->calle,
+                'cpostal' => $request->cpostal,
+                'telefono'-> $request->telefono,
+                'usuario_id' => $request->userId]);
         } else {
-            $direccion->nombreUser = $request->nombreUser;
-            $direccion->pais = $request->pais;
-            $direccion->estado = $request->estado;
-            $direccion->ciudad = $request->ciudad;
-            $direccion->colonia = $request->colonia;
-            $direccion->calle = $request->calle;
-            $direccion->cpostal = $request->cpostal;
-            $direccion->telefono = $request->telefono;
-            $direccion->usuario_id = Session::get('loginId');
+            Direcciones::where('id', '=', $request->id)->update([
+                'nombreUser' => $request->nombreUser,
+                'pais' => $request->pais,
+                'estado' => $request->estado,
+                'ciudad' => $request->ciudad,
+                'colonia' => $request->colonia,
+                'calle' => $request->calle,
+                'cpostal' => $request->cpostal,
+                'telefono' => $request->telefono,
+                'usuario_id' => $request->userId]);
         }
 
         return redirect()->back()->with('info', 'Datos actualizados correctamente');
