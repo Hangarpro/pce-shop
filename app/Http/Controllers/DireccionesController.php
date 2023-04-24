@@ -92,7 +92,7 @@ class DireccionesController extends Controller
     {
         $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
         if(isset($request->nombreDireccion)) {
-            Direcciones::where('usuario_id', '=', Session::get('loginId'))->update([
+            Direcciones::where('id', '=', $request->id)->update([
                 'nombreDireccion' => $request->nombreDireccion,
                 'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
@@ -104,7 +104,7 @@ class DireccionesController extends Controller
                 'telefono'-> $request->telefono,
                 'usuario_id' => Session::get('loginId')]);
         } else {
-            Direcciones::where('usuario_id', '=', Session::get('loginId'))->update([
+            Direcciones::where('id', '=', $request->id)->update([
                 'nombreUser' => $request->nombreUser,
                 'pais' => $request->pais,
                 'estado' => $request->estado,
