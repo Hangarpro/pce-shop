@@ -97,3 +97,11 @@ Route::get('/sales', function () {
 Route::get('/products', function () {
     return view('admin/products/index');
 });
+
+Route::get('/productsAdd', function () {
+    return view('admin/products/addEdit');
+});
+
+Route::get('/productsUpdate', function () {
+    return view('admin/products/update');
+});

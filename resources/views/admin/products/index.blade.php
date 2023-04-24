@@ -12,7 +12,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>Productos
-                            <a href="#"><i class="fa fa-plus" aria-hidden="true"
+                            <a href="{{url('/productsAdd')}}"><i class="fa fa-plus" aria-hidden="true"
                                     title="Agregar Producto"></i></a>
                         </h1>
                     </div>
@@ -40,7 +40,8 @@
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
-                                            <th>Existencias</th>
+                                            <th>Existencias<a href="{{url('/productsUpdate')}}"><i class="fa fa-plus"
+                                                aria-hidden="true" title="Agregar Unidades"></i></a></th>
                                             <th>Tipo</th>
                                             <th>Marca</th>
                                             <th>Acciones</th>
@@ -55,7 +56,7 @@
                                             <td>Nuevo</td>
                                             <td>Football</td>
                                             <td style="text-align: center">
-                                                <a href="#"
+                                                <a href="{{url('/productsAdd')}}"
                                                     style="margin-right: 5px;" title="Editar Producto">
                                                     <i class="fas fa-edit"></i> </a>
                                                 <a href="#"
