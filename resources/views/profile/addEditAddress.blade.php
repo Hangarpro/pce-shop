@@ -8,23 +8,25 @@
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
             <h2 class="text-center mb-4 text-primary">Añadir/Editar dirección</h2>
-            <form>
+            <form method="POST" action="/profile/address">
+                @csrf
+                <input type="hidden" name="userId" value="{{$usuario->id}}">
                 <div class="mb-3">
-                    <label for="inputAddressName" class="form-label">Nombre de la dirección</label>
+                    <label for="inputAddressName" class="form-label">Nombre de la dirección (opcional)</label>
                     <input type="text" class="form-control border" value="{{old('nombreDireccion')}}" name="nombreDireccion" id="inputAddressName" placeholder="Ej. Casa, Oficina, ...">
                 </div>
                 <div class="mb-3">
                     <label for="inputUserName" class="form-label">Nombre de quién recibe</label>
-                    <input type="text" class="form-control border" value="{{old('nombreUser')}}" name="nombreUser"  id="inputUserName">
+                    <input type="text" required class="form-control border" value="{{old('nombreUser')}}" name="nombreUser"  id="inputUserName">
                 </div>
                 <div class="mb-3">
                     <label for="inputStreet" class="form-label">Calle y número</label>
-                    <input type="text" class="form-control border" id="inputStreet">
+                    <input type="text" required class="form-control border" value="{{old('calle')}}" name="calle" id="inputStreet">
                 </div>
                 <div class="row justify-content-between" style="display: flex">
                     <div class="col-md-5 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">País</label>
-                        <select name="pais" class="form-select border" style="height: 50px">
+                        <select name="pais" class="form-select border" name="pais" style="height: 50px">
                             <option value="Afganistán">Afganistán</option>
                             <option value="Albania">Albania</option>
                             <option value="Alemania">Alemania</option>
@@ -223,29 +225,30 @@
                     </div>
                     <div class="col-md-5 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Estado</label>
-                        <input type="text" class="form-control border" id="inputSuburb">
+                        <input type="text" required  class="form-control border" value="{{old('estado')}}" name="estado" id="inputSuburb">
                     </div>
                 </div>
                 <div class="row justify-content-between" style="display: flex">
                     <div class="col-md-4 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control border" id="inputSuburb">
+                    <input type="text" required class="form-control border" value="{{old('ciudad')}}" name="ciudad" id="inputSuburb">
                     </div>
                     <div class="col-md-4 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Colonia</label>
-                        <input type="text" class="form-control border" id="inputSuburb">
+                        <input type="text" required class="form-control border" value="{{old('colonia')}}" name="colonia" id="inputSuburb">
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3 ">
                         <label for="inputSuburb" class="form-label">Código Postal</label>
-                    <input type="text" class="form-control border" id="inputSuburb">
+                    <input type="tel" required  class="form-control border" pattern="\\d{5}\ " value="{{old('cpostal')}}" name="cpostal" id="inputSuburb">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="inputSuburb" class="form-label">Número de teléfono</label>
-                    <input type="text" class="form-control border" id="inputSuburb">
+                    <input type="tel" required  class="form-control border" pattern="\\d{10}\ " value="{{old('telefono')}}" name="telefono" id="inputSuburb">
+                    
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-primary" type="submit">Añadir/Editar dirección</button>
+                    <button class="btn btn-primary" >Añadir/Editar dirección</button>
                 </div>
             </form>
         </div>

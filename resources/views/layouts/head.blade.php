@@ -14,4 +14,7 @@
 
 <link rel="stylesheet" type="text/css" href="{!! asset('css/cambios.css') !!}" media="screen" />
 
+{{-- sweet alert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @yield('style')

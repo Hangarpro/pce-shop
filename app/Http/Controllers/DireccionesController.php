@@ -41,7 +41,8 @@ class DireccionesController extends Controller
             'colonia' => 'required',
             'calle' => 'required',
             'cpostal' => 'required',
-            'telefono' => 'required'
+            'telefono' => 'required',
+            'userId' => 'required'
         ]);
 
         if(isset($request->nombreDireccion)) {
@@ -55,7 +56,8 @@ class DireccionesController extends Controller
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
                 'telefono'=> $request->telefono,
-                'usuario_id' => Session::get('loginId')]);
+                // 'usuario_id' => Session::get('loginId')
+                'usuario_id' => $request->userId]);
         } else {
             $direccion = Direcciones::create([
                 'nombreUser' => $request->nombreUser,
@@ -66,7 +68,8 @@ class DireccionesController extends Controller
                 'calle' => $request->calle,
                 'cpostal' => $request->cpostal,
                 'telefono'=> $request->telefono,
-                'usuario_id' => Session::get('loginId')]);
+                // 'usuario_id' => Session::get('loginId')
+                'usuario_id' => $request->userId]);
         }
 
         return redirect()->back()->with('info', 'Direccion registrada correctamente');

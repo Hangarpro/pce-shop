@@ -17,7 +17,8 @@ class Direcciones extends Model
         'colonia',
         'calle',
         'cpostal',
-        'telefono'
+        'telefono',
+        'usuario_id'
     ]; 
     
     public function usuario_id(){

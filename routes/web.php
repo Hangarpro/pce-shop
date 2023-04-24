@@ -58,7 +58,7 @@ Route::post('/profile/address', [DireccionesController::class, 'store']);
 
 Route::put('/profile/address/{id}', [DireccionesController::class, 'update']);
 
-Route::delete('/profile/address/{id}', [DireccionesController::class, 'destroy']);
+Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy']);
 
 Route::get('/profile/order', function () {
     return view('profile/detailsOrder');
