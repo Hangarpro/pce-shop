@@ -32,9 +32,7 @@ Route::get('/productos', [ProductoController::class, 'index']);
 
 Route::get('/productos/{id}', [ProductoController::class, 'show']);
 
-Route::get('/productos/details', function () {
-    return view('productos/details');
-});
+Route::get('/productos/details', [ProductoController::class, 'show']);
 
 Route::get('/login', [UsuarioController::class, 'loginShow']);
 

@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 
 class DireccionesController extends Controller
 {
@@ -76,7 +77,9 @@ class DireccionesController extends Controller
      */
     public function show($id)
     {
-        $direccion = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
+        $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
+
+        return view('profile.addEditAddress', compact('direcciones'));
     }
 
     /**

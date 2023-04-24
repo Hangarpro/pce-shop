@@ -17,10 +17,10 @@ class ProductoController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($request)
     {
-        $producto = Producto::where('id', $id);
+        $producto = Producto::find($request->id);
 
-        return $producto;
+        return view('productos.details', compact('producto'));
     }
 }
