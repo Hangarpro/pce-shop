@@ -24,9 +24,9 @@ class ProductoController extends Controller
         return view('welcome', compact('productos'));
     }
 
-    public function show($request)
+    public function show($id)
     {
-        $producto = Producto::find($request->id);
+        $producto = Producto::where('id', $id);
 
         return view('productos.details', compact('producto'));
     }
