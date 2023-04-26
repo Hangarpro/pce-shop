@@ -50,7 +50,7 @@ class ContactanosController extends Controller
             'comentario' => $request->comentario,
         ]);
 
-        return redirect('welcome')->with('info', 'Se ha guardado su comentario');
+        return redirect()->route('welcome')->with('info', 'Se ha guardado su comentario');
     }
 
     /**
