@@ -14,7 +14,7 @@
                         <p class="mb-4 d-flex justify-content-center">Nos importan mucho nuestros usuarios y es por ello que
                             ponemos a su disposición distintos medios de contacto para poder tener una comunicación rápida y
                             directa entre los integrantes de Pop Culture Emporium y los usuarios que interactúan con el sitio.</p>
-                        <p class="d-flex justify-content-center"><a href="" class="btn btn-secondary me-2">Ver
+                        <p class="d-flex justify-content-center"><a href="{{url('/productos')}}" class="btn btn-secondary me-2">Ver
                                 productos</a></p>
                     </div>
                 </div>
@@ -86,29 +86,30 @@
                             </div>
                         </div>
 
-                        <form>
+                        <form method="POST" action="{{'/contact'}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="fname">Nombre</label>
-                                        <input type="text" class="form-control" id="fname">
+                                        <input type="text" required name="nombre" class="form-control" id="fname">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="lname">Apellido(s)</label>
-                                        <input type="text" class="form-control" id="lname">
+                                        <input type="text" required name="apellido" class="form-control" id="lname">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="text-black" for="email">Correo electrónico</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" required name="correo" class="form-control" id="email">
                             </div>
 
                             <div class="form-group mb-5">
                                 <label class="text-black" for="message">Mensaje</label>
-                                <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+                                <textarea  class="form-control" required name="comentario" id="message" cols="30" rows="5"></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary-hover-outline">Enviar mensaje</button>

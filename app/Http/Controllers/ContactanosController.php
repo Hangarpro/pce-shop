@@ -43,7 +43,7 @@ class ContactanosController extends Controller
             'comentario' => 'required'
         ]);
 
-        $usuario = Usuario::create([
+        $usuario = Contactanos::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,

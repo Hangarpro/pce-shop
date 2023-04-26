@@ -67,21 +67,22 @@
 
     <!--CARDS-->
     <div class="row ms-1 me-1">
-        @for ($i = 0; $i < 8; $i++)
-            <div class="card mx-auto col-md-3 col-10 mt-3 pt-4">
-                <div class="d-flex justify-content-end">
-                    <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
-                </div>
-                <img class='mx-auto img-thumbnail' style="border:none"
-                    src="{!! asset('images/product-2.png') !!}"
-                    width="auto" height="auto"/>
-                <div class="card-body text-center mx-auto">
-                    <h5 class="card-title">Sofa Chair</h5>
-                    <p class="card-text">$1,399</p>
-                    <button type="button" class="btn btn-info">Ver producto</button>
-                </div>
+        @foreach ($productos as $producto)
+        <div class="card mx-auto col-md-3 col-10 mt-3 pt-4">
+            <div class="d-flex justify-content-end">
+                <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
             </div>
-        @endfor 
+            <img class='mx-auto img-thumbnail' style="border:none"
+                src="{!! asset($producto->imagen) !!}"
+                width="auto" height="auto"/>
+            <div class="card-body text-center mx-auto">
+                <h5 class="card-title">{{$producto->nombre}}</h5>
+                <p class="card-text">${{$producto->precio}}</p>
+                <a type="button" href="{{route('showProducto', $producto->id)}}" class="btn btn-info">Ver producto</a>
+            </div>
+        </div>
+        @endforeach
+ 
     </div>
     <!--END CARDS-->
 
