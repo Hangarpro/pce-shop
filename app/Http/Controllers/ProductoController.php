@@ -26,7 +26,7 @@ class ProductoController extends Controller
 
     public function show($id)
     {
-        $producto = Producto::find($id)->get();
+        $producto = Producto::where('id', $id)->get();
 
         return view('productos.details', compact('producto'));
     }
