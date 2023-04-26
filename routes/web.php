@@ -16,9 +16,7 @@ use App\Http\Controllers\DireccionesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductoController::class, 'welcome']);
 
 Route::get('/about', function () {
     return view('about/index');

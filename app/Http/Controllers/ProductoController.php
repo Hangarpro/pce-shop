@@ -14,7 +14,14 @@ class ProductoController extends Controller
 
         return view('productos.index', [
             'productos' => DB::table('productos')->paginate(12)
-        ]);
+        ], compact('productos'));
+    }
+
+    public function welcome()
+    {
+        $productos = Producto::where('tipo', '=', 'Nuevo')->take(4)->get();
+
+        return view('welcome', compact('productos'));
     }
 
     public function show($request)
