@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contactanos;
+use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 
 class ContactanosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+        }
+
+        return view('contact.index', compact('usuario'));
     }
 
     /**
@@ -28,9 +34,23 @@ class ContactanosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'correo' => 'required',
+            'comentario' => 'required'
+        ]);
+
+        $usuario = Usuario::create([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'correo' => $request->correo,
+            'comentario' => $request->comentario,
+        ]);
+
+        return redirect('welcome')->with('info', 'Se ha guardado su comentario');
     }
 
     /**

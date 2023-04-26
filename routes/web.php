@@ -16,15 +16,15 @@ use App\Http\Controllers\DireccionesController;
 |
 */
 
-Route::get('/', [ProductoController::class, 'welcome']);
+Route::get('/', [ProductoController::class, 'welcome'])->name('welcome');
 
 Route::get('/about', function () {
     return view('about/index');
 });
 
-Route::get('/contact', function () {
-    return view('contact/index');
-});
+Route::get('/contact', [ContactanosController::class, 'index']);
+
+Route::post('/contact', [ContactanosController::class, 'store']);
 
 Route::get('/productos', [ProductoController::class, 'index']);
 

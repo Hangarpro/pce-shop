@@ -10,6 +10,7 @@ class Contactanos extends Model
     use HasFactory;
     protected $fillable = [
         'nombre',
+        'apellido',
         'correo',
         'comentario'
     ];
