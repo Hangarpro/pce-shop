@@ -7,12 +7,8 @@
 @section('section')
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
-            <h2 class="text-center mb-4 text-primary">Dirección</h2>
-            @if (isset($direccion))
-                <form method="PUT" action="{{ route('address.update', ['id'=>$direccion->id]) }}"> 
-            @else
-                <form method="POST" action="{{ route('address.store') }}">
-            @endif            
+            <h2 class="text-center mb-4 text-primary">Dirección</h2>  
+            <form id="myForm" method="POST" action="">        
                 @csrf
                 <input type="hidden" name="userId" value="{{$usuario->id}}">
                 @if(isset($direccion))
@@ -256,13 +252,31 @@
                 </div>
                 <div class="d-grid">
                     @if (isset($direccion))
-                        <button class="btn btn-primary" >editar dirección</button>
+                        {{-- <button class="btn btn-primary" >editar dirección</button> --}}
+                        <button class="btn btn-primary" type="submit" onclick="submitForm('edit', {{ $direccion->id }})">Editar</button>
+
                     @else
-                        <button class="btn btn-primary" >Añadir dirección</button>
+                        {{-- <button class="btn btn-primary" >Añadir dirección</button> --}}
+                        <button class="btn btn-primary" type="submit" onclick="submitForm('create')">Crear</button>
                     @endif
                     
                 </div>
             </form>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        function submitForm(action, id = null) {
+        var form = document.getElementById("myForm");
+        if (action == "create") {
+            form.setAttribute("action", "{{ route('address.store') }}");
+            form.setAttribute("method", "POST");
+        } else if (action == "edit") {
+            form.setAttribute("action", "{{ route('address.update', ['id' => ':id']) }}".replace(':id', id));
+            form.setAttribute("method", "PUT");
+        }
+        form.submit();
+        }
+    </script>
 @endsection
