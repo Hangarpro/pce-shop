@@ -24,6 +24,11 @@ class ProductoController extends Controller
         return view('welcome', compact('productos'));
     }
 
+    public function about()
+    {
+        return view('about.index');
+    }
+
     public function show($id)
     {
         $producto = Producto::where('id', $id)->get();

@@ -18,9 +18,13 @@ class ContactanosController extends Controller
     {
         if(Session::has('loginId')) {
             $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            return view('contact.index', compact('usuario'));
+        } else {
+            return view('contact.index');
         }
 
-        return view('contact.index', compact('usuario'));
+        
     }
 
     /**
@@ -43,7 +47,7 @@ class ContactanosController extends Controller
             'comentario' => 'required'
         ]);
 
-        $usuario = Contactanos::create([
+        $usuario = Usuario::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,
