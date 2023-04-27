@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\ContactanosController;
 
@@ -17,48 +18,40 @@ use App\Http\Controllers\ContactanosController;
 |
 */
 
+//Inicio
 Route::get('/', [ProductoController::class, 'welcome'])->name('welcome');
+Route::get('/about', [ProductoController::class, 'about'])->name('about');
 
-Route::get('/about', function () {
-    return view('about/index');
-});
+//Contacto
+Route::get('/contact', [ContactanosController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactanosController::class, 'store'])->name('contact.store');
 
-Route::get('/contact', [ContactanosController::class, 'index']);
+//Productos
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
 
-Route::post('/contact', [ContactanosController::class, 'store']);
+//Login
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::post('/login', [LoginController::class, 'login'])->name('login.store');
 
-Route::get('/productos', [ProductoController::class, 'index']);
+//Registro
+Route::get('/register', [LoginController::class, 'register'])->name('register.index');
+Route::post('/register', [LoginController::class, 'store'])->name('register.store');
 
-Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('showProducto');
+//Profile
+Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile.index');
+Route::post('profile/edit1', [UsuarioController::class, 'updateContrasena'])->name('profile.password');
+Route::get('/profile/edit', [UsuarioController::class, 'editProfile'])->name('profile.show');
+Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('profile.update');
+Route::get('/profile/address', [UsuarioController::class, 'profileAddress'])->name('profile.address');
 
-Route::get('/login', [UsuarioController::class, 'loginShow']);
+//Direcciones
+Route::post('/profile/address', [DireccionesController::class, 'store'])->name('address.store');
+Route::get('/profile/address/edit/{id}', [DireccionesController::class, 'showDireccion'])->name('address.show');
+Route::put('/profile/address/edit/{id}', [DireccionesController::class, 'update'])->name('address.update');
+Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy'])->name('address.destroy');
 
-Route::post('/login', [UsuarioController::class, 'login']);
-
-Route::get('/register', function () {
-    return view('registro/index');
-});
-
-Route::post('/register', [UsuarioController::class, 'store']);
-
-Route::get('/profile', [UsuarioController::class, 'profile']);
-
-Route::post('profile/edit1', [UsuarioController::class, 'updateContrasena'])->name('editarPass');
-
-Route::get('/profile/edit', [UsuarioController::class, 'editProfile']);
-
-Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('editarUser');
-
-Route::get('/profile/address', [UsuarioController::class, 'profileAddress']);
-
-Route::post('/profile/address', [DireccionesController::class, 'store']);
-
-Route::get('/profile/address/edit/{id}', [DireccionesController::class, 'showDireccion']);
-
-Route::put('/profile/address/edit/{id}', [DireccionesController::class, 'update']);
-
-Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy']);
-
+/*
 Route::get('/profile/order', function () {
     return view('profile/detailsOrder');
 });
@@ -102,3 +95,4 @@ Route::get('/productsAdd', function () {
 Route::get('/productsUpdate', function () {
     return view('admin/products/update');
 });
+*/
