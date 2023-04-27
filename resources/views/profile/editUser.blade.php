@@ -8,7 +8,7 @@
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
         <div class="col-md-4 p-5 shadow-sm border rounded-3">
             <h2 class="text-center mb-4 text-primary">Editar Perfil</h2>
-            <form method="POST" action="{{ route('editarUser') }}" >
+            <form method="POST" action="{{ route('profile.show') }}" >
                 @csrf
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Nombre</label>

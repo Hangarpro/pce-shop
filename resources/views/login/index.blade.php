@@ -7,20 +7,8 @@
 @section('section')
 <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
     <div class="col-md-4 p-5 shadow-sm border rounded-3">
-        <h1>
-            Nombre:
-               
-            {{-- @if ($usuario->nombre ?? 'No has iniciado sesión')
-                <span>adios</span>   
-            @else
-                <pre>{{$usuario->nombre ?? 'No has iniciado sesión'}}</pre>
-            @endif --}}
-            <pre>{{$usuario->nombre ?? 'No has iniciado sesión'}}</pre>
-
-
-        </h1>
         <h2 class="text-center mb-4 text-primary">Iniciar sesión</h2>
-        <form method="POST" action="{{'/login'}}">
+        <form method="POST" action="{{ route('login.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Correo electrónico</label>
@@ -36,7 +24,7 @@
             </div>
         </form>
         <div class="mt-3">
-            <p class="mb-0  text-center">¿No tienes una cuenta? <a href="{{url('/register')}}"
+            <p class="mb-0  text-center">¿No tienes una cuenta? <a href="{{ route('register.index') }}"
                     class="text-primary fw-bold">Regístrate</a></p>
         </div>
     </div>

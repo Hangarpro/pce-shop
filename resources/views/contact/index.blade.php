@@ -14,7 +14,7 @@
                         <p class="mb-4 d-flex justify-content-center">Nos importan mucho nuestros usuarios y es por ello que
                             ponemos a su disposición distintos medios de contacto para poder tener una comunicación rápida y
                             directa entre los integrantes de Pop Culture Emporium y los usuarios que interactúan con el sitio.</p>
-                        <p class="d-flex justify-content-center"><a href="{{url('/productos')}}" class="btn btn-secondary me-2">Ver
+                        <p class="d-flex justify-content-center"><a href="{{ route('productos.index') }}" class="btn btn-secondary me-2">Ver
                                 productos</a></p>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
 
-                        <form method="POST" action="{{'/contact'}}">
+                        <form method="POST" action="{{ route('contact.store') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-6">

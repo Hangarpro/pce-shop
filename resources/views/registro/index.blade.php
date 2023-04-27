@@ -8,7 +8,7 @@
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
     <div class="col-md-4 p-5 shadow-sm border rounded-3">
         <h2 class="text-center mb-4 text-primary">Crear cuenta</h2>
-        <form method="POST" action="{{'/register'}}">
+        <form method="POST" action="{{ route('register.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nombre</label>
@@ -49,7 +49,7 @@
             </div>
         </form>
         <div class="mt-3">
-            <p class="mb-0  text-center">¿Ya tiene una cuenta? <a href="{{url('/login')}}"
+            <p class="mb-0  text-center">¿Ya tiene una cuenta? <a href="{{ route('login.store') }}"
                     class="text-primary fw-bold">Inicia sesión aquí</a></p>
         </div>
     </div>

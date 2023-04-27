@@ -14,7 +14,7 @@
                         <p class="mb-4 d-flex justify-content-center">Somos una tienda especializada en el estilo de vida de
                             la cultura pop. Brindamos conexión con la cultura pop con una línea de productos centrada en
                             las figuras de vinilo "Funko Pop" y un catálogo en constante crecimiento.</p>
-                        <p class="d-flex justify-content-center"><a href="{{url('/productos')}}" class="btn btn-secondary me-2">Ver
+                        <p class="d-flex justify-content-center"><a href="{{ route('productos.index') }}" class="btn btn-secondary me-2">Ver
                                 productos</a></p>
                     </div>
                 </div>

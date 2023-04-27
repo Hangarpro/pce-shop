@@ -9,9 +9,9 @@
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
             <h2 class="text-center mb-4 text-primary">Dirección</h2>
             @if (isset($direccion))
-                <form method="PUT" action="{{ url('/profile/address/edit/'.$direccion->id) }}"> 
+                <form method="PUT" action="{{ route('address.update', ['id'=>$direccion->id]) }}"> 
             @else
-                <form method="POST" action="/profile/address">   
+                <form method="POST" action="{{ route('address.store') }}">
             @endif            
                 @csrf
                 <input type="hidden" name="userId" value="{{$usuario->id}}">

@@ -16,7 +16,7 @@
                                     alt="Circle Image" class="img-raised rounded-circle img-fluid">
                             </div>
                             <h3 class="title d-flex justify-content-center mt-1"> {{$usuario->nombre }} </h3>
-                            <h6 class="d-flex justify-content-center">Administrador</h6>
+                            <h6 class="d-flex justify-content-center"> {{$usuario->rol }} </h6>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                                             <b>{{$usuario->correo }}</b></label>
                                     </div>
                                     <div class="mb-3">
-                                        <a class="btn btn-primary" href="{{ url('/profile/edit') }}">Editar Perfil</a>
+                                        <a class="btn btn-primary" href="{{ route('profile.show') }}">Editar Perfil</a>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="mb-4 d-flex justify-content-center align-items-center">
                                 <div class="col-4 p-5">
                                     
-                                    <form method="POST" action="{{ route('editarPass') }}" >
+                                    <form method="POST" action="{{ route('profile.password') }}" >
                                         @csrf
                                         
                                         <input type="hidden" name="id" value="{{$usuario->id}}">
@@ -125,9 +125,9 @@
                                                     Número de teléfono: {{$direccion->telefono}}
                                                 </p>
                                                 <p class="text-end">
-                                                    <a href="{{ url('/profile/address/edit/'.$direccion->id) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                    <a href="{{ route('address.show', ['id'=>$direccion->id]) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
                                                     <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="showDeleteConfirmation({{$direccion->id}});" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a>
-                                                    <form id="deleteForm{{$direccion->id}}" action="{{url('/profile/address/destroy/'.$direccion->id)}}" method="POST" style="display: inline;">
+                                                    <form id="deleteForm{{$direccion->id}}" action="{{ route('address.destroy', ['id'=>$direccion->id]) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" style="display: none;"></button>
@@ -140,7 +140,7 @@
                             </div>
                         </div> 
                         {{-- <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado direcciones registradas</p> --}}
-                        <a class="btn btn-primary mb-4" href="{{ url('/profile/address') }}">Añadir dirección</a>
+                        <a class="btn btn-primary mb-4" href="{{ route('profile.address') }}">Añadir dirección</a>
                     </div>
                     <div class="tab-pane text-center gallery" id="products">
                         <div class="row">

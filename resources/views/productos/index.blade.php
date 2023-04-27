@@ -23,7 +23,7 @@
                 <div class="card-body text-center mx-auto">
                     <h5 class="card-title">{{$producto->nombre}}</h5>
                     <p class="card-text">${{$producto->precio}}</p>
-                    <a type="button" href="{{route('showProducto', $producto->id)}}" class="btn btn-info">Ver producto</a>
+                    <a type="button" href="{{ route('productos.show', ['id'=>$producto->id]) }}" class="btn btn-info">Ver producto</a>
 
                 </div>
             </div>

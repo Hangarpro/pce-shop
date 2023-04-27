@@ -11,22 +11,22 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="{{ (request()->segment(1) == '') ? 'active' : '' }}"> 
-                    <a class="nav-link" href="{{url('/')}}">
+                    <a class="nav-link" href="{{ route('welcome') }}">
                         Home
                     </a>
                 </li>
                 <li class="{{ (request()->segment(1) == 'productos') ? 'active' : '' }}"> 
-                    <a class="nav-link" href="{{url('/productos')}}">
+                    <a class="nav-link" href="{{ route('productos.index') }}">
                         Productos
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="{{url('/about')}}">
+                    <a class="nav-link" href="{{ route('about') }}">
                         Acerca de nosotros
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="{{url('/contact')}}">
+                    <a class="nav-link" href="{{ route('contact.index') }}">
                         Contáctanos
                     </a>
                 </li>
@@ -36,11 +36,11 @@
                 <li>
                     
                     @if (session()->has('loginId'))
-                        <a class="nav-link" href="{{url('/profile')}}">
+                        <a class="nav-link" href="{{ route('profile.index') }}">
                             <img src="{!! asset('images/user.svg') !!}">
                         </a>
                     @else
-                        <a class="nav-link" href="{{url('/login')}}">
+                        <a class="nav-link" href="{{ route('login.index') }}">
                             <img src="{!! asset('images/user.svg') !!}">
                         </a>
                     @endif
