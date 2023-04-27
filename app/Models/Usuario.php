@@ -12,7 +12,8 @@ class Usuario extends Model
     protected $fillable = [
         'nombre',
         'correo',
-        'contrasena'
+        'contrasena',
+        'rol'
     ];
 
     protected $hidden = [
