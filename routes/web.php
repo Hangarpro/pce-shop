@@ -48,7 +48,7 @@ Route::get('/profile/address', [UsuarioController::class, 'profileAddress'])->na
 //Direcciones
 Route::post('/profile/address', [DireccionesController::class, 'store'])->name('address.store');
 Route::get('/profile/address/edit/{id}', [DireccionesController::class, 'showDireccion'])->name('address.show');
-Route::put('/profile/address/edit/{id}', [DireccionesController::class, 'update'])->name('address.update');
+Route::post('/profile/address/edit/{id}', [DireccionesController::class, 'edit'])->name('address.update');
 Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy'])->name('address.destroy');
 
 /*

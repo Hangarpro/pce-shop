@@ -96,7 +96,7 @@ class DireccionesController extends Controller
                     'colonia' => $request->colonia,
                     'calle' => $request->calle,
                     'cpostal' => $request->cpostal,
-                    'telefono'-> $request->telefono,
+                    'telefono' => $request->telefono,
                     'usuario_id' => Session::get('loginId')]);
             } else {
                 Direcciones::where('id', '=', $request->id)->update([
