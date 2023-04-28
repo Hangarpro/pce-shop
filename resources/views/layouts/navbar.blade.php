@@ -59,6 +59,19 @@
                     
                     
                 </li>
+                <li>
+                    
+                    @if(session()->has('loginId'))
+                        
+                        <a class="nav-link" href="{{ url('/cart') }}">
+                            <i class="fa-solid fa-right-from-bracket fa-xl ms-3 mt-3" style="color: #ffffff;"></i>
+                        </a>
+                    @endif
+                    
+                        
+                    
+                    
+                </li>
             </ul>
         </div>
     </div>

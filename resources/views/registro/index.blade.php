@@ -39,7 +39,7 @@
                     @enderror
             </div>
             <div class="mb-3">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>  
+                <label for="password" class="col-md-12 col-form-label text-md-right">Confirmar contraseña</label>  
                 <input id="password" type="password" class="form-control border border-primary @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
             </div>
 
@@ -49,7 +49,7 @@
             </div>
         </form>
         <div class="mt-3">
-            <p class="mb-0  text-center">¿Ya tiene una cuenta? <a href="{{ route('login.store') }}"
+            <p class="mb-0  text-center">¿Ya tienes una cuenta? <a href="{{ route('login.store') }}"
                     class="text-primary fw-bold">Inicia sesión aquí</a></p>
         </div>
     </div>

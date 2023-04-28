@@ -90,7 +90,7 @@
                                                 @enderror
                                         </div>
                                         <div class="mb-4">
-                                            <label for="confirmPass" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>  
+                                            <label for="confirmPass" class="col-md-12 col-form-label text-md-right">Confirmar contraseña</label>  
                                             <input id="password" type="password" class="form-control border Confirmar contraseña @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
                                         </div>
                                         
