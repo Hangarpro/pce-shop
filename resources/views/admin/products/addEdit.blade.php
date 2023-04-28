@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <input type="text" name="descripcion" class="form-control" required="required">
+                                        <textarea rows="5" class="form-control" required="required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>

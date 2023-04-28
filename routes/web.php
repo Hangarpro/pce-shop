@@ -51,7 +51,7 @@ Route::get('/profile/address/edit/{id}', [DireccionesController::class, 'showDir
 Route::post('/profile/address/edit/{id}', [DireccionesController::class, 'edit'])->name('address.update');
 Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy'])->name('address.destroy');
 
-/*
+
 Route::get('/profile/order', function () {
     return view('profile/detailsOrder');
 });
@@ -80,6 +80,10 @@ Route::get('/usersAdd', function () {
     return view('admin/users/addEdit');
 });
 
+Route::get('/usersPass', function () {
+    return view('admin/users/changePassword');
+});
+
 Route::get('/sales', function () {
     return view('admin/sales/index');
 });
@@ -95,4 +99,3 @@ Route::get('/productsAdd', function () {
 Route::get('/productsUpdate', function () {
     return view('admin/products/update');
 });
-*/

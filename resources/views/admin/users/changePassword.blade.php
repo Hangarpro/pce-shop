@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear usuario</h1>
+                        <h1>Cambiar contraseña</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -33,19 +33,15 @@
                             <div class="card-body">
                                 <form class="#" method="post">
                                     <div class="form-group">
-                                        <label>Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" required="required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Correo</label>
-                                        <input type="email" name="email" class="form-control" required="required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
+                                        <label>Contraseña Actual</label>
                                         <input type="password" name="pass" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
-                                        <label>Confirmar Contraseña</label>
+                                        <label>Nueva Contraseña</label>
+                                        <input type="password" name="pass" class="form-control" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirmar Nueva Contraseña</label>
                                         <input type="password" name="pass" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">

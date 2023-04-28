@@ -52,6 +52,9 @@
                                                 <a href="{{url('/usersAdd')}}"
                                                     style="margin-right: 5px;" title="Editar Usuario">
                                                     <i class="fas fa-edit"></i> </a>
+                                                    <a href="{{url('/usersPass')}}"
+                                                    style="margin-right: 5px;"  class="text-warning" title="Editar Usuario">
+                                                    <i class="fas fa-key"></i> </a>
                                                 <a href="#"
                                                     class="text-danger borrar" title="Eliminar Usuario">
                                                     <i class="fas fa-trash"></i> </a>

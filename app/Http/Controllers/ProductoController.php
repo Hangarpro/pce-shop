@@ -22,27 +22,27 @@ class ProductoController extends Controller
         //Existen productos nuevos
         if(Producto::where('tipo', '=', 'Nuevo')->exists()) {
             $cantidad = Producto::where('tipo', '=', 'Nuevo')->count();
-            //Regresar los 4 productos mas nuevos
-            if($cantidad >= 4) {
-                $productos = Producto::where('tipo', '=', 'Nuevo')->take(4)->get();
+            //Regresar los 3 productos mas nuevos
+            if($cantidad >= 3) {
+                $productos = Producto::where('tipo', '=', 'Nuevo')->take(3)->get();
             } else {
-                //No existen 4 productos nuevos, pero si de la misma marca
+                //No existen 3 productos nuevos, pero si de la misma marca
                 if(Producto::where('marca', '=', $productos[0]->marca)->exists()) {
-                    //Si se completan 4 productos con productos de la misma marca
-                    if((Producto::where('marca', '=', $productos[0]->marca)->count() + $cantidad) >= 4) {
-                        $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                    //Si se completan 3 productos con productos de la misma marca
+                    if((Producto::where('marca', '=', $productos[0]->marca)->count() + $cantidad) >= 3) {
+                        $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->take(3 - $cantidad)->get();
                         $productos = $productos->merge($productosMarca);
                     } else {
-                        //No se completan 4 productos de la misma marca
+                        //No se completan 3 productos de la misma marca
                         $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->get();
                         $productos = $productos->merge($productosMarca);
                         $cantidad = $productos->count();
-                        $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                        $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(3 - $cantidad)->get();
                         $productos = $productos->merge($productosMarca);
                     }
                 } else {
                     //No existen productos de la misma marca
-                    $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                    $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(3 - $cantidad)->get();
                     $productos = $productos->merge($productosMarca);
                 }
             }
@@ -51,21 +51,21 @@ class ProductoController extends Controller
         else if(Producto::first()->exists()) {
             $productos = Producto::first()->get();
             if(Producto::where('marca', '=', $productos[0]->marca)->exists()) {
-                //Si se completan 4 productos de marca
-                if((Producto::where('marca', '=', $productos[0]->marca)->count() + $cantidad) >= 4) {
-                    $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                //Si se completan 3 productos de marca
+                if((Producto::where('marca', '=', $productos[0]->marca)->count() + $cantidad) >= 3) {
+                    $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->take(3 - $cantidad)->get();
                     $productos = $productos->merge($productosMarca);
-                //No se completan 4 productos de marca
+                //No se completan 3 productos de marca
                 } else {
                     $productosMarca = Producto::where('marca', '=', $productos[0]->marca)->get();
                     $productos = $productos->merge($productosMarca);
                     $cantidad = $productos->count();
-                    $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                    $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(3 - $cantidad)->get();
                     $productos = $productos->merge($productosMarca);
                 }
             //No existen productos nuevos, ni de marca
             } else {
-                $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(4 - $cantidad)->get();
+                $productosMarca = Producto::where('marca', '!=', $productos[0]->marca)->take(3 - $cantidad)->get();
                 $productos = $productos->merge($productosMarca);
             }
         }
