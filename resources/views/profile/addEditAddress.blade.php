@@ -6,8 +6,37 @@
 
 @section('section')
     <div class="mt-4 mb-4 d-flex justify-content-center align-items-center">
+        
+        <div class="row">
+            <div class="col-md-5">
+                @if (session('info'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="mdi mdi-check-all me-2"></i>
+                            Acción realizada con exito.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @else
+                    {{-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="mdi mdi-block-helper me-2"></i>
+                        error! no se pudo realizar la accion.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> --}}
+                @endif
+            </div>
+        </div>
+        {{-- @if(session('info'))
+            <div class="alert alert-success">
+                {{ session('info') }}
+            </div>
+        @endif --}}
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
-            <h2 class="text-center mb-4 text-primary">Dirección</h2>  
+            <h2 class="text-center mb-4 text-primary" >
+                @if (isset($direccion))
+                    Editar Direccion
+                @else
+                    Añadir Direccion
+                @endif
+            </h2>  
             <form id="myForm" method="POST" action="@if(isset($direccion)) {{ route('address.update', ['id'=>$direccion->id]) }} @else {{ route('address.store') }} @endif">        
                 @csrf
                 <input type="hidden" name="userId" value="{{$usuario->id}}">

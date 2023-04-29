@@ -30,7 +30,7 @@
         @endforeach 
     </div>
     <!--END CARDS-->
-    <div class="mt-3">
+    <div class="mt-3 d-flex justify-content-center">
         {{ $productos->links('pagination::bootstrap-4') }}
     </div>
 @endsection

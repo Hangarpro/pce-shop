@@ -12,7 +12,7 @@
             @csrf
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nombre</label>
-                <input type="text" required autofocus class="form-control border border-primary " value="{{old('nombre')}}" id="nombre" name="nombre">
+                <input type="text" required autofocus class="form-control border border-primary " value="{{old('nombre')}}" pattern="[a-zA-Z]+" title="Por favor ingrese solo letras" id="nombre" name="nombre">
             </div>
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Correo electrónico</label>

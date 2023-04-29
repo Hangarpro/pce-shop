@@ -12,7 +12,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Nombre</label>
-                    <input type="text" required name="nombre" value="{{$usuario->nombre}}" class="form-control border border-primary" id="inputName"> 
+                    <input type="text" required pattern="[a-zA-Z]+" title="Por favor ingrese solo letras" name="nombre" value="{{$usuario->nombre}}" class="form-control border border-primary" id="inputName"> 
                 </div>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">Correo electrónico</label>

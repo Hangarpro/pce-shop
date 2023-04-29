@@ -12,7 +12,7 @@
                     <div class="col-12 mt-4 d-flex justify-content-center align-items-center">
                         <div class="profile">
                             <div class="avatar d-flex justify-content-center">
-                                <img src="https://ui-avatars.com/api/?name=Jesús Carlos&background=405c54&color=fff"
+                                <img src="https://ui-avatars.com/api/?name={{$usuario->nombre }}&background=405c54&color=fff"
                                     alt="Circle Image" class="img-raised rounded-circle img-fluid">
                             </div>
                             <h3 class="title d-flex justify-content-center mt-1"> {{$usuario->nombre }} </h3>
@@ -104,42 +104,46 @@
                     </div>
                     <div class="tab-pane text-center gallery" id="address">
                         <div class="row col-md-4 col-sm-12 mx-auto mt-4 mb-4">
-                            <div class="accordion accordion-flush" id="accordionFlushExample">         
-                                @foreach ($direcciones as $direccion)                           
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-heading-{{$direccion->id}}">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapse-{{$direccion->id}}" aria-expanded="false"
-                                                aria-controls="flush-collapse-{{$direccion->id}}">
-                                                {{$direccion->nombreDireccion ?? 'Direccion sin nombre'}}
-                                            </button>
-                                        </h2> 
-                                        <div id="flush-collapse-{{$direccion->id}}" class="accordion-collapse collapse"
-                                            aria-labelledby="flush-heading-{{$direccion->id}}" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <p class="text-start"><b>{{$direccion->nombreUser}}</b><br>
-                                                    {{$direccion->calle}}<br>
-                                                    {{$direccion->colonia}}<br>
-                                                    {{$direccion->ciudad}}, {{$direccion->estado}} {{$direccion->cpostal}}<br>
-                                                    {{$direccion->pais}}<br>
-                                                    Número de teléfono: {{$direccion->telefono}}
-                                                </p>
-                                                <p class="text-end">
-                                                    <a href="{{ route('address.show', ['id'=>$direccion->id]) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
-                                                    <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="showDeleteConfirmation({{$direccion->id}});" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a>
-                                                    <form id="deleteForm{{$direccion->id}}" action="{{ route('address.destroy', ['id'=>$direccion->id]) }}" method="POST" style="display: inline;">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" style="display: none;"></button>
-                                                    </form>
-                                                </p>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                @if (count($direcciones) > 0 )
+                                    @foreach ($direcciones as $direccion)                           
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-heading-{{$direccion->id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapse-{{$direccion->id}}" aria-expanded="false"
+                                                    aria-controls="flush-collapse-{{$direccion->id}}">
+                                                    {{$direccion->nombreDireccion ?? 'Direccion sin nombre'}}
+                                                </button>
+                                            </h2> 
+                                            <div id="flush-collapse-{{$direccion->id}}" class="accordion-collapse collapse"
+                                                aria-labelledby="flush-heading-{{$direccion->id}}" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <p class="text-start"><b>{{$direccion->nombreUser}}</b><br>
+                                                        {{$direccion->calle}}<br>
+                                                        {{$direccion->colonia}}<br>
+                                                        {{$direccion->ciudad}}, {{$direccion->estado}} {{$direccion->cpostal}}<br>
+                                                        {{$direccion->pais}}<br>
+                                                        Número de teléfono: {{$direccion->telefono}}
+                                                    </p>
+                                                    <p class="text-end">
+                                                        <a href="{{ route('address.show', ['id'=>$direccion->id]) }}" class="fa-solid fa-pencil text-decoration-none me-4 text-primary"></a>
+                                                        <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="showDeleteConfirmation({{$direccion->id}});" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a>
+                                                        <form id="deleteForm{{$direccion->id}}" action="{{ route('address.destroy', ['id'=>$direccion->id]) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" style="display: none;"></button>
+                                                        </form>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach    
+                                    @endforeach  
+                                @else
+                                    <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado direcciones registradas</p>
+                                @endif         
+                                  
                             </div>
                         </div> 
-                        {{-- <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado direcciones registradas</p> --}}
                         <a class="btn btn-primary mb-4" href="{{ route('profile.address') }}">Añadir dirección</a>
                     </div>
                     <div class="tab-pane text-center gallery" id="products">
