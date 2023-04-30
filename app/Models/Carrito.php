@@ -13,6 +13,8 @@ class Carrito extends Model
         'envio_tipo',
         'envio_estado',
         'envio_numero',
+        'fecha_compra',
+        'fecha_entrega',
         'total'
     ];
 
@@ -25,6 +27,8 @@ class Carrito extends Model
         'envio_tipo',
         'envio_estado',
         'envio_numero',
+        'fecha_compra',
+        'fecha_entrega',
         'total'
     ]; 
 

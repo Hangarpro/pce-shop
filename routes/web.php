@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\ContactanosController;
+use App\Http\Controllers\CarritoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,21 +52,14 @@ Route::get('/profile/address/edit/{id}', [DireccionesController::class, 'showDir
 Route::post('/profile/address/edit/{id}', [DireccionesController::class, 'edit'])->name('address.update');
 Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'destroy'])->name('address.destroy');
 
+//Carrito
+Route::get('/cart', [CarritoController::class, 'index'])->name('carrito.index');
+Route::get('/payment', [CarritoController::class, 'show'])->name('carrito.show');
+Route::post('/payment', [CarritoController::class, 'comprar'])->name('carrito.store');
+Route::get('/paid', [CarritoController::class, 'pagar'])->name('compras.show');
 
 Route::get('/profile/order', function () {
     return view('profile/detailsOrder');
-});
-
-Route::get('/cart', function () {
-    return view('cart/index');
-});
-
-Route::get('/payment', function () {
-    return view('cart/payment');
-});
-
-Route::get('/paid', function () {
-    return view('cart/finish');
 });
 
 Route::get('/dashboard', function () {

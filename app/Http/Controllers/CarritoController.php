@@ -3,65 +3,143 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Compra;
+use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
+use Session;
 
 class CarritoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): Response
+    public function obtenerMonto($id, $cantidad) 
     {
-        //
+        $producto = Producto::find($id);
+        $monto = (($producto->precio) * $cantidad);
+
+        return $monto;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
+    public function index()
     {
-        //
+        if(Session::has('loginId')) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $compra = Compra::where('carrito_id', '=', $carrito->id);
+            $productos = Productos::find($compra->producto_id);
+
+            return view('cart.index', compact('compra', 'productos'));
+        } else {
+            return redirect()->route('login.index');
+        }  
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
+    public function show()
     {
-        //
+        if(Session::has('loginId')) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $compra = Compra::where('carrito_id', '=', $carrito->id);
+            $productos = Productos::find($compra->producto_id);
+
+            return view('cart.payment', compact('compra', 'productos'));
+        } else {
+            return redirect()->route('login.index');
+        }   
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Carrito $carrito): Response
+    /*
+
+    public function pagado($productos, $compra)
     {
-        //
+        if(Session::has('loginId')) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $compra = Compra::where('carrito_id', '=', $carrito->id);
+            $productos = Productos::find($compra->producto_id);
+
+            return view('cart.finish', compact('compra', 'productos'));
+        } else {
+            return redirect()->route('login.index');
+        }   
+    }*/
+
+    public function anadir(Request $request)
+    {
+        if(Session::has('loginId')) {
+            $request->validate([
+                'usuario_id' => 'required',
+                'producto_id' => 'required',
+                'cantidad' => 'required'
+            ]);
+
+            if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
+                $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
+
+                $compra = Compra::create([
+                    'producto_id' => $request->producto_id,
+                    'carrito_id' => $carrito->id,
+                    'cantidad' => $request->cantidad,
+                    'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
+            } else {
+                $carrito = Carrito::create([
+                    'compra_estado' => 0]);
+
+                $compra = Compra::create([
+                    'producto_id' => $request->producto_id,
+                    'carrito_id' => $carrito->id,
+                    'cantidad' => $request->cantidad,
+                    'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
+            }
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Carrito $carrito): Response
+    public function comprar()
     {
-        //
+        $request->validate([
+            'direccion_id' => 'required',
+            'tarjeta' => 'required',
+            'envio_tipo' => 'required'
+        ]);
+
+        if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $total = Compra::where('carrito_id', '=', $carrito->id)->sum('monto');
+            $hoy = Carbon::now();
+
+            Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->update([
+                'direccion_id' => $request->direccion_id,
+                'tarjeta' => $request->tarjeta,
+                'compra_estado' => 1,
+                'envio_tipo' => $request->envio_tipo,
+                'envio_estado' => 'Pendiente',
+                'envio_numero' => 1,
+                'fecha_compra' => $hoy,
+                'total' => $total]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Carrito $carrito): RedirectResponse
+    public function historial()
     {
-        //
+        if(Session::has('loginId')) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 1)->first();
+            $compra = Compra::where('carrito_id', '=', $carrito->id);
+            $productos = Productos::find($compra->producto_id);
+
+            return view('carrito.index', compact('compra', 'productos'));
+        } else {
+            return redirect()->route('login.index');
+        }  
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Carrito $carrito): RedirectResponse
+    public function remover($id)
     {
-        //
+        if(Session::has('loginId')) {
+            $compra = Compra::find($id);
+            if($compra)
+                $compra->delete();
+
+            return redirect()->back()->with('info', 'Compra eliminada');
+        } else {
+            return redirect()->route('login.index');
+        }
     }
 }
