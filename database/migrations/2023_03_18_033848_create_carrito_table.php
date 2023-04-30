@@ -13,12 +13,26 @@ return new class extends Migration
     {
         Schema::create('carrito', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('finalizado');
+            $table->string('tarjeta')->nullable();
+            $table->tinyInteger('compra_estado');
+            $table->enum('envio_tipo', ['Regular', 'Premium'])->nullable();
+            $table->enum('envio_estado', ['Pendiente', 'Pagado', 'En tránsito', 'Entregado'])->nullable();
+            $table->string('envio_numero')->nullable();
+            $table->date('fecha_compra')->nullable();
+            $table->date('fecha_entrega')->nullable();
+            $table->decimal('total', 19, 2)->nullable();
 
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')
             ->references('id')
             ->on('usuarios')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('direccion_id');
+            $table->foreign('direccion_id')
+            ->references('id')
+            ->on('direcciones')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

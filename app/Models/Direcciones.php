@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Direcciones extends Model
 {
     use HasFactory;
+
+    protected $nullable = [
+        'nombreDireccion'
+    ];
+
     protected $fillable = [
         'nombreDireccion',
         'nombreUser',
@@ -23,5 +28,9 @@ class Direcciones extends Model
     
     public function usuario_id(){
         return $this->belongsTo(Usuario::class);
+    }
+
+    public function carrito(){
+        return $this->hasMany(Carrito::class);
     }
 }

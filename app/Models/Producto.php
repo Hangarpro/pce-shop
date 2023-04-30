@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
+
+    protected $nullable = [
+        'descripcion'
+    ];
     protected $fillable = [
         'nombre',
         'precio',
@@ -18,7 +22,7 @@ class Producto extends Model
         'marca',
         'descripcion'
     ]; 
-    public function carrito_productos(){
-        return $this->hasMany(Carrito_Productos::class);
+    public function compra(){
+        return $this->hasMany(Compra::class);
     }
 }

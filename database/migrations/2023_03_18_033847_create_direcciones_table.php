@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreDireccion');
+            $table->string('nombreDireccion')->nullable();
             $table->string('nombreUser');
             $table->string('pais');
             $table->string('estado');
