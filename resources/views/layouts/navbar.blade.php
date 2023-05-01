@@ -62,15 +62,16 @@
                 <li>
                     
                     @if(session()->has('loginId'))
-                        
-                        <a class="nav-link" href="{{ url('/cart') }}">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fa-solid fa-right-from-bracket fa-xl ms-3 mt-3" style="color: #ffffff;"></i>
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     @endif
-                    
-                        
-                    
-                    
+
+
+
                 </li>
             </ul>
         </div>

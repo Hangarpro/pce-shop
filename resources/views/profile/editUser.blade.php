@@ -16,7 +16,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">Correo electrónico</label>
-                    <input type="email" required name="correo" value="{{$usuario->correo}}" class="form-control border border-primary" id="inputEmail"> 
+                    <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Por favor, introduce una dirección de correo electrónico válida en el formato usuario@dominio.com" required name="correo" value="{{$usuario->correo}}" class="form-control border border-primary" id="inputEmail"> 
                 </div>
                 <div class="d-grid">
                     <button class="btn btn-primary" >Editar</button>

@@ -12,7 +12,7 @@
             @csrf
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control border border-primary" id="inputEmail" name="correo">
+                <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Por favor, introduce una dirección de correo electrónico válida en el formato usuario@dominio.com" class="form-control border border-primary" id="inputEmail" name="correo">
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Contraseña</label>

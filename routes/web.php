@@ -34,6 +34,7 @@ Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('produc
 //Login
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'login'])->name('login.store');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //Registro
 Route::get('/register', [LoginController::class, 'register'])->name('register.index');
