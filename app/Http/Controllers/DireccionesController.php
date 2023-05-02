@@ -52,7 +52,7 @@ class DireccionesController extends Controller
                     'usuario_id' => $request->userId]);
             }
 
-            return redirect()->route('profile.index')->with('info', 'Direccion registrada correctamente');
+            return redirect()->route('profile.index')->with('info', 'Direccion registrada correctamente')->withInput(['tab'=>'address']);
         } else {
             return redirect()->route('login.index');
         } 
@@ -111,7 +111,7 @@ class DireccionesController extends Controller
                     'usuario_id' => Session::get('loginId')]);
             }
 
-            return redirect()->route('profile.index')->with('info', 'Direccion actualizada correctamente');
+            return redirect()->route('profile.index')->with('info', 'Direccion actualizada correctamente')->withInput(['tab'=>'address']);
         } else {
             return redirect()->route('login.index');
         }
@@ -160,7 +160,7 @@ class DireccionesController extends Controller
                     'usuario_id' => $request->userId]);
             }
     
-            return redirect()->route('profile.index')->with('info', 'Direccion actualizada correctamente');
+            return redirect()->route('profile.index')->with('info', 'Direccion actualizada correctamente')->withInput(['tab'=>'address']);
         } else {
             return redirect()->route('login.index');
         }
@@ -173,7 +173,7 @@ class DireccionesController extends Controller
             if($direccion)
                 $direccion->delete();
 
-            return redirect()->back()->with('info', 'Direccion eliminada');
+            return redirect()->back()->with('info', 'Direccion eliminada')->withInput(['tab'=>'address']);
         } else {
             return redirect()->route('login.index');
         }

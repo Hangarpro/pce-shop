@@ -30,6 +30,7 @@ Route::post('/contact', [ContactanosController::class, 'store'])->name('contact.
 //Productos
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
+Route::post('/productos/{id}', [CarritoController::class, 'anadir'])->name('productos.store');
 
 //Login
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');

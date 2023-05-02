@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\Compra;
+use App\Models\Direcciones;
 use App\Models\Producto;
+use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -89,7 +91,9 @@ class CarritoController extends Controller
                     'cantidad' => $request->cantidad,
                     'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
             }
-        }
+        } else {
+            return redirect()->route('login.index');
+        }   
     }
 
     public function comprar()
@@ -102,6 +106,7 @@ class CarritoController extends Controller
 
         if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
             $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
             $total = Compra::where('carrito_id', '=', $carrito->id)->sum('monto');
             $hoy = Carbon::now();
 
@@ -111,7 +116,7 @@ class CarritoController extends Controller
                 'compra_estado' => 1,
                 'envio_tipo' => $request->envio_tipo,
                 'envio_estado' => 'Pendiente',
-                'envio_numero' => 1,
+                'envio_numero' => $numero,
                 'fecha_compra' => $hoy,
                 'total' => $total]);
         }
@@ -120,11 +125,16 @@ class CarritoController extends Controller
     public function historial()
     {
         if(Session::has('loginId')) {
+            $fechaA = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('fecha_compra', Carrito::min('fecha_compra'))->orderBy('fecha_compra','desc')->get();
+            $fechaB = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('fecha_compra', Carrito::max('fecha_compra'))->orderBy('fecha_compra','desc')->get();
+
             $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 1)->first();
             $compra = Compra::where('carrito_id', '=', $carrito->id);
             $productos = Productos::find($compra->producto_id);
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
 
-            return view('carrito.index', compact('compra', 'productos'));
+            return view('profile.index', compact('carrito', 'compra', 'productos', 'usuario', 'direcciones', 'fechaA', 'fechaB'))->withInput(['tab'=>'productos']);
         } else {
             return redirect()->route('login.index');
         }  

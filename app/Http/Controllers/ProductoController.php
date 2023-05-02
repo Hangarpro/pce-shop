@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Usuario;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -81,7 +82,8 @@ class ProductoController extends Controller
     public function show($id)
     {
         $producto = Producto::where('id', $id)->get();
+        $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-        return view('productos.details', compact('producto'));
+        return view('productos.details', compact('producto', 'usuario'));
     }
 }
