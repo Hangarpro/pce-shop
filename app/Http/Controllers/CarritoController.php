@@ -28,7 +28,7 @@ class CarritoController extends Controller
         if(Session::has('loginId')) {
             $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
             $compra = Compra::where('carrito_id', '=', $carrito->id);
-            $productos = Productos::find($compra->producto_id);
+            $productos = Producto::find($compra->producto_id);
 
             return view('cart.index', compact('compra', 'productos'));
         } else {
@@ -74,24 +74,25 @@ class CarritoController extends Controller
             ]);
 
             if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
-                $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
+                $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
 
                 $compra = Compra::create([
                     'producto_id' => $request->producto_id,
                     'carrito_id' => $carrito->id,
                     'cantidad' => $request->cantidad,
-                    'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
+                    'monto' => $this->obtenerMonto($request->producto_id, $request->cantidad) ]);
             } else {
-                $carrito = Carrito::create([
+                $carrito_id = Carrito::insertGetId([
                     'compra_estado' => 0,
                     'usuario_id' => $request->usuario_id]);
 
                 $compra = Compra::create([
                     'producto_id' => $request->producto_id,
-                    'carrito_id' => $carrito->id,
+                    'carrito_id' => $carrito_id,
                     'cantidad' => $request->cantidad,
-                    'monto' => 0]);
+                    'monto' => $this->obtenerMonto($request->producto_id, $request->cantidad) ]);
             }
+            return redirect()->back()->with('info', 'Producto agregado al carrito');
         } else {
             return redirect()->route('login.index');
         }   
