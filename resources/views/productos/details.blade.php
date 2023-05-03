@@ -16,13 +16,20 @@
                     <span>${{$producto[0]->precio}}</span>
                 </div>
                 <p class="lead">{{$producto[0]->descripcion}}</p>
+
                 <div class="d-flex row">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 5rem" min="1" max="{{$producto[0]->existencia}}" />
-                    <button class="btn btn-primary flex-shrink-0 col-8" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Añadir al carrito
-                    </button>
+                    <form method="POST" action="{{ route('productos.store', ['id'=>$producto[0]->id]) }}">
+                        @csrf
+                        <input class="form-control text-center me-3" name="cantidad" id="inputQuantity" type="number" value="1" style="max-width: 5rem" min="1" max="{{$producto[0]->existencia}}" />
+                        <input type="hidden" name="producto_id" value="{{$producto[0]->id}}">
+                        <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
+                        <button class="btn btn-primary flex-shrink-0 col-8">
+                            Añadir al carrito
+                        </button>
+                    </form>
                 </div>
+    
+                {{--  --}}
             </div>
         </div>
     </div>

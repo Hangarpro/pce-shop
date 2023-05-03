@@ -15,7 +15,7 @@
             <div class="card mx-auto col-md-3 col-10 mt-4 pt-4 productdiv">
                 <div class="d-flex justify-content-end">
                     <span class="badge rounded-pill text-bg-warning float-left">{{$producto->marca}}</span>
-                    <span class="badge rounded-pill {{ getBadgeColor($producto->tipo) }} float-end">{{$producto->tipo}}</span>
+                    {{-- <span class="badge rounded-pill {{ getBadgeColor($producto->tipo) }} float-end">{{$producto->tipo}}</span> --}}
                 </div>
                 <img class='mx-auto img-thumbnail' style="border:none"
                     src="{{$producto->imagen}}"

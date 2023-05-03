@@ -90,7 +90,7 @@ class CarritoController extends Controller
                     'producto_id' => $request->producto_id,
                     'carrito_id' => $carrito->id,
                     'cantidad' => $request->cantidad,
-                    'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
+                    'monto' => 0]);
             }
         } else {
             return redirect()->route('login.index');

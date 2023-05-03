@@ -29,7 +29,7 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->unsignedBigInteger('direccion_id');
+            $table->unsignedBigInteger('direccion_id')->nullable();
             $table->foreign('direccion_id')
             ->references('id')
             ->on('direcciones')
