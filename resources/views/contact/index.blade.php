@@ -92,19 +92,19 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="fname">Nombre</label>
-                                        <input type="text" required name="nombre" class="form-control" id="fname">
+                                        <input type="text" required pattern="[a-zA-Z]+" title="Por favor ingrese solo letras" name="nombre" class="form-control" id="fname">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="lname">Apellido(s)</label>
-                                        <input type="text" required name="apellido" class="form-control" id="lname">
+                                        <input type="text" required pattern="[a-zA-Z]+" title="Por favor ingrese solo letras" name="apellido" class="form-control" id="lname">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="text-black" for="email">Correo electrónico</label>
-                                <input type="email" required name="correo" class="form-control" id="email">
+                                <input type="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Por favor, introduce una dirección de correo electrónico válida en el formato usuario@dominio.com" name="correo" class="form-control" id="email">
                             </div>
 
                             <div class="form-group mb-5">

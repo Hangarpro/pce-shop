@@ -18,45 +18,22 @@
                     <div class="col align-self-center text-right text-muted">3 productos</div>
                 </div>
             </div>    
-            <div class="row border-top border-bottom">
-                <div class="row main align-items-center">
-                    <div class="col-md-2 col-5"><img class="img-fluid productimg" src={!! asset('images/psg-messi-cover.webp') !!}></div>
-                    <div class="col-md-4 col-7">
-                        <div class="row text-muted">Football</div>
-                        <div class="row">PSG - Lionel Messi</div>
+            @foreach ($productos as $producto)
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$producto->imagen}}"></div>
+                        <div class="col-md-4 col-7">
+                            <div class="row text-muted">{{$producto->tipo}}</div>
+                            <div class="row">{{$producto->nombre}}</div>
+                        </div>
+                        {{-- <div class="col-md-3 mt-2 col-5">
+                            <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
+                        </div> --}}
+                        <div class="col-md-3 mt-2 col-7">&dollar; {{$producto->precio}} <span class="close">&#10005;</span></div>
                     </div>
-                    <div class="col-md-3 mt-2 col-5">
-                        <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
-                    </div>
-                    <div class="col-md-3 mt-2 col-7">&dollar; 289.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-fluid productimg" src={!! asset('images/psg-messi-cover.webp') !!}></div>
-                    <div class="col-4">
-                        <div class="row text-muted">Football</div>
-                        <div class="row">PSG - Lionel Messi</div>
-                    </div>
-                    <div class="col-3">
-                        <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
-                    </div>
-                    <div class="col-3">&dollar; 289.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div>
-            <div class="row border-top border-bottom">
-                <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-fluid productimg" src={!! asset('images/psg-messi-cover.webp') !!}></div>
-                    <div class="col-4">
-                        <div class="row text-muted">Football</div>
-                        <div class="row">PSG - Lionel Messi</div>
-                    </div>
-                    <div class="col-3">
-                        <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
-                    </div>
-                    <div class="col-3">&dollar; 289.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div>
+                </div> 
+            @endforeach
+            
             <div class="back-to-shop"><a href="#" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
         <div class="col-md-4 summary">
@@ -68,9 +45,10 @@
             </div>
             <form>
                 <p>DIRECCIÓN</p>
-                <select>
+                <select id="direccion">
                     <option class="text-muted">Casa del pino</option>
-                    <option class="text-muted">Añadir nueva dirección</option>
+                    <option class="text-muted">Casa del pinos</option>
+                    <option class="text-muted" data-url="{{ route('profile.address') }}">Añadir nueva dirección</option>
                 </select>
                 <p>ENVÍO</p>
                 <select>
@@ -91,4 +69,16 @@
     </div>
     
 </div>
+@endsection
+@section('scripts')
+    <script>
+        // Agrega un listener para detectar el cambio de selección en el menú desplegable
+        document.getElementById('direccion').addEventListener('change', function() {
+            // Verifica si la opción seleccionada tiene un atributo data-url definido
+            if (this.options[this.selectedIndex].getAttribute('data-url')) {
+                // Redirige a la vista deseada utilizando la función "window.location.href"
+                window.location.href = this.options[this.selectedIndex].getAttribute('data-url');
+            }
+        });
+    </script>
 @endsection

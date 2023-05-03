@@ -149,7 +149,7 @@
                     <div class="tab-pane text-center gallery" id="products">
                         <div class="row">
                             <label class="">Filtrar por fecha:</label>
-                            <form class="mt-2" method="" action="" onsubmit="return validarFechas()">
+                            <form class="mt-2" method="" action="" onsubmit="return validarFechas()" id="filtro-form">
                                 @csrf
                                 <div class="row g-3">
                                     <div class="col-md-3 col-sm-6 mx-auto">
@@ -231,33 +231,49 @@
     </script>
     <script>
         function validarFechas() {
-          var fecha1 = document.getElementById("fecha1").value;
-          var fecha2 = document.getElementById("fecha2").value;
+        var fecha1 = document.getElementById("fecha1").value;
+        var fecha2 = document.getElementById("fecha2").value;
         
-          if (fecha1 > fecha2) { 
+        if (fecha1 > fecha2) { 
             Swal.fire({
                 icon: 'error',
                 title: 'error',
                 text: 'La fecha inicial no puede ser mayor a la fecha final!',
             })
             return false;
-          }
-          return true;
+        }
+        return true;
         }
 
         function showDeleteConfirmation(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'Esta acción eliminará la información permanentemente.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm' + id).submit();
-            }
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará la información permanentemente.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + id).submit();
+                }
+            });
+        }
+
+        $(document).ready(function() {
+        $("#filtro-form").submit(function(event) {
+            event.preventDefault();
+            var fechaInicio = new Date($("#fecha1").val()).getTime();
+            var fechaFinal = new Date($("#fecha2").val()).getTime();
+            $("#table-body tr").each(function() {
+                var fechaTabla = new Date($(this).find("td:first-child").text()).getTime();
+                if (fechaTabla >= fechaInicio && fechaTabla <= fechaFinal) {
+                $(this).show();
+                } else {
+                $(this).hide();
+                }
+            });
+            });
         });
-    }
-        </script>
+    </script>
 @endsection
