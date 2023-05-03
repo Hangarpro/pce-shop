@@ -26,7 +26,6 @@ class Carrito extends Model
         'usuario_id',
         'direccion_id',
         'tarjeta',
-        'compra_id',
         'compra_estado',
         'envio_tipo',
         'envio_estado',

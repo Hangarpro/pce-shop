@@ -84,8 +84,7 @@ class CarritoController extends Controller
             } else {
                 $carrito = Carrito::create([
                     'compra_estado' => 0,
-                    'usuario_id' => $request->usuario_id,
-                    'compra_id' => $compra->id]);
+                    'usuario_id' => $request->usuario_id]);
 
                 $compra = Compra::create([
                     'producto_id' => $request->producto_id,
