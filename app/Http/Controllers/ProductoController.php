@@ -6,6 +6,7 @@ use App\Models\Producto;
 use App\Models\Usuario;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class ProductoController extends Controller
 {

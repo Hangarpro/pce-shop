@@ -83,7 +83,9 @@ class CarritoController extends Controller
                     'monto' => obtenerMonto($request->producto_id, $request->cantidad) ]);
             } else {
                 $carrito = Carrito::create([
-                    'compra_estado' => 0]);
+                    'compra_estado' => 0,
+                    'usuario_id' => $request->usuario_id,
+                    'compra_id' => $compra->id]);
 
                 $compra = Compra::create([
                     'producto_id' => $request->producto_id,

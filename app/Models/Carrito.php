@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Carrito extends Model
 {
     use HasFactory;
+
+    protected $table = "carrito";
+
     protected $nullable = [
+        'direccion_id',
         'tarjeta',
         'envio_tipo',
         'envio_estado',

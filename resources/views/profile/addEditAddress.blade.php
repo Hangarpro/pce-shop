@@ -9,26 +9,16 @@
         
         <div class="row">
             <div class="col-md-5">
-                @if (session('info'))
+                @if(session('info'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="mdi mdi-check-all me-2"></i>
-                            Acción realizada con exito.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{session('info')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                @else
-                    {{-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="mdi mdi-block-helper me-2"></i>
-                        error! no se pudo realizar la accion.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> --}}
                 @endif
             </div>
         </div>
-        {{-- @if(session('info'))
-            <div class="alert alert-success">
-                {{ session('info') }}
-            </div>
-        @endif --}}
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
             <h2 class="text-center mb-4 text-primary" >
                 @if (isset($direccion))
