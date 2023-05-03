@@ -95,7 +95,7 @@
                                         </div>
                                         
                                         <div class="d-grid">
-                                            <button class="btn btn-primary" >Nueva contraseña</button>
+                                            <button class="btn btn-primary" >Cambiar contraseña</button>
                                         </div>
                                     </form>
                                 </div>
@@ -112,7 +112,7 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#flush-collapse-{{$direccion->id}}" aria-expanded="false"
                                                     aria-controls="flush-collapse-{{$direccion->id}}">
-                                                    {{$direccion->nombreDireccion ?? 'Direccion sin nombre'}}
+                                                    {{$direccion->nombreDireccion ?? $direccion->calle}}
                                                 </button>
                                             </h2> 
                                             <div id="flush-collapse-{{$direccion->id}}" class="accordion-collapse collapse"
