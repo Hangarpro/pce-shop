@@ -18,8 +18,8 @@ class Compra extends Model
         'monto'
     ]; 
 
-    public function producto_id(){
-        return $this->belongsTo(Producto::class);
+    public function productos(){
+        return $this->hasMany(Producto::class);
     }
 
     public function carrito_id(){

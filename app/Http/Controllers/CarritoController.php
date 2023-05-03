@@ -27,10 +27,9 @@ class CarritoController extends Controller
     {
         if(Session::has('loginId')) {
             $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
-            $compra = Compra::where('carrito_id', '=', $carrito->id);
-            $productos = Producto::find($compra->producto_id);
+            $productos = Producto::with('compra')->get();
 
-            return view('cart.index', compact('compra', 'productos'));
+            return view('cart.index', compact('productos'));
         } else {
             return redirect()->route('login.index');
         }  
