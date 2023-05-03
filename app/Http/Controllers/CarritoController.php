@@ -26,10 +26,10 @@ class CarritoController extends Controller
     public function index()
     {
         if(Session::has('loginId')) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
-            $productos = Producto::with('compra')->get();
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
 
-            return view('cart.index', compact('productos'));
+          
+            return view('cart.index', compact('carrito'));
         } else {
             return redirect()->route('login.index');
         }  

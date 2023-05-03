@@ -23,6 +23,6 @@ class Producto extends Model
         'descripcion'
     ]; 
     public function compra(){
-        return $this->hasMany(Compra::class);
+        return $this->hasMany(Compra::class, 'compra_id', 'id');
     }
 }

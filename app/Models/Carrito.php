@@ -48,6 +48,6 @@ class Carrito extends Model
     }
 
     public function compra(){
-        return $this->hasMany(Compra::class);
+        return $this->hasMany(Compra::class, 'carrito_id', 'id');
     }
 }

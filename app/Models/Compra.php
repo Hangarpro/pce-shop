@@ -19,10 +19,10 @@ class Compra extends Model
     ]; 
 
     public function productos(){
-        return $this->hasMany(Producto::class);
+        return $this->hasMany(Producto::class, 'producto_id', 'id');
     }
 
     public function carrito_id(){
-        return $this->belongsTo(Carrito::class);
+        return $this->belongsTo(Carrito::class, 'id', 'carrito_id');
     }
 }

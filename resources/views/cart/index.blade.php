@@ -17,23 +17,24 @@
                     <div class="col"><h4><b>Carrito</b></h4></div>
                     <div class="col align-self-center text-right text-muted">3 productos</div>
                 </div>
-            </div>    
-            @foreach ($productos as $producto)
-                <div class="row border-top border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$producto->imagen}}"></div>
-                        <div class="col-md-4 col-7">
-                            <div class="row text-muted">{{$producto->tipo}}</div>
-                            <div class="row">{{$producto->nombre}}</div>
+            </div>  
+            @foreach ($carrito as $car)  
+                @foreach ($car->compra as $compra)  
+                    <div class="row border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col-md-2 col-5"><img class="img-fluid productimg" src={!! asset('images/psg-messi-cover.webp') !!}></div>
+                            <div class="col-md-4 col-7">
+                                <div class="row text-muted">Football</div>
+                                <div class="row">{{$compra}}</div>
+                            </div>
+                            <div class="col-md-3 mt-2 col-5">
+                                <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
+                            </div>
+                            <div class="col-md-3 mt-2 col-7">&dollar; 289.00 <span class="close">&#10005;</span></div>
                         </div>
-                        {{-- <div class="col-md-3 mt-2 col-5">
-                            <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
-                        </div> --}}
-                        <div class="col-md-3 mt-2 col-7">&dollar; {{$producto->precio}} <span class="close">&#10005;</span></div>
                     </div>
-                </div> 
+                @endforeach
             @endforeach
-            
             <div class="back-to-shop"><a href="#" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
         <div class="col-md-4 summary">
