@@ -17,17 +17,20 @@
                 </div>
                 <p class="lead">{{$producto[0]->descripcion}}</p>
 
-                <div class="d-flex row">
-                    <form method="POST" action="{{ route('productos.store', ['id'=>$producto[0]->id]) }}">
-                        @csrf
-                        <input class="form-control text-center me-3" name="cantidad" id="inputQuantity" type="number" value="1" style="max-width: 5rem" min="1" max="{{$producto[0]->existencia}}" />
-                        <input type="hidden" name="producto_id" value="{{$producto[0]->id}}">
-                        <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
-                        <button class="btn btn-primary flex-shrink-0 col-8">
-                            Añadir al carrito
-                        </button>
-                    </form>
-                </div>
+                @if(session()->has('loginId'))      
+                    <div class="d-flex row">
+                        <form method="POST" action="{{ route('productos.store', ['id'=>$producto[0]->id]) }}">
+                            @csrf
+                            <input class="form-control text-center me-3" name="cantidad" id="inputQuantity" type="number" value="1" style="max-width: 5rem" min="1" max="{{$producto[0]->existencia}}" />
+                            <input type="hidden" name="producto_id" value="{{$producto[0]->id}}">
+                            <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
+                            <button class="btn btn-primary flex-shrink-0 col-8">
+                                Añadir al carrito
+                            </button>
+                        </form>
+                    </div>
+                @endif
+                
     
                 {{--  --}}
             </div>
@@ -35,7 +38,7 @@
     </div>
 </section>
 
-<section class="py-5 bg-light">
+{{-- <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Productos relacionados</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -125,7 +128,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection
 @section('scripts')
     <script>
