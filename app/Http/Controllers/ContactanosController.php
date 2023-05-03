@@ -11,9 +11,6 @@ use Session;
 
 class ContactanosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         if(Session::has('loginId')) {
@@ -27,17 +24,6 @@ class ContactanosController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -47,7 +33,7 @@ class ContactanosController extends Controller
             'comentario' => 'required'
         ]);
 
-        $usuario = Usuario::create([
+        Contactanos::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,
@@ -55,37 +41,5 @@ class ContactanosController extends Controller
         ]);
 
         return redirect()->route('welcome')->with('info', 'Se ha guardado su comentario');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Contactanos $contactanos): Response
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contactanos $contactanos): Response
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Contactanos $contactanos): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contactanos $contactanos): RedirectResponse
-    {
-        //
     }
 }
