@@ -26,10 +26,16 @@ class CarritoController extends Controller
     public function index()
     {
         if(Session::has('loginId')) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
+            if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
+                $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
+                $total = $carrito[0]->compra->sum('monto');
+                $productos = Producto::join("compra", "compra.producto_id", "=", "productos.id")->select("*")->get();
+                $direcciones = array();
 
-          
-            return view('cart.index', compact('carrito'));
+                if(Direcciones::where('usuario_id', '=', Session::get('loginId'))->exists())
+                    $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
+                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
+            }
         } else {
             return redirect()->route('login.index');
         }  

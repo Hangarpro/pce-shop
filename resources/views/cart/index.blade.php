@@ -15,40 +15,41 @@
             <div class="title">
                 <div class="row">
                     <div class="col"><h4><b>Carrito</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">3 productos</div>
+                    <div class="col align-self-center text-right text-muted">{{$carrito[0]->compra->count()}} Productos</div>
                 </div>
             </div>  
-            @foreach ($carrito as $car)  
-                @foreach ($car->compra as $compra)  
+                @for ($i=0; $i < count($productos); $i++)
                     <div class="row border-top border-bottom">
                         <div class="row main align-items-center">
-                            <div class="col-md-2 col-5"><img class="img-fluid productimg" src={!! asset('images/psg-messi-cover.webp') !!}></div>
+                            <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$productos[$i]->imagen}}"></div>
                             <div class="col-md-4 col-7">
-                                <div class="row text-muted">Football</div>
-                                <div class="row">{{$compra}}</div>
+                                <div class="row text-muted">{{$productos[$i]->marca}}</div>
+                                <div class="row">{{$productos[$i]->nombre}}</div>
                             </div>
                             <div class="col-md-3 mt-2 col-5">
-                                <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">1</a><a href="#" class="text-decoration-none">+</a>
+                                <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">
+                                    {{$carrito[0]->compra[$i]->cantidad}}
+                                </a><a href="#" class="text-decoration-none">+</a>
                             </div>
-                            <div class="col-md-3 mt-2 col-7">&dollar; 289.00 <span class="close">&#10005;</span></div>
+                            <div class="col-md-3 mt-2 col-7">&dollar; {{$carrito[0]->compra[$i]->monto}} <span class="close">&#10005;</span></div>
                         </div>
                     </div>
-                @endforeach
-            @endforeach
+                @endfor
             <div class="back-to-shop"><a href="#" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
         <div class="col-md-4 summary">
             <div><h5><b>Resumen</b></h5></div>
             <hr>
             <div class="row">
-                <div class="col" style="padding-left:0;">Productos 3</div>
-                <div class="col text-right">&dollar; 927.00</div>
+                <div class="col" style="padding-left:0;">Productos {{$carrito[0]->compra->count()}}</div>
+                <div class="col text-right">&dollar; {{$total}}</div>
             </div>
             <form>
                 <p>DIRECCIÓN</p>
                 <select id="direccion">
-                    <option class="text-muted">Casa del pino</option>
-                    <option class="text-muted">Casa del pinos</option>
+                    @foreach ($direcciones as $direccion)
+                        <option class="text-muted">{{$direccion->nombreDireccion ?? $direccion->calle}}</option>
+                    @endforeach
                     <option class="text-muted" data-url="{{ route('profile.address') }}">Añadir nueva dirección</option>
                 </select>
                 <p>ENVÍO</p>
