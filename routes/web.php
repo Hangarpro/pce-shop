@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CarritoController;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,9 +66,12 @@ Route::get('/profile/order', function () {
     return view('profile/detailsOrder');
 });
 
-Route::get('/dashboard', function () {
+//Dashboard
+Route::get('/dashboard', [AdministradorController::class, 'index'])->name('admin.statistics.index');
+
+/*Route::get('/dashboard', function () {
     return view('admin/statistics/index');
-});
+});*/
 
 Route::get('/users', function () {
     return view('admin/users/index');

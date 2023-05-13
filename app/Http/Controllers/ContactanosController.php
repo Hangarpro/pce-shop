@@ -20,8 +20,6 @@ class ContactanosController extends Controller
         } else {
             return view('contact.index');
         }
-
-        
     }
 
     public function store(Request $request)

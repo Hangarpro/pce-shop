@@ -15,9 +15,10 @@
             <div class="title">
                 <div class="row">
                     <div class="col"><h4><b>Carrito</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">{{$carrito[0]->compra->count()}} Productos</div>
+                    <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ? $carrito[0]->compra->count() + 'Productos' : 'No hay poductos' }}</div>
                 </div>
-            </div>  
+            </div> 
+            @if(isset($carrito)) 
                 @for ($i=0; $i < count($productos); $i++)
                     <div class="row border-top border-bottom">
                         <div class="row main align-items-center">
@@ -35,15 +36,18 @@
                         </div>
                     </div>
                 @endfor
+            @endif
             <div class="back-to-shop"><a href="#" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
         <div class="col-md-4 summary">
             <div><h5><b>Resumen</b></h5></div>
             <hr>
-            <div class="row">
-                <div class="col" style="padding-left:0;">Productos {{$carrito[0]->compra->count()}}</div>
-                <div class="col text-right">&dollar; {{$total}}</div>
-            </div>
+            @if(isset($carrito[0]))
+                <div class="row">
+                    <div class="col" style="padding-left:0;">Productos {{$carrito[0]->compra->count()}}</div>
+                    <div class="col text-right">&dollar; {{$total}}</div>
+                </div>
+            @endif
             <form>
                 <p>DIRECCIÓN</p>
                 <select id="direccion">

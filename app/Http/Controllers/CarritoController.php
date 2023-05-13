@@ -35,6 +35,15 @@ class CarritoController extends Controller
                 if(Direcciones::where('usuario_id', '=', Session::get('loginId'))->exists())
                     $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
                 return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
+            } else {
+                $carrito = array();
+                $total = array();
+                $productos = array();
+                $direcciones = array();
+
+                if(Direcciones::where('usuario_id', '=', Session::get('loginId'))->exists())
+                    $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
+                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
             }
         } else {
             return redirect()->route('login.index');
