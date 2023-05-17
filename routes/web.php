@@ -8,7 +8,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CarritoController;
-use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,10 +67,14 @@ Route::get('/profile/order', function () {
 
 //Dashboard
 Route::get('/dashboard', [AdministradorController::class, 'index'])->name('admin.statistics.index');
-
-/*Route::get('/dashboard', function () {
-    return view('admin/statistics/index');
-});*/
+Route::get('/products', [AdministradorController::class, 'productos'])->name('admin.products.index');
+Route::get('/productsAdd', [AdministradorController::class, 'add_producto'])->name('admin.products.new');
+Route::post('/productsAdd', [AdministradorController::class, 'store_producto'])->name('admin.products.add');
+Route::get('/productsUpdate/{id}', [AdministradorController::class, 'show_producto'])->name('admin.products.show');
+Route::post('/productsUpdate/{id}', [AdministradorController::class, 'update_producto'])->name('admin.products.update');
+Route::delete('/products/{id}', [AdministradorController::class, 'destroy_producto'])->name('admin.products.destroy');
+Route::get('/productsUpdate/{id}', [AdministradorController::class, 'show_existencia'])->name('admin.products.existencia');
+Route::post('/productsUpdate/{id}', [AdministradorController::class, 'update_existencia'])->name('admin.products.addExistencia');
 
 Route::get('/users', function () {
     return view('admin/users/index');
@@ -87,16 +90,4 @@ Route::get('/usersPass', function () {
 
 Route::get('/sales', function () {
     return view('admin/sales/index');
-});
-
-Route::get('/products', function () {
-    return view('admin/products/index');
-});
-
-Route::get('/productsAdd', function () {
-    return view('admin/products/addEdit');
-});
-
-Route::get('/productsUpdate', function () {
-    return view('admin/products/update');
 });

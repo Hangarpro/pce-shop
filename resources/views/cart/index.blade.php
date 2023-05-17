@@ -15,7 +15,7 @@
             <div class="title">
                 <div class="row">
                     <div class="col"><h4><b>Carrito</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ? $carrito[0]->compra->count() + 'Productos' : 'No hay poductos' }}</div>
+                    <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ? $carrito[0]->compra->count() . 'Productos' : 'No hay poductos' }}</div>
                 </div>
             </div> 
             @if(isset($carrito)) 

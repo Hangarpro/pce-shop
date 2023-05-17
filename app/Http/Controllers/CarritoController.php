@@ -29,12 +29,14 @@ class CarritoController extends Controller
             if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
                 $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->get();
                 $total = $carrito[0]->compra->sum('monto');
+                $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
                 $productos = Producto::join("compra", "compra.producto_id", "=", "productos.id")->select("*")->get();
                 $direcciones = array();
 
                 if(Direcciones::where('usuario_id', '=', Session::get('loginId'))->exists())
                     $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
-                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
+                //return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
+                return $carrito;
             } else {
                 $carrito = array();
                 $total = array();
@@ -43,7 +45,7 @@ class CarritoController extends Controller
 
                 if(Direcciones::where('usuario_id', '=', Session::get('loginId'))->exists())
                     $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
-                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total'));
+                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
             }
         } else {
             return redirect()->route('login.index');
