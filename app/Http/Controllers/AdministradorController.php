@@ -44,11 +44,9 @@ class AdministradorController extends Controller
 
             //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
             if(true) {
-                //$productos = Producto::all();
+                $productos = Producto::all();
 
-                //compact('productos')
-
-                return view('admin.products.index');
+                return view('admin.products.index', compact('productos', 'usuario'));
             } else {
                 abort(403);
             }
@@ -63,7 +61,7 @@ class AdministradorController extends Controller
 
             //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
             if(true) {
-                return view('admin.products.addEdit');
+                return view('admin.products.addEdit', compact('usuario'));
             } else {
                 abort(403);
             }
@@ -110,7 +108,7 @@ class AdministradorController extends Controller
                     $producto->imagen2 = $imageName;
                     $producto->save();
                 }
-                return view('admin.products.index');
+                return view('admin.products.index', compact('usuario'));
             } else {
                 abort(403);
             }
@@ -127,7 +125,7 @@ class AdministradorController extends Controller
             if(true) {
                 $producto = Producto::find($request->id);
 
-                return view('admin.products.addEdit', compact('producto'));
+                return view('admin.products.addEdit', compact('producto', 'usuario'));
             } else {
                 abort(403);
             }
@@ -201,7 +199,7 @@ class AdministradorController extends Controller
             if(true) {
                 $producto = Producto::find($request->id);
 
-                return view('admin.products.update', compact('producto'));
+                return view('admin.products.update', compact('producto', 'usuario'));
             } else {
                 abort(403);
             }
@@ -244,7 +242,7 @@ class AdministradorController extends Controller
             if($producto)
                 $producto->delete();
 
-                return redirect()->back()->with('info', 'Prodcuto eliminado');
+                return redirect()->back()->with('info', 'Prodcuto eliminado correctamente');
             } else {
                 abort(403);
             }
