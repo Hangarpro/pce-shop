@@ -15,11 +15,35 @@
             <div class="title">
                 <div class="row">
                     <div class="col"><h4><b>Carrito</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ? $carrito[0]->compra->count() . 'Productos' : 'No hay poductos' }}</div>
+                    {{-- <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ?? $carrito[0]->compra->count() + 'Productos' : 'No hay poductos' }}</div> --}}
+                    <div class="col align-self-center text-right text-muted">{{ isset($carrito[0]) ? $carrito[0]->compra->count() . ' Productos' : 'No hay productos' }}</div>
+
                 </div>
             </div> 
             @if(isset($carrito)) 
-                @for ($i=0; $i < count($productos); $i++)
+                @foreach ($productos as $producto) 
+                    @if (($carrito[0]->id) == $producto->carrito_id) 
+                        <div class="row border-top border-bottom"> 
+                            <div class="row main align-items-center">
+                                <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$producto->imagen}}"></div>
+                                <div class="col-md-4 col-7">
+                                    <div class="row text-muted">{{$producto->marca}}</div>
+                                    <div class="row">{{$producto->nombre}}</div>
+                                </div>
+                                <div class="col-md-3 mt-2 col-5">
+                                    {{-- <a href="#" class="text-decoration-none">-</a> --}}
+                                    <a href="#" class="border text-decoration-none">
+                                        {{$producto->cantidad}}
+                                    </a>
+                                    {{-- <a href="#" class="text-decoration-none">+</a> --}}
+                                </div>
+                                <div class="col-md-3 mt-2 col-7">&dollar; {{$producto->monto}} <span class="close">&#10005;</span></div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+                
+                {{-- @for ($i=0; $i < count($productos); $i++)
                     <div class="row border-top border-bottom">
                         <div class="row main align-items-center">
                             <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$productos[$i]->imagen}}"></div>
@@ -35,9 +59,9 @@
                             <div class="col-md-3 mt-2 col-7">&dollar; {{$carrito[0]->compra[$i]->monto}} <span class="close">&#10005;</span></div>
                         </div>
                     </div>
-                @endfor
+                @endfor --}}
             @endif
-            <div class="back-to-shop"><a href="#" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
+            <div class="back-to-shop"><a href="{{ route('productos.index') }}" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
         <div class="col-md-4 summary">
             <div><h5><b>Resumen</b></h5></div>
@@ -49,28 +73,32 @@
                 </div>
             @endif
             <form>
+                <input type="hidden" name="carrito_id" value="{{$carrito[0]->id}}">
                 <p>DIRECCIÓN</p>
                 <select id="direccion">
                     @foreach ($direcciones as $direccion)
-                        <option class="text-muted">{{$direccion->nombreDireccion ?? $direccion->calle}}</option>
+                        <option value="{{$direccion->id}}" name="direccion_id" class="text-muted">{{$direccion->nombreDireccion ?: $direccion->calle}}</option>
                     @endforeach
                     <option class="text-muted" data-url="{{ route('profile.address') }}">Añadir nueva dirección</option>
                 </select>
                 <p>ENVÍO</p>
-                <select>
-                    <option class="text-muted">Envío Regular - &dollar; 99.00</option>
-                    <option class="text-muted">Envío Express - &dollar; 159.00</option>
-                </select>
+                @if ($total > 1299 )
+                    <h6><b value="gratis" name="envio_tipo">Envío gratis</b></h6>
+                    <input type="hidden" id="envio_precio" value="0">
+                @else
+                    <select id="envio_tipo"  onchange="actualizarPrecioTotal()">
+                        <option value="regular" name="envio_tipo" class="text-muted">Envío Regular - &dollar; 99.00</option>
+                        <option value="expres" name="envio_tipo" class="text-muted">Envío Express - &dollar; 159.00</option>
+                    </select>
+                @endif
+                <hr>
+                <div class="row">
+                    <div class="col">PRECIO TOTAL</div>
+                    <div class="col text-right" name="total" id="precio_total">&dollar; {{$total}}</div>
+                </div>
+                <a class="btn btn-primary" href="{{ url('/payment') }}">PROCEDER AL PAGO</a>
             </form>
-            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                <div class="col">ENVÍO REGULAR <br>(4 - 6 días)</div>
-                <div class="col text-right">&dollar; 99.00</div>
-            </div>
-            <div class="row">
-                <div class="col">PRECIO TOTAL</div>
-                <div class="col text-right">&dollar; 1,026.00</div>
-            </div>
-            <a class="btn btn-primary" href="{{ url('/payment') }}">PROCEDER AL PAGO</a>
+            
         </div>
     </div>
     
@@ -78,13 +106,25 @@
 @endsection
 @section('scripts')
     <script>
-        // Agrega un listener para detectar el cambio de selección en el menú desplegable
         document.getElementById('direccion').addEventListener('change', function() {
-            // Verifica si la opción seleccionada tiene un atributo data-url definido
             if (this.options[this.selectedIndex].getAttribute('data-url')) {
-                // Redirige a la vista deseada utilizando la función "window.location.href"
                 window.location.href = this.options[this.selectedIndex].getAttribute('data-url');
             }
         });
+
+        function actualizarPrecioTotal() {
+        var envioTipo = document.getElementById("envio_tipo").value;
+        var envioPrecio = 0;
+
+        if (envioTipo === "regular") {
+            envioPrecio = 99.00;
+        } else if (envioTipo === "expres") {
+            envioPrecio = 159.00;
+        }
+
+        var total = parseFloat("{{$total}}");
+        var nuevoTotal = total + envioPrecio;
+        document.getElementById("precio_total").innerHTML = "&dollar; " + nuevoTotal.toFixed(2);
+    }
     </script>
 @endsection

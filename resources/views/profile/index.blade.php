@@ -260,20 +260,28 @@
             });
         }
 
-        $(document).ready(function() {
-        $("#filtro-form").submit(function(event) {
-            event.preventDefault();
-            var fechaInicio = new Date($("#fecha1").val()).getTime();
-            var fechaFinal = new Date($("#fecha2").val()).getTime();
-            $("#table-body tr").each(function() {
-                var fechaTabla = new Date($(this).find("td:first-child").text()).getTime();
-                if (fechaTabla >= fechaInicio && fechaTabla <= fechaFinal) {
-                $(this).show();
+        const table = document.getElementById('example2');
+        const fechaInicio = document.getElementById('fecha1');
+        const fechaFinal = document.getElementById('fecha2');
+
+        const filtroForm = document.getElementById('filtro-form');
+        filtroForm.addEventListener('submit', function (event) {
+            event.preventDefault(); 
+
+            // Obtener los valores de fecha
+            const inicio = new Date(fechaInicio.value);
+            const fin = new Date(fechaFinal.value);
+
+        
+            const filas = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            for (let i = 0; i < filas.length; i++) {
+                const fecha = new Date(filas[i].getElementsByTagName('td')[0].textContent);
+                if (fecha < inicio || fecha > fin) {
+                    filas[i].style.display = 'none';
                 } else {
-                $(this).hide();
+                    filas[i].style.display = ''; 
                 }
-            });
-            });
+            }
         });
     </script>
 @endsection

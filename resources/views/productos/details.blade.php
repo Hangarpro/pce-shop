@@ -20,7 +20,7 @@
                 @if(session()->has('loginId'))      
                     <div class="d-flex row">
                         <form method="POST" action="{{ route('productos.store', ['id'=>$producto[0]->id]) }}">
-                            @csrf
+                            @csrf 
                             <input class="form-control text-center me-3" name="cantidad" id="inputQuantity" type="number" value="1" style="max-width: 5rem" min="1" max="{{$producto[0]->existencia}}" />
                             <input type="hidden" name="producto_id" value="{{$producto[0]->id}}">
                             <input type="hidden" name="usuario_id" value="{{$usuario->id}}">

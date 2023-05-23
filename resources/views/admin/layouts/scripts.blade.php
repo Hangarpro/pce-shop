@@ -5,7 +5,7 @@
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-    $.widget.bridge('uibutton', $.ui.button);
+     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -57,19 +57,6 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $(".borrar").click(function(e) {
-            e.preventDefault();
-            var res = confirm("¿Desea eliminar al usuario seleccionado?");
-            if (res == true) {
-                var link = $(this).attr("href");
-                window.location = link;
-            }
-
         });
     });
 </script>

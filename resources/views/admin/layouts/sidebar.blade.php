@@ -42,30 +42,38 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('/dashboard')}}" class="nav-link active">
+                            <a href="{{url('/dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                                 <i class="fas fa-chart-bar nav-icon"></i>
                                 <p>Estadísticas</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/users')}}" class="nav-link">
+                            <a href="{{url('/users')}}" class="nav-link {{ Request::is('users') ? 'active' : '' }}">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/products')}}" class="nav-link">
+                            <a href="{{ route('admin.products.index') }}" class="nav-link {{ Request::is('products', 'productsAdd', 'productsUpdate/*', 'productsUpdateExistencia/*') ? 'active' : '' }}">
                                 <i class="fa fa-shopping-bag nav-icon"></i>
                                 <p>Productos</p>
                             </a>
                         </li>
+                        
+                        {{-- <li class="nav-item">
+                            <a href="{{ route('admin.products.index') }}" class="nav-link {{ Request::is('products') ? 'active' : '' }}">
+                                <i class="fa fa-shopping-bag nav-icon"></i>
+                                <p>Productos</p>
+                            </a>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href="{{url('/sales')}}" class="nav-link">
+                            <a href="{{url('/sales')}}" class="nav-link {{ Request::is('sales') ? 'active' : '' }}">
                                 <i class="fas fa-shopping-cart nav-icon"></i>
                                 <p>Ventas</p>
                             </a>
                         </li>
                     </ul>
+                    
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

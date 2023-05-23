@@ -11,7 +11,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Agregar Producto</h1>
+                        @if (isset($producto))
+                            <h1>Editar producto</h1>
+                        @else
+                            <h1>Agregar Producto</h1>
+                        @endif
+                        
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -31,48 +36,58 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form class="#" method="post">
+                                {{-- <form  method="post"  action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add'') }} @endif"> --}}
+                                <form id="myForm" method="POST" action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add') }} @endif">        
+                                    @csrf
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" required="required">
+                                        <input type="text" name="nombre" value="@if(isset($producto)){{$producto->nombre}}@else{{old('nombre')}}  @endif" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Precio</label>
-                                        <input type="number" step="any" name="precio" class="form-control"
+                                        <input type="number" step="any" value="{{ old('precio') }}" name="precio" class="form-control"
                                             required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Existencia</label>
-                                        <input type="number" name="existencia" class="form-control" required="required">
+                                        <input type="number" name="existencia" value="{{ old('existencia') }}" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Tipo</label><br>
-                                        <input type="radio" id="nuevo" name="tipoProducto" value="nuevo"
-                                            required="required">
+                                        <input type="radio" id="nuevo" name="tipo" value="nuevo"  required="required">
                                         <label for="nuevo">Nuevo</label>
-                                        <br><input type="radio" id="exclusivo" name="tipoProducto" value="exclusivo">
+                                        <br><input type="radio" id="exclusivo" name="tipo" value="exclusivo">
                                         <label for="exclusivo">Exclusivo</label>
-                                        <br><input type="radio" id="limitado" name="tipoProducto" value="limitado">
+                                        <br><input type="radio" id="limitado" name="tipo" value="limitado">
                                         <label for="limitado">Limitado</label><br>
-                                        <input type="radio" id="regular" name="tipoProducto" value="regular">
+                                        <input type="radio" id="regular" name="tipo" value="regular">
                                         <label for="regular">Regular</label>
                                     </div>
                                     <div class="form-group">
                                         <label>Imagen</label>
-                                        <input type="text" name="imagen" class="form-control" required="required">
+                                        <input type="file" class="form-control-file" required name="imagen" value="{{ old('imagen') }}" accept="image/jpeg, image/png, image/gif">
                                     </div>
                                     <div class="form-group">
-                                        <label>Imagen Secundaria</label>
-                                        <input type="text" name="img_secundaria" class="form-control"
-                                            required="required">
+                                        <label>Imagen secundaria</label>
+                                        <input type="file" name="imagen2" required class="form-control-file" value="{{ old('imagen2') }}" required name="imagen" 
+                                         accept="image/jpeg, image/png, image/gif">
                                     </div>
                                     <div class="form-group">
                                         <label>Marca</label>
-                                        <input type="text" name="marca" class="form-control" required="required">
+                                        <input type="text" name="marca" value="{{ old('marca') }}" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <textarea rows="5" class="form-control" required="required"></textarea>
+                                        <textarea rows="5" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required="required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
