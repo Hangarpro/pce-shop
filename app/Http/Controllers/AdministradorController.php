@@ -160,11 +160,29 @@ class AdministradorController extends Controller
                     $nombreImagen = date('YmdHis') . "." . $imagen2->getClientOriginalExtension();
                     $imagen2->move($destino, $nombreImagen);
                     $input['imagen_secundaria'] = 'images/' . "$nombreImagen";
-                } else {
-                    unset($input['imagen_secundaria']);
-                }
 
-                Producto::where('id', '=', $request->producto_id)->update([$input]);
+                    Producto::where('id', '=', $request->producto_id)->update([
+                        'nombre' => $request->nombre,
+                        'correo' => $request->precio,
+                        'existencia' => $request->existencia,
+                        'tipo' => $request->tipo,
+                        'marca' => $request->marca,
+                        'descripcion' => $request->descripcion,
+                        'imagen' => $input['imagen'],
+                        'imagen_secundaria' => $input['imagen_secundaria']
+                    ]);
+                } else {
+                    Producto::where('id', '=', $request->producto_id)->update([
+                        'nombre' => $request->nombre,
+                        'correo' => $request->precio,
+                        'existencia' => $request->existencia,
+                        'tipo' => $request->tipo,
+                        'marca' => $request->marca,
+                        'descripcion' => $request->descripcion,
+                        'imagen' => $input['imagen'],
+                        'imagen_secundaria' => null
+                    ]);
+                }
 
                 $productos = Producto::all();
                 return redirect()->route('admin.products.index')->with('info', 'Producto actualizado correctamente');
