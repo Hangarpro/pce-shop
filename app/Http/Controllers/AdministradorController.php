@@ -245,7 +245,195 @@ class AdministradorController extends Controller
             if($producto)
                 $producto->delete();
 
-                return redirect()->back()->with('info', 'Prodcuto eliminado correctamente');
+                return redirect()->back()->with('info', 'Producto eliminado correctamente');
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function usuarios()
+    {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $usuarios = Usuario::all();
+
+                return view('admin.users.index', compact('usuarios', 'usuario'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    function add_usuario() {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                return view('admin.users.addEdit', compact('usuario'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function store_usuario(Request $request)
+    {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $request->validate([
+                    'nombre' => 'required',
+                    'correo' => 'required',
+                    'contrasena' => 'required|confirmed'
+                ]);
+        
+                $usuario = Usuario::create([
+                    'nombre' => $request->nombre,
+                    'correo' => $request->correo,
+                    'rol' => 'Usuario',
+                    'contrasena' => Hash::make($request->password)
+                ]);
+        
+                return redirect()->route('admin.users.index');
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    function show_usuario($id) {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $usuario = Usuario::find($id);
+
+                return view('admin.users.addEdit', compact('usuario'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function update_usuario(Request $request)
+    {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $request->validate([
+                    'usuario_id => required',
+                    'nombre' => 'required_without:correo',
+                    'correo' => 'required_without:nombre'
+                ]);
+
+                if(isset($request->nombre)) {
+                    Usuario::where('id', '=', $request->usuario_id)->update([
+                        'nombre' => $request->nombre
+                    ]);
+                }
+                if(isset($request->correo)) {
+                    Usuario::where('id', '=', $request->usuario_id)->update([
+                        'correo' => $request->correo
+                    ]);
+                }
+
+                $usuarios = Usuario::all();
+                return view('admin.users.index', compact('usuarios', 'usuario'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function show_update($id)
+    {
+        if(Session::has('loginId')) {
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $usuario = Usuario::find($id);
+
+                return view('admin.users.changePassword', compact('usuario', 'user'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function update_contrasena(Request $request)
+    {
+        if(Session::has('loginId')) {
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $request->validate([ 
+                    'usuario_id' => 'required',
+                    'contrasena' => 'required',
+                    'contrasena_nueva' => 'required|confirmed',
+                ]);
+        
+                $usuarioContrasena = Usuario::where('id', '=', $request->usuario_id);
+                $hashContrasena = $usuarioContrasena->contrasena;
+
+                if (\Hash::check($request->contrasena, $hashContrasena)) {
+                    if (!\Hash::check($request->contrasena_nueva, $hashContrasena)) {
+                        
+                        Usuario::where('id', '=', $request->usuario_id)->update([
+                            'contrasena' => \Hash::make($request->contrasena_nueva)
+                        ]);
+
+                        $usuarios = Usuario::all();
+                        return redirect()->route('admin.users.index', compact('usuarios'))->with('info', 'Contraseña cambiada con éxito');
+                    } else {
+                        return redirect()->back()->with('info', 'La nueva contraseña no puede ser la anterior');
+                    } 
+                } else {
+                    return redirect()->back()->with('info', 'Contraseña incorrecta');
+                }
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function destroy_usuario($id)
+    {
+        if(Session::has('loginId')) {
+            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            if(true) {
+                $usuario = Usuario::find($id);
+            if($usuario)
+                $usuario->delete();
+
+                return redirect()->back()->with('info', 'Usuario eliminado correctamente');
             } else {
                 abort(403);
             }
