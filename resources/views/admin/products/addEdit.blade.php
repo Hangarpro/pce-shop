@@ -36,8 +36,8 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                {{-- <form  method="post"  action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add'') }} @endif"> --}}
-                                <form id="myForm" method="POST" action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add') }} @endif">        
+                                {{-- <form  method="post"  action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add'') }} @endif" enctype="multipart/form-data"> --}}
+                                <form id="myForm" method="POST" action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add') }} @endif" enctype="multipart/form-data">        
                                     @csrf
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -74,12 +74,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Imagen</label>
-                                        <input type="file" class="form-control-file" required name="imagen" value="{{ old('imagen') }}" accept="image/jpeg, image/png, image/gif">
+                                        <input type="file" class="form-control-file" name="imagen" value="{{ old('imagen') }}" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Imagen secundaria</label>
-                                        <input type="file" name="imagen2" required class="form-control-file" value="{{ old('imagen2') }}" required name="imagen" 
-                                         accept="image/jpeg, image/png, image/gif">
+                                        <input type="file" name="imagen2" class="form-control-file" value="{{ old('imagen2') }}" required name="imagen" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Marca</label>

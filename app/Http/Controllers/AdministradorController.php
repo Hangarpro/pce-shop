@@ -88,27 +88,23 @@ class AdministradorController extends Controller
                     'descripcion' => 'required'
                 ]);
 
-                $producto = Producto::create([
-                    'nombre' => $request->nombre,
-                    'correo' => $request->precio,
-                    'existencia' => $request->existencia,
-                    'tipo' => $request->tipo,
-                    'marca' => $request->marca,
-                    'descripcion' => $request->descripcion,
-                ]);
+                $input = $request->all();
 
-                $imageName = time() . '.' . $request->imagen->extension(); 
-                $request->imagen->move(public_path('images/'), $imageName);
-                $producto->imagen = $imageName;
-                $producto->save();
+                $imagen = $request->file('imagen');
+                $destino = 'images/';
+                $nombreImagen = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+                $imagen->move($destino, $nombreImagen);
+                $input['imagen'] = 'images/' . "$nombreImagen";
 
-                if($request->has('imagen2')){
-                    $imageName = time() . '.' . $request->imagen2->extension(); 
-                    $request->imagen2->move(public_path('images/'), $imageName);
-                    $producto->imagen2 = $imageName;
-                    $producto->save();
+                if ($imagen2 = $request->file('imagen2')) {
+                    $nombreImagen = date('YmdHis') . "." . $imagen2->getClientOriginalExtension();
+                    $imagen2->move($destino, $nombreImagen);
+                    $input['imagen_secundaria'] = 'images/' . "$nombreImagen";
                 }
-                return view('admin.products.index', compact('usuario'));
+                Producto::create($input);
+
+                $productos = Producto::all();
+                return view('admin.products.index', compact('productos'));
             } else {
                 abort(403);
             }
@@ -117,13 +113,13 @@ class AdministradorController extends Controller
         } 
     }
 
-    function show_producto(Request $request) {
+    function show_producto($id) {
         if(Session::has('loginId')) {
             $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
 
             //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
             if(true) {
-                $producto = Producto::find($request->id);
+                $producto = Producto::find($id);
 
                 return view('admin.products.addEdit', compact('producto', 'usuario'));
             } else {
@@ -152,36 +148,26 @@ class AdministradorController extends Controller
                     'descripcion' => 'required'
                 ]);
 
-                $producto = Porducto::find($request->producto_id);
+                $producto = Producto::find($request->producto_id);
+                $input = $request->all();
 
-                Producto::where('id', '=', $request->prodcuto_id)->update([
-                    'nombre' => $request->nombre,
-                    'correo' => $request->precio,
-                    'existencia' => $request->existencia,
-                    'tipo' => $request->tipo,
-                    'marca' => $request->marca,
-                    'descripcion' => $request->descripcion,
-                ]);
+                $imagen = $request->file('imagen');
+                $destino = 'images/';
+                $nombreImagen = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+                $imagen->move($destino, $nombreImagen);
+                $input['imagen'] = 'images/' . "$nombreImagen";
 
-                $imagen_old = public_path('images/').$producto->imagen;
-                unlink($imagen_old);
-
-                if($producto->imagen2 != ''  && $producto->imagen2 != null){
-                    $imagen2_old = public_path('images/').$producto->imagen2;
-                    unlink($imagen2_old);
-               }
-
-                $imageName = time() . '.' . $request->imagen->extension(); 
-                $request->imagen->move(public_path('images/'), $imageName);
-                $producto->imagen = $imageName;
-                $producto->save();
-
-                if($request->has('imagen2')){
-                    $imageName = time() . '.' . $request->imagen2->extension(); 
-                    $request->imagen2->move(public_path('images/'), $imageName);
-                    $producto->imagen2 = $imageName;
-                    $producto->save();
+                if ($imagen2 = $request->file('imagen2')) {
+                    $nombreImagen = date('YmdHis') . "." . $imagen2->getClientOriginalExtension();
+                    $imagen2->move($destino, $nombreImagen);
+                    $input['imagen_secundaria'] = 'images/' . "$nombreImagen";
+                } else {
+                    unset($input['imagen_secundaria']);
                 }
+
+                $producto->update([$input]);
+
+                $productos = Producto::all();
                 return redirect()->route('admin.products.index')->with('info', 'Producto actualizado correctamente');
             } else {
                 abort(403);

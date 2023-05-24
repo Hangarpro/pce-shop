@@ -17,8 +17,8 @@ return new class extends Migration
             $table->decimal('precio', 19, 2);
             $table->integer('existencia');
             $table->enum('tipo', ['Exclusivo', 'Limitado', 'Nuevo', 'Regular']);
-            $table->string('imagen');
-            $table->string('imagen_secundaria');
+            $table->string('imagen')->nullable();
+            $table->string('imagen_secundaria')->nullable();
             $table->string('marca');
             $table->text('descripcion')->nullable();
             $table->timestamps();

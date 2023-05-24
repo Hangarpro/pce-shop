@@ -18,7 +18,7 @@
                     {{-- <span class="badge rounded-pill {{ getBadgeColor($producto->tipo) }} float-end">{{$producto->tipo}}</span> --}}
                 </div>
                 <img class='mx-auto img-thumbnail' style="border:none"
-                    src="{{$producto->imagen}}"
+                    src="{{ $producto->imagen }}"
                     width="200" height="200"/>
                 <div class="card-body text-center mx-auto">
                     <h5 class="card-title">{{$producto->nombre}}</h5>
