@@ -148,7 +148,6 @@ class AdministradorController extends Controller
                     'descripcion' => 'required'
                 ]);
 
-                $producto = Producto::find($request->producto_id);
                 $input = $request->all();
 
                 $imagen = $request->file('imagen');
@@ -165,7 +164,7 @@ class AdministradorController extends Controller
                     unset($input['imagen_secundaria']);
                 }
 
-                $producto->update([$input]);
+                Producto::where('id', '=', $request->producto_id)->update([$input]);
 
                 $productos = Producto::all();
                 return redirect()->route('admin.products.index')->with('info', 'Producto actualizado correctamente');
