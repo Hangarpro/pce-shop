@@ -257,13 +257,13 @@ class AdministradorController extends Controller
     public function usuarios()
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $usuarios = Usuario::all();
 
-                return view('admin.users.index', compact('usuarios', 'usuario'));
+                return view('admin.users.index', compact('usuarios'));
             } else {
                 abort(403);
             }
@@ -274,11 +274,11 @@ class AdministradorController extends Controller
 
     function add_usuario() {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
-                return view('admin.users.addEdit', compact('usuario'));
+                return view('admin.users.addEdit');
             } else {
                 abort(403);
             }
@@ -290,9 +290,9 @@ class AdministradorController extends Controller
     public function store_usuario(Request $request)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([
                     'nombre' => 'required',
@@ -318,9 +318,9 @@ class AdministradorController extends Controller
 
     function show_usuario($id) {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $usuario = Usuario::find($id);
 
@@ -336,9 +336,9 @@ class AdministradorController extends Controller
     public function update_usuario(Request $request)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([
                     'usuario_id => required',
@@ -358,7 +358,7 @@ class AdministradorController extends Controller
                 }
 
                 $usuarios = Usuario::all();
-                return view('admin.users.index', compact('usuarios', 'usuario'));
+                return view('admin.users.index', compact('usuarios'));
             } else {
                 abort(403);
             }
@@ -372,11 +372,11 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $usuario = Usuario::find($id);
 
-                return view('admin.users.changePassword', compact('usuario', 'user'));
+                return view('admin.users.changePassword', compact('usuario'));
             } else {
                 abort(403);
             }
@@ -388,7 +388,9 @@ class AdministradorController extends Controller
     public function update_contrasena(Request $request)
     {
         if(Session::has('loginId')) {
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([ 
                     'usuario_id' => 'required',
@@ -425,13 +427,13 @@ class AdministradorController extends Controller
     public function destroy_usuario($id)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $usuario = Usuario::find($id);
-            if($usuario)
-                $usuario->delete();
+                if($usuario)
+                    $usuario->delete();
 
                 return redirect()->back()->with('info', 'Usuario eliminado correctamente');
             } else {
