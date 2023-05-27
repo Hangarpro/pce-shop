@@ -11,7 +11,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Usuarios</h1>
+                        <h1>Usuarios 
+                            <a href="{{route('admin.users.new')}}">
+                                <i class="fa fa-plus" aria-hidden="true" title="Agregar Usuario"></i>
+                            </a>
+                        </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -37,29 +41,35 @@
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Email</th>
-                                            <th>Acciones
-                                                <a href="{{url('/usersAdd')}}"><i class="fa fa-plus"
-                                                        aria-hidden="true" title="Agregar Usuario"></i></a>
-                                            </th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Jesús Carlos</td>
-                                            <td>prueba_admin@prueba.com</td>
-                                            <td style="text-align: center">
-                                                <a href="{{url('/usersAdd')}}"
-                                                    style="margin-right: 5px;" title="Editar Usuario">
-                                                    <i class="fas fa-edit"></i> </a>
-                                                    <a href="{{url('/usersPass')}}"
-                                                    style="margin-right: 5px;"  class="text-warning" title="Editar Usuario">
-                                                    <i class="fas fa-key"></i> </a>
-                                                <a href="#"
-                                                    class="text-danger borrar" title="Eliminar Usuario">
-                                                    <i class="fas fa-trash"></i> </a>
-                                            </td>
-                                        </tr>
+                                        @foreach ($usuarios as $usuario)
+                                            <tr>
+                                                <td> {{$usuario->id}} </td>
+                                                <td>{{$usuario->nombre}} </td>
+                                                <td>{{$usuario->correo}}</td>
+                                                <td style="text-align: center">
+                                                    <a href="{{url('/usersAdd')}}"style="margin-right: 5px;" title="Editar Usuario">
+                                                        <i class="fas fa-edit"></i>
+                                                     </a>
+                                                    <a href="{{route('admin.users.show',['id'=> $usuario->id])}}"style="margin-right: 5px;"  class="text-warning" title="Editar Usuario">
+                                                        <i class="fas fa-key"></i>
+                                                    </a>
+                                                    <a href="#" class="text-danger borrar" title="Eliminar Usuario" name="borrar2" onclick="showDeleteConfirmation({{$usuario->id}});" > 
+                                                        <i class="fas fa-trash"></i> 
+                                                    </a>
+                                                    <form id="deleteForm{{$usuario->id}}" action="{{ route('admin.users.destroy', ['id' => $usuario->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" style="display: none;"></button>
+                                                    </form>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -77,4 +87,22 @@
         </section>
         <!-- /.content -->
     </div>
+@endsection
+@section('scripts')
+<script>
+    function showDeleteConfirmation(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará al usuario permanentemente.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm' + id).submit();
+            }
+        });
+    }
+</script>
 @endsection

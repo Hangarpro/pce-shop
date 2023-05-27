@@ -31,17 +31,19 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form class="#" method="post">
+                                <form action="{{ route('admin.products.addExistencia', ['id'=>$producto->id]) }}" method="post">
+                                    @csrf
                                     <div class="form-group">
-                                        <label>Producto</label>
-                                        <select class="form-control">
-                                            <option class="text-muted">PSG - Leo Messi</option>
+                                        <label>Producto</label><br>
+                                        {{-- <select class="form-control">
+                                            <option class="text-muted"> {{$producto->nombre}} </option>
                                             <option class="text-muted">Batman - El señor de la noche</option>
-                                        </select>
+                                        </select> --}}
+                                        <label>{{$producto->nombre}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label>Cantidad a añadir</label>
-                                        <input type="number" name="existencia" class="form-control" required="required">
+                                        <input type="number" name="existencia" class="form-control" value="{{$producto->existencia}}" required="required">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>

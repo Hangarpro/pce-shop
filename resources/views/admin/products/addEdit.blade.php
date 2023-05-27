@@ -36,9 +36,9 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                {{-- <form  method="post"  action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add'') }} @endif" enctype="multipart/form-data"> --}}
                                 <form id="myForm" method="POST" action="@if(isset($producto)) {{ route('admin.products.update', ['id'=>$producto->id]) }} @else {{ route('admin.products.add') }} @endif" enctype="multipart/form-data">        
                                     @csrf
+                                    
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -48,18 +48,19 @@
                                             </ul>
                                         </div>
                                     @endif
+                                    <input type="hidden" value="@if(isset($producto)) {{$producto->id }} @endif" name="producto_id">
                                     <div class="form-group">
                                         <label>Nombre</label>
                                         <input type="text" name="nombre" value="@if(isset($producto)){{$producto->nombre}}@else{{old('nombre')}}  @endif" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Precio</label>
-                                        <input type="number" step="any" value="{{ old('precio') }}" name="precio" class="form-control"
+                                        <input type="number" step="any" value="@if(isset($producto)){{$producto->precio}}@else{{old('precio')}}@endif" name="precio" class="form-control"
                                             required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Existencia</label>
-                                        <input type="number" name="existencia" value="{{ old('existencia') }}" class="form-control" required="required">
+                                        <input type="number" name="existencia" value="@if(isset($producto)){{$producto->existencia}}@else{{old('existencia')}}@endif" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Tipo</label><br>
@@ -74,22 +75,22 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Imagen</label>
-                                        <input type="file" class="form-control-file" name="imagen" value="{{ old('imagen') }}" required>
+                                        <input type="file" class="form-control-file" name="imagen" value="@if(isset($producto)){{$producto->imagen}}@else{{old('imagen')}}@endif" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Imagen secundaria</label>
-                                        <input type="file" name="imagen2" class="form-control-file" value="{{ old('imagen2') }}" required name="imagen" required>
+                                        <input type="file" name="imagen2" class="form-control-file" value="@if(isset($producto)){{$producto->imagen2}}@else{{old('imagen2')}}@endif" required name="imagen" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Marca</label>
-                                        <input type="text" name="marca" value="{{ old('marca') }}" class="form-control" required="required">
+                                        <input type="text" name="marca" value="@if(isset($producto)){{$producto->marca}}@else{{old('marca')}}@endif" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <textarea rows="5" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required="required"></textarea>
+                                        <textarea rows="5" class="form-control" name="descripcion" value="@if(isset($producto)){{$producto->descripcion}}@else{{old('descripcion')}}@endif" required="required"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
+                                        <button  name="guardar" class="btn btn-primary">Guardar</button>
                                     </div>
                                 </form>
                             </div>

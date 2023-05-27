@@ -40,27 +40,29 @@
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
-                                            <th>Existencias<a href=""><i class="fa fa-plus"
-                                                aria-hidden="true" title="Agregar Unidades"></i></a></th>
+                                            <th>Existencias</th>
                                             <th>Tipo</th>
                                             <th>Marca</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{-- admin.products.existencia --}}
                                         @foreach ($productos as $producto)
                                             <tr>
                                                 <td> {{$producto->id}} </td>
                                                 <td>{{$producto->nombre}} </td>
                                                 <td>${{$producto->precio}} </td>
-                                                <td>{{$producto->existencia}} </td>
+                                                <td>{{$producto->existencia}} &nbsp; &nbsp; <a href="{{ route('admin.products.existencia', ['id'=>$producto->id]) }}"><i class="fa fa-plus" aria-hidden="true" title="Agregar Unidades"></i></a> </td>
                                                 <td>{{$producto->tipo}} </td>
                                                 <td>{{$producto->marca}}</td>
                                                 <td style="text-align: center">
                                                     <a href="{{ route('admin.products.show', ['id'=>$producto->id]) }}" style="margin-right: 5px;" title="Editar Producto">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="#" class="text-danger borrar" title="Eliminar Producto" name="borrar2" onclick="showDeleteConfirmation({{$producto->id}});" > <i class="fas fa-trash"></i> </a>
+                                                    <a href="#" class="text-danger borrar" title="Eliminar Producto" name="borrar2" onclick="showDeleteConfirmation({{$producto->id}});" > 
+                                                        <i class="fas fa-trash"></i> 
+                                                    </a>
                                                         <form id="deleteForm{{$producto->id}}" action="{{ route('admin.products.destroy', ['id' => $producto->id]) }}" method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('delete')
@@ -93,20 +95,20 @@
 @endsection
 @section('scripts')
 
-    <script>
-        function showDeleteConfirmation(id) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Esta acción eliminará el producto permanentemente.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('deleteForm' + id).submit();
-                }
-            });
-        }
-    </script>
+<script>
+    function showDeleteConfirmation(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará el producto permanentemente.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm' + id).submit();
+            }
+        });
+    }
+</script>
 @endsection
