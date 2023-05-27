@@ -51,10 +51,10 @@
                                                 <td>{{$usuario->nombre}} </td>
                                                 <td>{{$usuario->correo}}</td>
                                                 <td style="text-align: center">
-                                                    <a href="{{url('/usersAdd')}}"style="margin-right: 5px;" title="Editar Usuario">
+                                                    <a href="{{route('admin.users.show',['id'=> $usuario->id])}}" style="margin-right: 5px;" title="Editar Usuario">
                                                         <i class="fas fa-edit"></i>
                                                      </a>
-                                                    <a href="{{route('admin.users.show',['id'=> $usuario->id])}}"style="margin-right: 5px;"  class="text-warning" title="Editar Usuario">
+                                                    <a href="{{route('admin.users.password',['id'=> $usuario->id])}}" style="margin-right: 5px;"  class="text-warning" title="Editar Usuario">
                                                         <i class="fas fa-key"></i>
                                                     </a>
                                                     <a href="#" class="text-danger borrar" title="Eliminar Usuario" name="borrar2" onclick="showDeleteConfirmation({{$usuario->id}});" > 

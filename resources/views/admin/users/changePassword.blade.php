@@ -31,18 +31,24 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form class="#" method="post">
+                                <form class="#" action="{{ route('admin.users.passwordUpdate', ['id' => $usuario->id]) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
                                     <div class="form-group">
                                         <label>Contraseña Actual</label>
-                                        <input type="password" name="pass" class="form-control" required="required">
+                                        <input type="password" name="pass" class="form-control" name="contrasena" value="{{old('contrasena')}}" required="required">
                                     </div>
                                     <div class="form-group">
-                                        <label>Nueva Contraseña</label>
-                                        <input type="password" name="pass" class="form-control" required="required">
+                                        <label for="inputPassword" class="form-label">Nueva contraseña</label>    
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">        @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>Las contraseñas no coinciden</strong>
+                                                </span>
+                                            @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Confirmar Nueva Contraseña</label>
-                                        <input type="password" name="pass" class="form-control" required="required">
+                                        <label for="password" >Confirmar contraseña</label>  
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>

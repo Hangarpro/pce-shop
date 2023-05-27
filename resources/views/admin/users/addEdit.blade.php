@@ -11,10 +11,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        @if (isset($user))
-                            <h1>Editar usuario</h1>{{$user->correo}}
+                        @if (isset($usuario))
+                            <h1>Editar usuario</h1>{{$usuario->correo}}
                         @else
-                            <h1>Agregar usuario</h1>{{$user->correo}}
+                            <h1>Agregar usuario</h1>
                         @endif
                     </div>
                     <div class="col-sm-6">
@@ -38,6 +38,9 @@
                                 {{-- <form class="#" method="post"> --}}
                                 <form id="myForm" method="POST" action="@if(isset($usuario)) {{ route('admin.users.update', ['id'=>$usuario->id]) }} @else {{ route('admin.users.add') }} @endif" enctype="multipart/form-data">        
                                     @csrf
+                                    @isset($usuario)
+                                        <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
+                                    @endisset
                                     <div class="form-group">
                                         <label>Nombre</label>
                                         <input type="text" name="nombre" value="@if(isset($usuario)){{$usuario->nombre}}@else{{old('nombre')}}  @endif" class="form-control" required="required">
@@ -46,28 +49,23 @@
                                         <label>Correo</label>
                                         <input type="email" name="correo" value="@if(isset($usuario)){{$usuario->correo}}@else{{old('correo')}}  @endif" class="form-control" required="required">
                                     </div>
-                                    {{-- 
+                                    @if (isset($usuario))
+                                        
+                                    @else
                                         <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <input type="password" name="pass" class="form-control" required="required">
+                                            <label for="inputPassword" class="form-label">Contraseña</label>    
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">        @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>Las contraseñas no coinciden</strong>
+                                                    </span>
+                                                @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>Confirmar Contraseña</label>
-                                            <input type="password" name="pass" class="form-control" required="required">
-                                        </div> 
-                                    --}}
-                                    <div class="form-group">
-                                        <label for="inputPassword" class="form-label">Contraseña</label>    
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">        @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>Las contraseñas no coinciden</strong>
-                                                </span>
-                                            @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password" >Confirmar contraseña</label>  
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
-                                    </div>
+                                            <label for="password" >Confirmar contraseña</label>  
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
+                                        </div>
+                                    @endif
+                                        
                                     <div class="form-group">
                                         <button name="guardar" class="btn btn-primary">Guardar</button>
                                     </div>

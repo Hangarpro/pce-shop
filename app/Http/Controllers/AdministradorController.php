@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
 use Session;
 
 class AdministradorController extends Controller
@@ -295,7 +296,7 @@ class AdministradorController extends Controller
                 $request->validate([
                     'nombre' => 'required',
                     'correo' => 'required',
-                    'contrasena' => 'required|confirmed'
+                    'password' => 'required|confirmed'
                 ]);
         
                 $usuario = Usuario::create([
@@ -393,17 +394,17 @@ class AdministradorController extends Controller
                 $request->validate([ 
                     'usuario_id' => 'required',
                     'contrasena' => 'required',
-                    'contrasena_nueva' => 'required|confirmed',
+                    'password' => 'required|confirmed',
                 ]);
         
                 $usuarioContrasena = Usuario::where('id', '=', $request->usuario_id);
                 $hashContrasena = $usuarioContrasena->contrasena;
 
                 if (\Hash::check($request->contrasena, $hashContrasena)) {
-                    if (!\Hash::check($request->contrasena_nueva, $hashContrasena)) {
+                    if (!\Hash::check($request->password, $hashContrasena)) {
                         
                         Usuario::where('id', '=', $request->usuario_id)->update([
-                            'contrasena' => \Hash::make($request->contrasena_nueva)
+                            'contrasena' => \Hash::make($request->password)
                         ]);
 
                         $usuarios = Usuario::all();
