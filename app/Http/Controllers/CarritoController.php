@@ -85,6 +85,19 @@ class CarritoController extends Controller
         }   
     }
 
+    public function remover($id)
+    {
+        if(Session::has('loginId')) {
+            $compra = Compra::find($id);
+            if($compra)
+                $compra->delete();
+
+            return redirect()->back()->with('info', 'Producto eliminado del carrito');
+        } else {
+            return redirect()->route('login.index');
+        }
+    }
+
     public function show()
     {
         if(Session::has('loginId')) {
@@ -123,34 +136,25 @@ class CarritoController extends Controller
         }
     }
 
-    public function historial()
+    public function historial($min, $max)
     {
         if(Session::has('loginId')) {
-            $fechaA = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('fecha_compra', Carrito::min('fecha_compra'))->orderBy('fecha_compra','desc')->get();
-            $fechaB = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('fecha_compra', Carrito::max('fecha_compra'))->orderBy('fecha_compra','desc')->get();
+            $usuario = Usuario::where('id', Session::get('loginId'))->first();
+            $carritos = Carrito::where('compra_estado', 1)->where('usuario_id', $usuario->id)->whereBetween('fecha_compra', [$min, $max])->get();
+            $compras = Compra::findMany($carritos->id);
+            $productos = DB::table('productos')
+            ->join('compra', function ($join) {
+                $join->on('productos.id', '=', 'compra.producto_id')
+                     ->where('compra.carrito_id', '=', $carritos->id);
+            })->get();
 
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 1)->first();
-            $compra = Compra::where('carrito_id', '=', $carrito->id);
-            $productos = Productos::find($compra->producto_id);
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
-            $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->first();
+            $direcciones = array();
+                if(Direcciones::where('usuario_id', $usuario->id))
+                    $direcciones = Direcciones::where('usuario_id', $usuario->id)->get();
 
-            return view('profile.index', compact('carrito', 'compra', 'productos', 'usuario', 'direcciones', 'fechaA', 'fechaB'))->withInput(['tab'=>'productos']);
+            return view('profile.index', compact('carritos', 'compras', 'productos', 'direcciones', 'usuario'))->withInput(['tab'=>'productos']);
         } else {
             return redirect()->route('login.index');
         }  
-    }
-
-    public function remover($id)
-    {
-        if(Session::has('loginId')) {
-            $compra = Compra::find($id);
-            if($compra)
-                $compra->delete();
-
-            return redirect()->back()->with('info', 'Compra eliminada');
-        } else {
-            return redirect()->route('login.index');
-        }
     }
 }
