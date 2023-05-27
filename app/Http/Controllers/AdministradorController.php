@@ -221,9 +221,7 @@ class AdministradorController extends Controller
                     'existencia' => 'required'
                 ]);
 
-                Producto::where('id', '=', $request->id)->update([
-                    'existencia' => $request->existencia
-                ]);
+                DB::table('productos')->where('id', $request->id)->increment('existencia', $existencia);
 
                 return redirect()->route('admin.products.index')->with('info', 'Datos actualizados correctamente');
             } else {
