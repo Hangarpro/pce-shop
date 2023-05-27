@@ -51,34 +51,6 @@ class CarritoController extends Controller
         }  
     }
 
-    public function show()
-    {
-        if(Session::has('loginId')) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
-            $compra = Compra::where('carrito_id', '=', $carrito->id);
-            $productos = Productos::find($compra->producto_id);
-
-            return view('cart.payment', compact('compra', 'productos'));
-        } else {
-            return redirect()->route('login.index');
-        }   
-    }
-
-    /*
-
-    public function pagado($productos, $compra)
-    {
-        if(Session::has('loginId')) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
-            $compra = Compra::where('carrito_id', '=', $carrito->id);
-            $productos = Productos::find($compra->producto_id);
-
-            return view('cart.finish', compact('compra', 'productos'));
-        } else {
-            return redirect()->route('login.index');
-        }   
-    }*/
-
     public function anadir(Request $request)
     {
         if(Session::has('loginId')) {
@@ -113,21 +85,33 @@ class CarritoController extends Controller
         }   
     }
 
+    public function show()
+    {
+        if(Session::has('loginId')) {
+            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            $compra = Compra::where('carrito_id', '=', $carrito->id);
+
+            return view('cart.payment', compact('carrito', 'compra'));
+        } else {
+            return redirect()->route('login.index');
+        }   
+    }
+
     public function comprar()
     {
         $request->validate([
             'direccion_id' => 'required',
             'tarjeta' => 'required',
-            'envio_tipo' => 'required'
+            'envio_tipo' => 'required',
+            'carrito_id' => 'required'
         ]);
 
-        if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+        if(Carrito::find($request->carrito_id)) {
             $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
-            $total = Compra::where('carrito_id', '=', $carrito->id)->sum('monto');
+            $total = Compra::where('carrito_id', '=', $request->carrito_id)->sum('monto');
             $hoy = Carbon::now();
 
-            Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->update([
+            Carrito::where('id', '=', $request->carrito_id)->update([
                 'direccion_id' => $request->direccion_id,
                 'tarjeta' => $request->tarjeta,
                 'compra_estado' => 1,
