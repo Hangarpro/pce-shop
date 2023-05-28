@@ -20,7 +20,7 @@ class AdministradorController extends Controller
     public function index()
     {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -42,7 +42,7 @@ class AdministradorController extends Controller
     public function productos()
     {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -59,7 +59,7 @@ class AdministradorController extends Controller
 
     function add_producto() {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -75,7 +75,7 @@ class AdministradorController extends Controller
     public function store_producto(Request $request)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -117,7 +117,7 @@ class AdministradorController extends Controller
 
     function show_producto($id) {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -135,7 +135,7 @@ class AdministradorController extends Controller
     public function update_producto(Request $request)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -198,7 +198,7 @@ class AdministradorController extends Controller
 
     function show_existencia() {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -215,7 +215,7 @@ class AdministradorController extends Controller
 
     function update_existencia(Request $request) {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -240,7 +240,7 @@ class AdministradorController extends Controller
     public function destroy_producto($id)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::find('id', Session::get('loginId'));
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -260,7 +260,7 @@ class AdministradorController extends Controller
     public function usuarios()
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -277,7 +277,7 @@ class AdministradorController extends Controller
 
     function add_usuario() {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -293,7 +293,7 @@ class AdministradorController extends Controller
     public function store_usuario(Request $request)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -321,7 +321,7 @@ class AdministradorController extends Controller
 
     function show_usuario($id) {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -339,7 +339,7 @@ class AdministradorController extends Controller
     public function update_usuario(Request $request)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -388,7 +388,7 @@ class AdministradorController extends Controller
     public function show_update($id)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -406,7 +406,7 @@ class AdministradorController extends Controller
     public function update_contrasena(Request $request)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
@@ -445,7 +445,7 @@ class AdministradorController extends Controller
     public function destroy_usuario($id)
     {
         if(Session::has('loginId')) {
-            $user = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find(Session::get('loginId'));
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
