@@ -397,13 +397,13 @@ class AdministradorController extends Controller
                     'password' => 'required|confirmed',
                 ]);
         
-                $usuarioContrasena = Usuario::where('id', '=', $request->usuario_id);
+                $usuarioContrasena = Usuario::find($request->usuario_id);
                 $hashContrasena = $usuarioContrasena->contrasena;
 
                 if (\Hash::check($request->contrasena, $hashContrasena)) {
                     if (!\Hash::check($request->password, $hashContrasena)) {
                         
-                        Usuario::where('id', '=', $request->usuario_id)->update([
+                        Usuario::where('id', $request->usuario_id)->update([
                             'contrasena' => \Hash::make($request->password)
                         ]);
 

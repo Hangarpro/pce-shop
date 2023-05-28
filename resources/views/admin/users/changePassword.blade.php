@@ -36,11 +36,12 @@
                                     <input type="hidden" name="usuario_id" value="{{$usuario->id}}">
                                     <div class="form-group">
                                         <label>Contraseña Actual</label>
-                                        <input type="password" name="pass" class="form-control" name="contrasena" value="{{old('contrasena')}}" required="required">
+                                        <input type="password" class="form-control" name="contrasena" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPassword" class="form-label">Nueva contraseña</label>    
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">        @error('password')
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>        
+                                            @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>Las contraseñas no coinciden</strong>
                                                 </span>
@@ -48,7 +49,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="password" >Confirmar contraseña</label>  
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
