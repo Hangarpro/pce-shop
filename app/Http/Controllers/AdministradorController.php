@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class AdministradorController extends Controller
@@ -201,9 +202,10 @@ class AdministradorController extends Controller
 
             //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
             if(true) {
+                $productos = Producto::all();
                 $producto = Producto::find($request->id);
 
-                return view('admin.products.update', compact('producto', 'usuario'));
+                return view('admin.products.update', compact('producto', 'productos', 'usuario'));
             } else {
                 abort(403);
             }
@@ -222,9 +224,11 @@ class AdministradorController extends Controller
                     'existencia' => 'required'
                 ]);
 
+                $existencia = $request->existencia;
+
                 DB::table('productos')->where('id', $request->id)->increment('existencia', $existencia);
 
-                return redirect()->route('admin.products.index')->with('info', 'Datos actualizados correctamente');
+                return redirect()->back()->with('info', 'Existencias agregadas');
             } else {
                 abort(403);
             }

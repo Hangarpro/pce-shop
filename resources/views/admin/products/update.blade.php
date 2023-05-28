@@ -9,6 +9,14 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
+                <div>
+                    @if(session('info'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="mdi mdi-check-all me-2">{{session('info')}}</i>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    </div>
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>Añadir unidades</h1>
@@ -35,15 +43,25 @@
                                     @csrf
                                     <div class="form-group">
                                         <label>Producto</label><br>
-                                        {{-- <select class="form-control">
-                                            <option class="text-muted"> {{$producto->nombre}} </option>
-                                            <option class="text-muted">Batman - El señor de la noche</option>
-                                        </select> --}}
-                                        <label>{{$producto->nombre}}</label>
+                                        <select class="form-control" onchange="top.location.href = this.options[this.selectedIndex].value">>
+                                            @foreach ($productos as $opcion)
+                                                <option value="{{ route('admin.products.existencia', ['id'=>$opcion->id]) }}" name="id" class="text-muted"
+                                                @if ($opcion->id == $producto->id)
+                                                    selected="selected"
+                                                @endif>
+                                                    {{ $opcion->nombre }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            {{ $producto->existencia > 0 ? 'Existencia actual: '. $producto->existencia : 'Sin existencias' }}
+                                        </label>
                                     </div>
                                     <div class="form-group">
                                         <label>Cantidad a añadir</label>
-                                        <input type="number" name="existencia" class="form-control" value="{{$producto->existencia}}" required="required">
+                                        <input type="number" name="existencia" class="form-control" required="required">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
