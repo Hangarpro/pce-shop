@@ -110,29 +110,35 @@ class CarritoController extends Controller
         }   
     }
 
-    public function comprar()
+    public function comprar(Request $request)
     {
-        $request->validate([
-            'direccion_id' => 'required',
-            'tarjeta' => 'required',
-            'envio_tipo' => 'required',
-            'carrito_id' => 'required'
-        ]);
+        if(Session::has('loginId')) {
+            $request->validate([
+                'direccion_id' => 'required',
+                'tarjeta' => 'required',
+                'envio_tipo' => 'required',
+                'carrito_id' => 'required'
+            ]);
+    
+            if(Carrito::find($request->carrito_id)) {
+                $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
+                $total = Compra::where('carrito_id', '=', $request->carrito_id)->sum('monto');
+                $hoy = Carbon::now();
+    
+                Carrito::where('id', '=', $request->carrito_id)->update([
+                    'direccion_id' => $request->direccion_id,
+                    'tarjeta' => $request->tarjeta,
+                    'compra_estado' => 1,
+                    'envio_tipo' => $request->envio_tipo,
+                    'envio_estado' => 'Pendiente',
+                    'envio_numero' => $numero,
+                    'fecha_compra' => $hoy,
+                    'total' => $total]);
+            }
 
-        if(Carrito::find($request->carrito_id)) {
-            $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
-            $total = Compra::where('carrito_id', '=', $request->carrito_id)->sum('monto');
-            $hoy = Carbon::now();
-
-            Carrito::where('id', '=', $request->carrito_id)->update([
-                'direccion_id' => $request->direccion_id,
-                'tarjeta' => $request->tarjeta,
-                'compra_estado' => 1,
-                'envio_tipo' => $request->envio_tipo,
-                'envio_estado' => 'Pendiente',
-                'envio_numero' => $numero,
-                'fecha_compra' => $hoy,
-                'total' => $total]);
+            return view('compras.show');
+        } else {
+            return redirect()->route('login.index');
         }
     }
 
