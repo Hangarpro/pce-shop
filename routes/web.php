@@ -75,8 +75,8 @@ Route::post('/productsAdd', [AdministradorController::class, 'store_producto'])-
 Route::get('/productsUpdate/{id}', [AdministradorController::class, 'show_producto'])->name('admin.products.show');
 Route::post('/productsUpdate/{id}', [AdministradorController::class, 'update_producto'])->name('admin.products.update');
 Route::delete('/productsDestroy/{id}', [AdministradorController::class, 'destroy_producto'])->name('admin.products.destroy');
-Route::get('/productsUpdateExistencia/{id}', [AdministradorController::class, 'show_existencia'])->name('admin.products.existencia');
-Route::post('/productsUpdateExistencia/{id}', [AdministradorController::class, 'update_existencia'])->name('admin.products.addExistencia');
+Route::get('/productsUpdateExistencia', [AdministradorController::class, 'show_existencia'])->name('admin.products.existencia');
+Route::post('/productsUpdateExistencias', [AdministradorController::class, 'update_existencia'])->name('admin.products.addExistencia');
 
 //Dashboard usuarios
 Route::get('/users', [AdministradorController::class, 'usuarios'])->name('admin.users.index');

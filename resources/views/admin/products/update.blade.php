@@ -39,25 +39,17 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.products.addExistencia', ['id'=>$producto->id]) }}" method="post">
+                                <form action="{{ route('admin.products.addExistencia') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label>Producto</label><br>
-                                        <select class="form-control" onchange="top.location.href = this.options[this.selectedIndex].value">>
-                                            @foreach ($productos as $opcion)
-                                                <option value="{{ route('admin.products.existencia', ['id'=>$opcion->id]) }}" name="id" class="text-muted"
-                                                @if ($opcion->id == $producto->id)
-                                                    selected="selected"
-                                                @endif>
-                                                    {{ $opcion->nombre }}
+                                        <select name="id" class="form-control">
+                                            @foreach ($productos as $producto)
+                                                <option value="{{ $producto->id }}" name="id" class="text-muted" @if(old('id') == $producto->id) selected @endif>
+                                                    {{ $producto->nombre }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>
-                                            {{ $producto->existencia > 0 ? 'Existencia actual: '. $producto->existencia : 'Sin existencias' }}
-                                        </label>
                                     </div>
                                     <div class="form-group">
                                         <label>Cantidad a añadir</label>

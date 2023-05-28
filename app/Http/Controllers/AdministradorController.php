@@ -20,9 +20,9 @@ class AdministradorController extends Controller
     public function index()
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 /*$compras = (Carrito::where('compra_estado', '=', 1)->exists()) ? Carrito::where('compra_estado', '=', 1) : null;
                 $usuarios = Usuario::all();
@@ -42,13 +42,13 @@ class AdministradorController extends Controller
     public function productos()
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $productos = Producto::all();
 
-                return view('admin.products.index', compact('productos', 'usuario'));
+                return view('admin.products.index', compact('productos'));
             } else {
                 abort(403);
             }
@@ -59,11 +59,11 @@ class AdministradorController extends Controller
 
     function add_producto() {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
-                return view('admin.products.addEdit', compact('usuario'));
+                return view('admin.products.addEdit', compact('user'));
             } else {
                 abort(403);
             }
@@ -75,9 +75,9 @@ class AdministradorController extends Controller
     public function store_producto(Request $request)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([
                     'nombre' => 'required',
@@ -117,13 +117,13 @@ class AdministradorController extends Controller
 
     function show_producto($id) {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $producto = Producto::find($id);
 
-                return view('admin.products.addEdit', compact('producto', 'usuario'));
+                return view('admin.products.addEdit', compact('producto'));
             } else {
                 abort(403);
             }
@@ -135,9 +135,9 @@ class AdministradorController extends Controller
     public function update_producto(Request $request)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([
                     'nombre' => 'required',
@@ -196,16 +196,15 @@ class AdministradorController extends Controller
         } 
     }
 
-    function show_existencia(Request $request) {
+    function show_existencia() {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $productos = Producto::all();
-                $producto = Producto::find($request->id);
 
-                return view('admin.products.update', compact('producto', 'productos', 'usuario'));
+                return view('admin.products.update', compact('productos'));
             } else {
                 abort(403);
             }
@@ -216,11 +215,12 @@ class AdministradorController extends Controller
 
     function update_existencia(Request $request) {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $request->validate([
+                    'id' => 'required',
                     'existencia' => 'required'
                 ]);
 
@@ -240,9 +240,9 @@ class AdministradorController extends Controller
     public function destroy_producto($id)
     {
         if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
+            $user = Usuario::find('id', Session::get('loginId'));
 
-            //$usuario->rol == 'Administrador' || $usuario->rol == 'Sistema'
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
                 $producto = Producto::find($id);
             if($producto)
@@ -358,6 +358,21 @@ class AdministradorController extends Controller
                     Usuario::where('id', '=', $request->usuario_id)->update([
                         'correo' => $request->correo
                     ]);
+                }
+
+                if(Session::get('loginId') === $request->usuario_id) {
+                    if(isset($request->nombre)) {
+                        Usuario::where('id', '=', Session::get('loginId'))->update([
+                            'nombre' => $request->nombre
+                        ]);
+                        Session(['nombreUsr'=> $usuario->nombre]);
+                    }
+                    if(isset($request->correo)) {
+                        Usuario::where('id', '=', Session::get('loginId'))->update([
+                            'correo' => $request->correo
+                        ]);
+                        Session(['nombreUsr'=> $usuario->correo]);
+                    }
                 }
 
                 $usuarios = Usuario::all();
