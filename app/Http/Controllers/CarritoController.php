@@ -7,6 +7,7 @@ use App\Models\Compra;
 use App\Models\Direcciones;
 use App\Models\Producto;
 use App\Models\Usuario;
+use App\Models\Venta;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -98,31 +99,49 @@ class CarritoController extends Controller
         }
     }
 
-    public function show()
+    public function show(Request $request)
     {
         if(Session::has('loginId')) {
-            $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
-            $compra = Compra::where('carrito_id', '=', $carrito->id);
+            $usuario = Usuario::find(Session::get('loginId'));
 
-            return view('cart.payment', compact('carrito', 'compra'));
+            $request->validate([
+                'carrito_id' => 'required',
+                'total' => 'required'
+            ]);
+
+            if(Carrito::find($request->carrito_id)) {
+                $carrito = Carrito::find($request->carrito_id);
+                $productos = Producto::with('compra')->where('carrito_id', $request->carrito_id)->get();
+                $total = $request->total;
+                
+                $direcciones = array();
+                if(Direcciones::where('usuario_id', Session::get('loginId'))->exists())
+                    $direcciones = Direcciones::where('usuario_id', Session::get('loginId'))->get();
+
+                return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
+            } else {
+                return redirect()->route('carrito.index');
+            }
         } else {
             return redirect()->route('login.index');
-        }   
+        } 
     }
 
     public function comprar(Request $request)
     {
         if(Session::has('loginId')) {
+            $usuario = Usuario::find(Session::get('loginId'));
+
             $request->validate([
                 'direccion_id' => 'required',
                 'tarjeta' => 'required',
                 'envio_tipo' => 'required',
-                'carrito_id' => 'required'
+                'carrito_id' => 'required',
+                'total' => 'required'
             ]);
     
             if(Carrito::find($request->carrito_id)) {
                 $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
-                $total = Compra::where('carrito_id', '=', $request->carrito_id)->sum('monto');
                 $hoy = Carbon::now();
     
                 Carrito::where('id', '=', $request->carrito_id)->update([
@@ -133,7 +152,14 @@ class CarritoController extends Controller
                     'envio_estado' => 'Pendiente',
                     'envio_numero' => $numero,
                     'fecha_compra' => $hoy,
-                    'total' => $total]);
+                    'total' => $request->total]);
+                
+                Venta::create([
+                    'fecha' => $hoy,
+                    'usuario_id' => $usuario->id,
+                    'ventaTotal' => $request->total,
+                    'carrito_id' => $request->carrito_id
+                ])
             }
 
             return view('compras.show');
