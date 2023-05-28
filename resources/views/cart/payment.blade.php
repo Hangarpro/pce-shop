@@ -25,87 +25,38 @@
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="mb-0">Tienes 4 productos en tu carrito</p>
+                                            <p class="mb-0">Tienes {{$carrito->compra->count()}} productos en tu carrito</p>
                                         </div>
                                     </div>
 
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row d-flex justify-content-between">
-                                                <div class="d-flex align-items-center col-12 col-md-6">
-                                                    <div class="col-4 col-md-4">
-                                                        <img src={!! asset('images/psg-messi-cover.webp') !!}
-                                                            class="img-fluid rounded-3" alt="Shopping item"
-                                                            style="width: 65px;">
+                                    {{-- @foreach ($productos as $producto)
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="row d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center col-12 col-md-6">
+                                                        <div class="col-4 col-md-4">
+                                                            <img src={!! asset('images/psg-messi-cover.webp') !!}
+                                                                class="img-fluid rounded-3" alt="Shopping item"
+                                                                style="width: 65px;">
+                                                        </div>
+                                                        <div class="ms-3 col-7 col-md-8">
+                                                            <h5>Football</h5>
+                                                            <p class="small">PSG - Lionel Messi</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="ms-3 col-7 col-md-8">
-                                                        <h5>Football</h5>
-                                                        <p class="small">PSG - Lionel Messi</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
-                                                    <div class="col-4 col-md-3 me-2">
-                                                        <h5 class="fw-normal">1</h5>
-                                                    </div>
-                                                    <div class="col-12 col-md-9">
-                                                        <h5 class="">$289.00</h5>
+                                                    <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
+                                                        <div class="col-4 col-md-3 me-2">
+                                                            <h5 class="fw-normal">1</h5>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <h5 class="">$289.00</h5>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row d-flex justify-content-between">
-                                                <div class="d-flex align-items-center col-12 col-md-6">
-                                                    <div class="col-4 col-md-4">
-                                                        <img src={!! asset('images/psg-messi-cover.webp') !!}
-                                                            class="img-fluid rounded-3" alt="Shopping item"
-                                                            style="width: 65px;">
-                                                    </div>
-                                                    <div class="ms-3 col-7 col-md-8">
-                                                        <h5>Football</h5>
-                                                        <p class="small">PSG - Lionel Messi</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
-                                                    <div class="col-4 col-md-3 me-2">
-                                                        <h5 class="fw-normal">1</h5>
-                                                    </div>
-                                                    <div class="col-12 col-md-9">
-                                                        <h5 class="">$289.00</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row d-flex justify-content-between">
-                                                <div class="d-flex align-items-center col-12 col-md-6">
-                                                    <div class="col-4 col-md-4">
-                                                        <img src={!! asset('images/psg-messi-cover.webp') !!}
-                                                            class="img-fluid rounded-3" alt="Shopping item"
-                                                            style="width: 65px;">
-                                                    </div>
-                                                    <div class="ms-3 col-7 col-md-8">
-                                                        <h5>Football</h5>
-                                                        <p class="small">PSG - Lionel Messi</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
-                                                    <div class="col-4 col-md-3 me-2">
-                                                        <h5 class="fw-normal">1</h5>
-                                                    </div>
-                                                    <div class="col-12 col-md-9">
-                                                        <h5 class="">$289.00</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach --}}
+                                    
 
                                 </div>
                                 <div class="col-lg-5">
@@ -158,7 +109,7 @@
 
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">$927.00</p>
+                                                <p class="mb-2">{{$carrito->compra->count()}}</p>
                                             </div>
 
                                             <div class="d-flex justify-content-between">

@@ -72,7 +72,8 @@
                     <div class="col text-right">&dollar; {{$total}}</div>
                 </div>
             @endif
-            <form>
+            <form method="POST" action="{{ route('carrito.show') }}">
+                @csrf
                 <input type="hidden" name="carrito_id" value="{{$carrito[0]->id}}">
                 <p>DIRECCIÓN</p>
                 <select id="direccion">
@@ -87,8 +88,8 @@
                     <input type="hidden" id="envio_precio" value="0">
                 @else
                     <select id="envio_tipo"  onchange="actualizarPrecioTotal()">
-                        <option value="regular" name="envio_tipo" class="text-muted">Envío Regular - &dollar; 99.00</option>
-                        <option value="expres" name="envio_tipo" class="text-muted">Envío Express - &dollar; 159.00</option>
+                        <option value="Regular" name="envio_tipo" class="text-muted">Envío Regular - &dollar; 99.00</option>
+                        <option value="Premiun" name="envio_tipo" class="text-muted">Envío Express - &dollar; 159.00</option>
                     </select>
                 @endif
                 <hr>
@@ -96,7 +97,7 @@
                     <div class="col">PRECIO TOTAL</div>
                     <div class="col text-right" name="total" id="precio_total">&dollar; {{$total}}</div>
                 </div>
-                <a class="btn btn-primary" href="{{ url('/payment') }}">PROCEDER AL PAGO</a>
+                <button class="btn btn-primary" ">PROCEDER AL PAGO</button>
             </form>
             
         </div>

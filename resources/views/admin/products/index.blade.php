@@ -40,7 +40,7 @@
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
-                                            <th>Existencias</th>
+                                            <th>Existencias  &nbsp; &nbsp;<a href="{{ route('admin.products.existencia') }}"><i class="fa fa-plus" aria-hidden="true" title="Agregar Unidades"></i></a> </th>
                                             <th>Tipo</th>
                                             <th>Marca</th>
                                             <th>Acciones</th>
@@ -53,7 +53,7 @@
                                                 <td> {{$producto->id}} </td>
                                                 <td>{{$producto->nombre}} </td>
                                                 <td>${{$producto->precio}} </td>
-                                                <td>{{$producto->existencia}} &nbsp; &nbsp; <a href="{{ route('admin.products.existencia', ['id'=>$producto->id]) }}"><i class="fa fa-plus" aria-hidden="true" title="Agregar Unidades"></i></a> </td>
+                                                <td>{{$producto->existencia}} </td>
                                                 <td>{{$producto->tipo}} </td>
                                                 <td>{{$producto->marca}}</td>
                                                 <td style="text-align: center">

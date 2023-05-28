@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div>
                     @if(session('info'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert" id="myAlert">
                             <i class="mdi mdi-check-all me-2">{{session('info')}}</i>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -74,4 +74,19 @@
         </section>
         <!-- /.content -->
     </div>
+@endsection
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var closeButton = document.querySelector('.btn-close');
+            var alert = document.querySelector('#myAlert');
+
+            closeButton.addEventListener('click', function() {
+                alert.style.display = 'none';
+                alert.classList.remove('show');
+            });
+        });
+    </script>
 @endsection
