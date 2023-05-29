@@ -10,12 +10,16 @@ class Venta extends Model
     use HasFactory;
     protected $fillable = [
         'fecha',
-        'ventaTotal'
+        'ventaTotal',
+        'usuario_id',
+        'carrito_id'
     ];
+
     public function usuario_id(){
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(Usuario::class, 'id', 'usuario_id');
     }
+
     public function carrito_id(){
-        return $this->belongsTo(Carrito::class);
+        return $this->belongsTo(Carrito::class, 'id', 'carrito_id');
     }
 }
