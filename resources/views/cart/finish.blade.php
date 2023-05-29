@@ -22,8 +22,8 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="d-flex justify-content-between">
-                                                <p>07 de abril de 2023</p>
-                                                <p>Pedido n.º 702-5785766-3794299</p>
+                                                <p>{{$fecha_compra}} </p>
+                                                <p>Pedido n.º {{$envio_numero }}</p>
                                             </div>
                                             <div class="col-md-12 text-center pt-5">
                                                 <span class="display-3 thankyou-icon text-primary">

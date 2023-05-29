@@ -67,13 +67,13 @@
                 </select>
                 <p>ENVÍO</p>
                 @if ($total > 1299 )
-                    <h6><b value="Regular" name="envio_tipo">Envío gratis</b></h6>
+                    <h6><b value="Gratis" name="envio_tipo">Envío gratis</b></h6>
                     <input type="hidden" id="envio_precio" value="0">
                 @else
                     <select id="envio_tipo" name="envio_tipo" onchange="actualizarPrecioTotal()">
                         <option value="" disabled selected>Seleccione una opción</option>
                         <option value="Regular" class="text-muted">Envío Regular - &dollar; 99.00</option>
-                        <option value="Premiun" class="text-muted">Envío Express - &dollar; 159.00</option>
+                        <option value="Premiun" class="text-muted">Envío Premiun - &dollar; 159.00</option>
                     </select>
                 @endif
                 <hr>

@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Session;
 
@@ -171,10 +172,10 @@ class CarritoController extends Controller
             ]);
     
             if(Carrito::find($request->carrito_id)) {
-                $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
+                $numero = Str::random(3) . '-' . Str::random(7) . '-' . Str::random(7);
                 $hoy = Carbon::now();
     
-                $carrito = Carrito::where('id', '=', $request->carrito_id)->update([
+                Carrito::where('id', '=', $request->carrito_id)->update([
                     'direccion_id' => $request->direccion_id,
                     'tarjeta' => $request->tarjeta,
                     'compra_estado' => 1,
@@ -183,6 +184,7 @@ class CarritoController extends Controller
                     'envio_numero' => $numero,
                     'fecha_compra' => $hoy,
                     'total' => $request->total]);
+                $carrito = Carrito::find($request->carrito_id);
                 
                 Venta::create([
                     'fecha' => $hoy,
@@ -199,13 +201,15 @@ class CarritoController extends Controller
         }
     }
 
-    public function pagado(Request $request)
+    public function pagado(Carrito $request)
     {
         if(Session::has('loginId')) {
-            $request->validate([
-                'envio_numero' => 'required',
-                'fecha_compra' => 'required'
-            ]);
+                $envio_numero = $request->envio_numero;
+                $fecha_compra = $request->fecha_compra;
+            // $request->validate([
+            //     'envio_numero' => 'required',
+            //     'fecha_compra' => 'required'
+            // ]);
 
             return view('cart.finish', compact('envio_numero', 'fecha_compra'));
             

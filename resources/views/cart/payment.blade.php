@@ -60,11 +60,13 @@
                                     <div class="card bg-primary text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <input type="hidden" name="direccion_id" value="{{$direccion->id}} ">
                                                 <h5 class="mb-0">Datos de la tarjeta</h5>
                                             </div>
                                             <hr class="my-4">
-                                            <form class="mt-4">
+                                            <form class="mt-4" action="{{route('carrito.store')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="direccion_id" value="{{$direccion->id}} ">
+                                                <input type="hidden" name="carrito_id" value="{{$carrito->id}} ">
                                                 <label class="form-label" for="typeName">Nombre en la tarjeta</label>
                                                 <div class="form-outline form-white mb-4">
                                                     <input type="text" id="typeName"
@@ -74,10 +76,7 @@
 
                                                 <label class="form-label" for="typeText">Número de tarjeta</label>
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" id="typeText"
-                                                        class="form-control form-control-lg" size="17"
-                                                        placeholder="1234 5678 9012 3457" minlength="19"
-                                                        maxlength="19" />
+                                                    <input type="text" id="typeText" name="tarjeta" class="form-control form-control-lg" size="17" placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
                                                 </div>
 
                                                 <div class="row d-flex ps-0">
@@ -100,31 +99,34 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <hr class="my-4">
 
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-2">Subtotal</p>
+                                                    <p class="mb-2">{{$subtotal}}</p>
+                                                </div>
+    
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-2">Envío</p>
+                                                    <p class="mb-2">{{$envio_tipo}}</p>
+                                                    <input type="hidden" name="envio_tipo" value="{{$envio_tipo}}">
+                                                </div>
+    
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <p class="mb-2">Total (Imp. Incluidos)</p>
+                                                    <p class="mb-2">{{$total}}</p>
+                                                    <input type="hidden" name="total" value="{{$total}}">
+                                                </div>
+
+                                                {{-- <a type="button" class="btn btn-primary btn-block btn-lg">
+                                                    <div class="d-flex justify-content-center">
+                                                        <span>Pagar <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                    </div>
+                                                </a> --}}
+                                                <button class="btn btn-primary">PAGAR</button>
                                             </form>
 
-                                            <hr class="my-4">
-
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">{{$total}}</p>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-2">Envío</p>
-                                                <p class="mb-2">{{$carrito->envio_tipo}}</p>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between mb-4">
-                                                <p class="mb-2">Total (Imp. Incluidos)</p>
-                                                <p class="mb-2">{{$total}}</p>
-                                            </div>
-
-                                            <a type="button" href="{{ url('/paid') }}" class="btn btn-primary btn-block btn-lg">
-                                                <div class="d-flex justify-content-center">
-                                                    <span>Pagar <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                                </div>
-                                            </a>
+             
 
                                         </div>
                                     </div>
