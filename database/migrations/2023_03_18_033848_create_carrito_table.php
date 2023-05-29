@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tarjeta')->nullable();
             $table->tinyInteger('compra_estado');
-            $table->enum('envio_tipo', ['Regular', 'Premium'])->nullable();
+            $table->enum('envio_tipo', ['Gratis', 'Regular', 'Premium'])->nullable();
             $table->enum('envio_estado', ['Pendiente', 'Pagado', 'En tránsito', 'Entregado'])->nullable();
             $table->string('envio_numero')->nullable();
             $table->date('fecha_compra')->nullable();

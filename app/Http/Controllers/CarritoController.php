@@ -133,6 +133,14 @@ class CarritoController extends Controller
             if(Carrito::find($request->carrito_id)) {
                 $carrito = Carrito::find($request->carrito_id);
                 $total = $request->total;
+                $envio_tipo = $request->envio_tipo;
+
+                $subtotal = $total;
+
+                switch($envio_tipo) {
+                    case 'Regular': $subtotal -= 99; break;
+                    case 'Premium': $subtotal -= 159; break;
+                }
 
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                 ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
@@ -140,7 +148,7 @@ class CarritoController extends Controller
                 
                 $direccion = Direcciones::find($request->direccion_id);
 
-                return view('cart.payment', compact('carrito', 'productos', 'direccion', 'total', 'usuario'));
+                return view('cart.payment', compact('carrito', 'productos', 'direccion', 'subtotal', 'total', 'envio_tipo', 'usuario'));
             } else {
                 return redirect()->route('carrito.index');
             }
@@ -189,6 +197,11 @@ class CarritoController extends Controller
         } else {
             return redirect()->route('login.index');
         }
+    }
+
+    public function pagado()
+    {
+        true;
     }
 
     public function historial($min, $max)
