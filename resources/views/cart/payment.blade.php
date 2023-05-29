@@ -60,7 +60,7 @@
                                     <div class="card bg-primary text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <input type="text" name="direccion_id" value="{{$direccion_id}} ">
+                                                <input type="hidden" name="direccion_id" value="{{$direccion->id}} ">
                                                 <h5 class="mb-0">Datos de la tarjeta</h5>
                                             </div>
                                             <hr class="my-4">

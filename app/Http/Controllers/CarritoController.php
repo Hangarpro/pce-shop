@@ -138,9 +138,9 @@ class CarritoController extends Controller
                 ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
 
                 
-                $direcciones = Direcciones::find($request->direccion_id);
+                $direccion = Direcciones::find($request->direccion_id);
 
-                return view('cart.payment', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
+                return view('cart.payment', compact('carrito', 'productos', 'direccion', 'total', 'usuario'));
             } else {
                 return redirect()->route('carrito.index');
             }
