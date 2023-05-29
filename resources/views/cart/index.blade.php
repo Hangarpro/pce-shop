@@ -72,32 +72,33 @@
                     <div class="col text-right">&dollar; {{$total}}</div>
                 </div>
             @endif
-            <form method="POST" action="{{ route('carrito.show') }}">
+            <form method="POST" action="{{ route('carrito.send') }}">
                 @csrf
                 <input type="hidden" name="carrito_id" value="{{$carrito[0]->id}}">
                 <p>DIRECCIÓN</p>
-                <select id="direccion">
+                <select name="direccion_id" id="direccion">
                     @foreach ($direcciones as $direccion)
-                        <option value="{{$direccion->id}}" name="direccion_id" class="text-muted">{{$direccion->nombreDireccion ?: $direccion->calle}}</option>
+                        <option value="{{$direccion->id}}" class="text-muted">{{$direccion->nombreDireccion ?: $direccion->calle}}</option>
                     @endforeach
                     <option class="text-muted" data-url="{{ route('profile.address') }}">Añadir nueva dirección</option>
                 </select>
                 <p>ENVÍO</p>
                 @if ($total > 1299 )
-                    <h6><b value="gratis" name="envio_tipo">Envío gratis</b></h6>
+                    <h6><b value="Regular" name="envio_tipo">Envío gratis</b></h6>
                     <input type="hidden" id="envio_precio" value="0">
                 @else
-                    <select id="envio_tipo"  onchange="actualizarPrecioTotal()">
-                        <option value="Regular" name="envio_tipo" class="text-muted">Envío Regular - &dollar; 99.00</option>
-                        <option value="Premiun" name="envio_tipo" class="text-muted">Envío Express - &dollar; 159.00</option>
+                    <select id="envio_tipo" name="envio_tipo" onchange="actualizarPrecioTotal()">
+                        <option value="Regular" class="text-muted">Envío Regular - &dollar; 99.00</option>
+                        <option value="Premiun" class="text-muted">Envío Express - &dollar; 159.00</option>
                     </select>
                 @endif
                 <hr>
                 <div class="row">
                     <div class="col">PRECIO TOTAL</div>
-                    <div class="col text-right" name="total" id="precio_total">&dollar; {{$total}}</div>
+                    <div class="col text-right">&dollar; {{$total}}</div>
+                    <input type="hidden" name="total" value="{{$total}}">
                 </div>
-                <button class="btn btn-primary" ">PROCEDER AL PAGO</button>
+                <button class="btn btn-primary">PROCEDER AL PAGO</button>
             </form>
             
         </div>

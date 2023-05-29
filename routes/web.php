@@ -57,6 +57,7 @@ Route::delete('/profile/address/destroy/{id}', [DireccionesController::class, 'd
 
 //Carrito
 Route::get('/cart', [CarritoController::class, 'index'])->name('carrito.index');
+Route::post('/cart', [CarritoController::class, 'enviar'])->name('carrito.send');
 Route::get('/payment', [CarritoController::class, 'show'])->name('carrito.show');
 Route::post('/payment', [CarritoController::class, 'comprar'])->name('carrito.store');
 Route::get('/paid', [CarritoController::class, 'pagar'])->name('compras.show');

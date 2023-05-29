@@ -11,6 +11,7 @@ use App\Models\Venta;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Session;
 
@@ -99,26 +100,47 @@ class CarritoController extends Controller
         }
     }
 
+    public function enviar(Request $request)
+    {
+        if(Session::has('loginId')) {
+            $request->validate([
+                'direccion_id' => 'required',
+                'envio_tipo' => 'required',
+                'carrito_id' => 'required',
+                'total' => 'required'
+            ]);
+
+            $contenido = $request->all;
+
+            return $this->show($request);
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
     public function show(Request $request)
     {
         if(Session::has('loginId')) {
             $usuario = Usuario::find(Session::get('loginId'));
 
             $request->validate([
+                'direccion_id' => 'required',
+                'envio_tipo' => 'required',
                 'carrito_id' => 'required',
                 'total' => 'required'
             ]);
 
             if(Carrito::find($request->carrito_id)) {
                 $carrito = Carrito::find($request->carrito_id);
-                $productos = Producto::with('compra')->where('carrito_id', $request->carrito_id)->get();
                 $total = $request->total;
-                
-                $direcciones = array();
-                if(Direcciones::where('usuario_id', Session::get('loginId'))->exists())
-                    $direcciones = Direcciones::where('usuario_id', Session::get('loginId'))->get();
 
-                return view('carrito.show', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
+                $productos = Producto::select( DB::raw('productos.id, compra.*'))
+                ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
+
+                
+                $direcciones = Direcciones::find($request->direccion_id);
+
+                return view('cart.payment', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
             } else {
                 return redirect()->route('carrito.index');
             }
@@ -160,7 +182,7 @@ class CarritoController extends Controller
                     'ventaTotal' => $request->total,
                     'carrito_id' => $request->carrito_id
                 ]);
-                return view('compras.show');
+                return view('cart.finish');
             }
 
             
