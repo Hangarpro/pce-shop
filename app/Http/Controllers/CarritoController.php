@@ -134,7 +134,7 @@ class CarritoController extends Controller
                 $carrito = Carrito::find($request->carrito_id);
                 $total = $request->total;
 
-                $productos = Producto::select( DB::raw('productos.id, compra.*'))
+                $productos = Producto::select( DB::raw('productos.*, compra.*'))
                 ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
 
                 

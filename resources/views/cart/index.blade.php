@@ -42,24 +42,6 @@
                         </div>
                     @endif
                 @endforeach
-                
-                {{-- @for ($i=0; $i < count($productos); $i++)
-                    <div class="row border-top border-bottom">
-                        <div class="row main align-items-center">
-                            <div class="col-md-2 col-5"><img class="img-fluid productimg" src="{{$productos[$i]->imagen}}"></div>
-                            <div class="col-md-4 col-7">
-                                <div class="row text-muted">{{$productos[$i]->marca}}</div>
-                                <div class="row">{{$productos[$i]->nombre}}</div>
-                            </div>
-                            <div class="col-md-3 mt-2 col-5">
-                                <a href="#" class="text-decoration-none">-</a><a href="#" class="border text-decoration-none">
-                                    {{$carrito[0]->compra[$i]->cantidad}}
-                                </a><a href="#" class="text-decoration-none">+</a>
-                            </div>
-                            <div class="col-md-3 mt-2 col-7">&dollar; {{$carrito[0]->compra[$i]->monto}} <span class="close">&#10005;</span></div>
-                        </div>
-                    </div>
-                @endfor --}}
             @endif
             <div class="back-to-shop"><a href="{{ route('productos.index') }}" class="text-decoration-none">&leftarrow;</a><span class="text-muted">Regresar a la tienda</span></div>
         </div>
@@ -77,6 +59,7 @@
                 <input type="hidden" name="carrito_id" value="{{$carrito[0]->id}}">
                 <p>DIRECCIÓN</p>
                 <select name="direccion_id" id="direccion">
+                    <option value="" disabled selected>Seleccione una opción</option>
                     @foreach ($direcciones as $direccion)
                         <option value="{{$direccion->id}}" class="text-muted">{{$direccion->nombreDireccion ?: $direccion->calle}}</option>
                     @endforeach
@@ -88,6 +71,7 @@
                     <input type="hidden" id="envio_precio" value="0">
                 @else
                     <select id="envio_tipo" name="envio_tipo" onchange="actualizarPrecioTotal()">
+                        <option value="" disabled selected>Seleccione una opción</option>
                         <option value="Regular" class="text-muted">Envío Regular - &dollar; 99.00</option>
                         <option value="Premiun" class="text-muted">Envío Express - &dollar; 159.00</option>
                     </select>
@@ -95,8 +79,8 @@
                 <hr>
                 <div class="row">
                     <div class="col">PRECIO TOTAL</div>
-                    <div class="col text-right">&dollar; {{$total}}</div>
-                    <input type="hidden" name="total" value="{{$total}}">
+                    <div class="col text-right" id="total_muestra">&dollar; {{$total}}</div>
+                    <input type="hidden" name="total" id="precio_total" value="{{$total}}">
                 </div>
                 <button class="btn btn-primary">PROCEDER AL PAGO</button>
             </form>
@@ -114,19 +98,26 @@
             }
         });
 
-        function actualizarPrecioTotal() {
-        var envioTipo = document.getElementById("envio_tipo").value;
-        var envioPrecio = 0;
 
-        if (envioTipo === "regular") {
-            envioPrecio = 99.00;
-        } else if (envioTipo === "expres") {
-            envioPrecio = 159.00;
+        function actualizarPrecioTotal() {
+            var envioTipo = document.getElementById("envio_tipo").value;
+            var envioPrecio = 0;
+
+            if (envioTipo === "Regular") {
+                envioPrecio = 99.00;
+            } else if (envioTipo === "Premiun") {
+                envioPrecio = 159.00;
+            }
+
+            var total = parseFloat("{{$total}}");
+            var nuevoTotal = total + envioPrecio;
+
+            var inputElement = document.getElementById("precio_total");
+            inputElement.value = nuevoTotal.toFixed(2);
+
+            var muestraElement = document.getElementById("total_muestra");
+            muestraElement.innerText = "$ " + nuevoTotal.toFixed(2);
         }
 
-        var total = parseFloat("{{$total}}");
-        var nuevoTotal = total + envioPrecio;
-        document.getElementById("precio_total").innerHTML = "&dollar; " + nuevoTotal.toFixed(2);
-    }
     </script>
 @endsection

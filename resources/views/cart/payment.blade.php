@@ -17,7 +17,6 @@
                         <div class="card-body p-4">
 
                             <div class="row">
-
                                 <div class="col-lg-7">
                                     <h5 class="mb-3"><a href="{{ url('/cart') }}" class="text-body text-decoration-none"><i
                                                 class="fas fa-long-arrow-alt-left me-2"></i>Regresar a la tienda</a></h5>
@@ -29,19 +28,17 @@
                                         </div>
                                     </div>
 
-                                    {{-- @foreach ($productos as $producto)
+                                    @foreach ($productos as $producto)
                                         <div class="card mb-3">
                                             <div class="card-body">
                                                 <div class="row d-flex justify-content-between">
                                                     <div class="d-flex align-items-center col-12 col-md-6">
                                                         <div class="col-4 col-md-4">
-                                                            <img src={!! asset('images/psg-messi-cover.webp') !!}
-                                                                class="img-fluid rounded-3" alt="Shopping item"
-                                                                style="width: 65px;">
+                                                            <img src="{{$producto->imagen}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                                                         </div>
                                                         <div class="ms-3 col-7 col-md-8">
-                                                            <h5>Football</h5>
-                                                            <p class="small">PSG - Lionel Messi</p>
+                                                            <h5>{{$producto->marca}}</h5>
+                                                            <p class="small">{{$producto->nombre}}</p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
@@ -49,13 +46,13 @@
                                                             <h5 class="fw-normal">1</h5>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <h5 class="">$289.00</h5>
+                                                            <h5 class="">${{$producto->precio}}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach --}}
+                                    @endforeach
                                     
 
                                 </div>
@@ -63,6 +60,7 @@
                                     <div class="card bg-primary text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <input type="text" name="direccion_id" value="{{$direccion_id}} ">
                                                 <h5 class="mb-0">Datos de la tarjeta</h5>
                                             </div>
                                             <hr class="my-4">
@@ -109,17 +107,17 @@
 
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">{{$carrito->compra->count()}}</p>
+                                                <p class="mb-2">{{$total}}</p>
                                             </div>
 
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Envío</p>
-                                                <p class="mb-2">$99.00</p>
+                                                <p class="mb-2">{{$carrito->envio_tipo}}</p>
                                             </div>
 
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total (Imp. Incluidos)</p>
-                                                <p class="mb-2">$1,026.00</p>
+                                                <p class="mb-2">{{$total}}</p>
                                             </div>
 
                                             <a type="button" href="{{ url('/paid') }}" class="btn btn-primary btn-block btn-lg">
