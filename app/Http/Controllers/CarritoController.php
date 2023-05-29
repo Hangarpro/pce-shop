@@ -174,7 +174,7 @@ class CarritoController extends Controller
                 $numero = Str::random(3) + '-' + Str::random(7) + '-' + Str::random(7);
                 $hoy = Carbon::now();
     
-                Carrito::where('id', '=', $request->carrito_id)->update([
+                $carrito = Carrito::where('id', '=', $request->carrito_id)->update([
                     'direccion_id' => $request->direccion_id,
                     'tarjeta' => $request->tarjeta,
                     'compra_estado' => 1,
@@ -190,7 +190,7 @@ class CarritoController extends Controller
                     'ventaTotal' => $request->total,
                     'carrito_id' => $request->carrito_id
                 ]);
-                return view('cart.finish');
+                return $this->pagado($carrito);
             }
 
             
@@ -199,9 +199,19 @@ class CarritoController extends Controller
         }
     }
 
-    public function pagado()
+    public function pagado(Request $request)
     {
-        true;
+        if(Session::has('loginId')) {
+            $request->validate([
+                'envio_numero' => 'required',
+                'fecha_compra' => 'required'
+            ]);
+
+            return view('cart.finish', compact('envio_numero', 'fecha_compra'));
+            
+        } else {
+            return redirect()->route('login.index');
+        }
     }
 
     public function historial($min, $max)
