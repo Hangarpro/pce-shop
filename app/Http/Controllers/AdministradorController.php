@@ -43,9 +43,14 @@ class AdministradorController extends Controller
                     ->where('carrito.compra_estado', '=', 1)
                     ->select('nombre', DB::raw('count(*) as cantidad'))
                     ->groupBy('productos.nombre')
-                    ->get();
+                    ->take(6)->get();
 
-                return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'ventas_gra', 'user'));
+                $fechas_ventas = $ventas_gra->pluck('dia');
+                $monto_ventas = $ventas_gra->pluck('ventas');
+                $nombre_productos = $productos->pluck('nombre');
+                $cantidad_productos = $productos->pluck('cantidad');
+                //return $nombre_p;
+                return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'fechas_ventas', 'monto_ventas', 'nombre_productos', 'cantidad_productos', 'user'));
             } else {
                 abort(403);
             }
