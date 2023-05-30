@@ -33,7 +33,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3> {{$ventas_sem}} </h3>
+                                <h3> {{ $ventas_sem }} </h3>
 
                                 <p>Ventas en la última semana</p>
                             </div>
@@ -48,7 +48,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3> {{$usuarios}} </h3>
+                                <h3> {{ $usuarios }} </h3>
 
                                 <p>Usuarios registrados</p>
                             </div>
@@ -61,7 +61,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3> {{$clientes}} </h3>
+                                <h3> {{ $clientes }} </h3>
 
                                 <p>Clientes totales</p>
                             </div>
@@ -75,7 +75,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3> {{$ventas_hoy}} </h3>
+                                <h3> {{ $ventas_hoy }} </h3>
 
                                 <p>Ventas de hoy</p>
                             </div>
@@ -169,7 +169,7 @@
             data: {
                 labels: ['Usuarios', 'Clientes'],
                 datasets: [{
-                    data: [530, 52],
+                    data: [{{ $usuarios }}, {{ $clientes }}],
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
@@ -181,21 +181,24 @@
 
     <script>
         const ctx2 = document.getElementById('productos+vendidos');
+        var nombre_productos = @json($nombre_productos);
+        var nombre = [nombre_productos];
+        var cantidad_productos = @json($cantidad_productos);
+        var cantidad = [cantidad_productos];
 
         new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Flash', 'Wonder Woman', 'Tilin', 'Ete Sech', 'Niño del oxxo', 'aimp3'],
+                labels: nombre[0],
                 datasets: [{
                     label: '# de Ventas',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: cantidad[0],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(255, 159, 64, 0.2)',
                         'rgba(255, 205, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
                     ],
                     borderColor: [
                         'rgb(255, 99, 132)',
@@ -203,16 +206,19 @@
                         'rgb(255, 205, 86)',
                         'rgb(75, 192, 192)',
                         'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
+                        'rgb(153, 102, 255)'
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
             }
         });
@@ -220,24 +226,31 @@
 
     <script>
         const ctx3 = document.getElementById('ventasxdia');
+        var fechas_ventas = @json($fechas_ventas);
+        var fechas = [fechas_ventas];
+        var monto_ventas = @json($monto_ventas);
+        var monto = [monto_ventas];
 
         new Chart(ctx3, {
             type: 'line',
             data: {
-                labels: ['15/04/23', '16/04/23', '17/04/23', '18/04/23', '19/04/23', '20/04/23'],
+                labels: fechas[0],
                 datasets: [{
                     label: '$ por día',
-                    data: [250, 500, 750, 300, 560, 280],
+                    data: monto[0],
                     fill: false,
                     borderColor: 'rgba(54, 162, 235, 0.2)',
                     tension: 0.1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
             }
         });
