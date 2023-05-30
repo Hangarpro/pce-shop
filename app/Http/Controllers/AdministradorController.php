@@ -45,7 +45,7 @@ class AdministradorController extends Controller
                     ->groupBy('productos.nombre')
                     ->get();
 
-                return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'ventas_gra'));
+                return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'ventas_gra', 'user'));
             } else {
                 abort(403);
             }
@@ -62,7 +62,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $productos = Producto::all();
 
-                return view('admin.products.index', compact('productos'));
+                return view('admin.products.index', compact('productos', 'user'));
             } else {
                 abort(403);
             }
@@ -118,7 +118,7 @@ class AdministradorController extends Controller
                 Producto::create($input);
 
                 $productos = Producto::all();
-                return view('admin.products.index', compact('productos'));
+                return view('admin.products.index', compact('productos', 'user'));
             } else {
                 abort(403);
             }
@@ -134,7 +134,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $producto = Producto::find($id);
 
-                return view('admin.products.addEdit', compact('producto'));
+                return view('admin.products.addEdit', compact('producto', 'user'));
             } else {
                 abort(403);
             }
@@ -213,7 +213,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $productos = Producto::all();
 
-                return view('admin.products.update', compact('productos'));
+                return view('admin.products.update', compact('productos', 'user'));
             } else {
                 abort(403);
             }
@@ -272,7 +272,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuarios = Usuario::all();
 
-                return view('admin.users.index', compact('usuarios'));
+                return view('admin.users.index', compact('usuarios', 'user'));
             } else {
                 abort(403);
             }
@@ -330,7 +330,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuario = Usuario::find($id);
 
-                return view('admin.users.addEdit', compact('usuario'));
+                return view('admin.users.addEdit', compact('usuario', 'user'));
             } else {
                 abort(403);
             }
@@ -378,7 +378,7 @@ class AdministradorController extends Controller
                 }
 
                 $usuarios = Usuario::all();
-                return view('admin.users.index', compact('usuarios'));
+                return view('admin.users.index', compact('usuarios', 'user'));
             } else {
                 abort(403);
             }
@@ -395,7 +395,7 @@ class AdministradorController extends Controller
             if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuario = Usuario::find($id);
 
-                return view('admin.users.changePassword', compact('usuario'));
+                return view('admin.users.changePassword', compact('usuario', 'user'));
             } else {
                 abort(403);
             }
@@ -427,7 +427,7 @@ class AdministradorController extends Controller
                         ]);
 
                         $usuarios = Usuario::all();
-                        return redirect()->route('admin.users.index', compact('usuarios'))->with('info', 'Contraseña cambiada con éxito');
+                        return redirect()->route('admin.users.index', compact('usuarios', 'user'))->with('info', 'Contraseña cambiada con éxito');
                     } else {
                         return redirect()->back()->with('info', 'La nueva contraseña no puede ser la anterior');
                     } 
@@ -470,7 +470,7 @@ class AdministradorController extends Controller
                 $ventas = Venta::select( DB::raw('ventas.*, usuarios.nombre, usuarios.correo'))
                     ->join('usuarios', 'usuarios.id', '=', 'ventas.usuario_id')->get();
 
-                return view('admin.sales.index', compact('ventas'));
+                return view('admin.sales.index', compact('ventas', 'user'));
             } else {
                 abort(403);
             }
@@ -501,7 +501,7 @@ class AdministradorController extends Controller
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id', $id)->get();
 
-                return view('admin.sales.receipt', compact('usuario', 'direcciones', 'ventas', 'productos', 'carrito', 'subtotal'));
+                return view('admin.sales.receipt', compact('usuario', 'direcciones', 'ventas', 'productos', 'carrito', 'subtotal', 'user'));
             } else {
                 abort(403);
             }
