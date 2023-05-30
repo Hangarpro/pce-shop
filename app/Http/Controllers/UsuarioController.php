@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Direcciones;
 use App\Models\Usuario;
+use App\Models\Carrito;
 use App\Models\Venta;
-use App\Models\Productos;
+use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -35,7 +36,7 @@ class UsuarioController extends Controller
             $carrito = Carrito::find($id);
 
             if($carrito->usuario_id === $usuario->id) {
-                $direccion = find($carrito->direccion_id);
+                $direcciones = Direcciones::find($carrito->direccion_id);
                 $ventas = Venta::where('usuario_id', $usuario->id)->get();
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();

@@ -32,12 +32,21 @@
                                 </div>
                                 <div class="col-md-3 mt-2 col-5">
                                     {{-- <a href="#" class="text-decoration-none">-</a> --}}
-                                    <a href="#" class="border text-decoration-none">
+                                    <a href="#" style="cursor: default; pointer-events: none;" class="border text-decoration-none">
                                         {{$producto->cantidad}}
                                     </a>
                                     {{-- <a href="#" class="text-decoration-none">+</a> --}}
                                 </div>
-                                <div class="col-md-3 mt-2 col-7">&dollar; {{$producto->monto}} <span class="close">&#10005;</span></div>
+                                <div class="col-md-3 mt-2 col-5">&dollar; {{$producto->monto}} 
+                                    <a href="#" class="text-danger borrar" title="Eliminar Producto" name="borrar2" onclick="showDeleteConfirmation({{$producto->id}});" > 
+                                        <i class="fas fa-trash"></i> 
+                                    </a>
+                                    <form id="deleteForm{{$producto->id}}" action="{{ route('carrito.destroy', ['id' => $producto->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" style="display: none;"></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -67,8 +76,8 @@
                 </select>
                 <p>ENVÍO</p>
                 @if ($total > 1299 )
-                    <h6><b value="Gratis" name="envio_tipo">Envío gratis</b></h6>
-                    <input type="hidden" id="envio_precio" value="0">
+                    <h6><b value="Gratis" >Envío gratis</b></h6>
+                    <input type="hidden" name="envio_tipo" value="Gratis">
                 @else
                     <select id="envio_tipo" name="envio_tipo" onchange="actualizarPrecioTotal()">
                         <option value="" disabled selected>Seleccione una opción</option>
@@ -92,6 +101,7 @@
 @endsection
 @section('scripts')
     <script>
+
         document.getElementById('direccion').addEventListener('change', function() {
             if (this.options[this.selectedIndex].getAttribute('data-url')) {
                 window.location.href = this.options[this.selectedIndex].getAttribute('data-url');
@@ -105,7 +115,7 @@
 
             if (envioTipo === "Regular") {
                 envioPrecio = 99.00;
-            } else if (envioTipo === "Premiun") {
+            } else if (envioTipo === "Premium") {
                 envioPrecio = 159.00;
             }
 
@@ -116,7 +126,23 @@
             inputElement.value = nuevoTotal.toFixed(2);
 
             var muestraElement = document.getElementById("total_muestra");
-            muestraElement.innerText = "$ " + nuevoTotal.toFixed(2);
+            muestraElement.innerText = "$ " + nuevoTotal;
+        }
+    </script>
+    <script>
+        function showDeleteConfirmation(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará el producto permanentemente.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + id).submit();
+                }
+            });
         }
 
     </script>

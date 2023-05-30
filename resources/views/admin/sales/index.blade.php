@@ -52,18 +52,19 @@
                                             <th>Fecha</th>
                                             <th>Usuario</th>
                                             <th>Total de la venta</th>
-                                            <th>Productos comprados</th>
+                                            <th>Resumen</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>01</td>
-                                            <td>2022-04-15 23:48:54</td>
-                                            <td>Jesús Carlos <br> bre13@gmail.com</td>
-                                            <td>$289.00</td>
-                                            <td>Leo Messi - (1)
-                                            </td>
-                                        </tr>
+                                        @foreach ($ventas as $venta)
+                                            <tr>
+                                                <td> {{$venta->id}} </td>
+                                                <td> {{$venta->fecha}} </td>
+                                                <td>{{$venta->nombre}} <br> {{$venta->correo}}</td>
+                                                <td>${{$venta->ventaTotal}}</td>
+                                                <td><a href="">Ver recibo</a></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

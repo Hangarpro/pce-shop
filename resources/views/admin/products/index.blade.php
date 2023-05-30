@@ -69,8 +69,6 @@
                                                             <button type="submit" style="display: none;"></button>
                                                         </form>
 
-                                                    {{-- <a href="#" class="fa-solid fa-trash text-decoration-none text-danger" onclick="showDeleteConfirmation({{$direccion->id}});" style="cursor: pointer; padding: 0; background-color: transparent; border: none; margin-left: -1rem;"></a> --}}
-
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -37,8 +37,8 @@
                                                     </svg>
                                                 </span>
                                                 <h2 class="text-black">¡Gracias por tu compra!</h2>
-                                                <p class="lead mb-5">Tu orden ha sido realizada con éxito.</p>
-                                                <p><a href="{{ url('/') }}" class="btn btn-sm btn-outline-black">Ver Recibo</a></p>
+                                                <p class="lead mb-5">Tu orden ha sido realizada con éxito.   {{$id}}</p>
+                                                <p><a href="{{ route('order.show', ['id'=>$id]) }}" class="btn btn-sm btn-outline-black">Ver Recibo</a></p>
                                             </div>
                                         </div>
                                     </div>

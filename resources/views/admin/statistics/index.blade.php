@@ -33,7 +33,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>10</h3>
+                                <h3> {{$ventas_sem}} </h3>
 
                                 <p>Ventas en la última semana</p>
                             </div>
@@ -48,7 +48,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>530</h3>
+                                <h3> {{$usuarios}} </h3>
 
                                 <p>Usuarios registrados</p>
                             </div>
@@ -61,7 +61,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>52</h3>
+                                <h3> {{$clientes}} </h3>
 
                                 <p>Clientes totales</p>
                             </div>
@@ -75,7 +75,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>2</h3>
+                                <h3> {{$ventas_hoy}} </h3>
 
                                 <p>Ventas de hoy</p>
                             </div>

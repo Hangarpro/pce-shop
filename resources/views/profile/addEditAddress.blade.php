@@ -263,7 +263,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="inputSuburb" class="form-label">Número de teléfono</label>
-                    <input type="tel" required  class="form-control border" pattern="\\d{10}\ " value="@if(isset($direccion)){{$direccion->telefono}}@else{{old('telefono')}}  @endif" name="telefono" id="inputSuburb">
+                    <input type="number" required  class="form-control border" pattern="\\d{10}\ " value="@if(isset($direccion)){{$direccion->telefono}}@else{{old('telefono')}}  @endif" name="telefono" id="inputSuburb">
                     
                 </div>
                 <div class="d-grid">
