@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('carrito', function (Blueprint $table) {
             $table->id();
-            $table->string('tarjeta')->nullable();
+            $table->string('numero_tarjeta')->nullable();
+            $table->string('nombre_tarjeta')->nullable();
             $table->tinyInteger('compra_estado');
             $table->enum('envio_tipo', ['Gratis', 'Regular', 'Premium'])->nullable();
             $table->enum('envio_estado', ['Pendiente', 'Pagado', 'En tránsito', 'Entregado'])->nullable();

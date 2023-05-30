@@ -69,14 +69,12 @@
                                                 <input type="hidden" name="carrito_id" value="{{$carrito->id}} ">
                                                 <label class="form-label" for="typeName">Nombre en la tarjeta</label>
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" id="typeName"
-                                                        class="form-control form-control-lg" size="17"
-                                                        placeholder="Nombre en la tarjeta" required/>
+                                                    <input type="text" id="typeName" name="nombre_tarjeta" class="form-control form-control-lg" size="17" placeholder="Nombre en la tarjeta" required/>
                                                 </div>
 
                                                 <label class="form-label" for="typeText">Número de tarjeta</label>
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" name="tarjeta" class="form-control form-control-lg" size="17" placeholder="1234 5678 9012 3457" size="18" id="cr_no" minlength="19" maxlength="19" required/>
+                                                    <input type="text" name="numero_tarjeta" class="form-control form-control-lg" size="17" placeholder="1234 5678 9012 3457" size="18" id="cr_no" minlength="19" maxlength="19" required/>
                                                 </div>
 
                                                 <div class="row d-flex ps-0">

@@ -13,7 +13,8 @@ class Carrito extends Model
 
     protected $nullable = [
         'direccion_id',
-        'tarjeta',
+        'numero_tarjeta',
+        'nombre_tarjeta',
         'envio_tipo',
         'envio_estado',
         'envio_numero',
@@ -25,7 +26,8 @@ class Carrito extends Model
     protected $fillable = [
         'usuario_id',
         'direccion_id',
-        'tarjeta',
+        'numero_tarjeta',
+        'nombre_tarjeta',
         'compra_estado',
         'envio_tipo',
         'envio_estado',

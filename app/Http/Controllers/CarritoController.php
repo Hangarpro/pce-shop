@@ -165,11 +165,14 @@ class CarritoController extends Controller
 
             $request->validate([
                 'direccion_id' => 'required',
-                'tarjeta' => 'required',
+                'numero_tarjeta' => 'required',
+                'nombre_tarjeta' => 'required',
                 'envio_tipo' => 'required',
                 'carrito_id' => 'required',
                 'total' => 'required'
             ]);
+
+            $numero_tarjeta = "XXXX XXXX XXXX " . substr($request->numero_tarjeta, -4);
     
             if(Carrito::find($request->carrito_id)) {
                 $numero = Str::random(3) . '-' . Str::random(7) . '-' . Str::random(7);
@@ -177,7 +180,8 @@ class CarritoController extends Controller
     
                 Carrito::where('id', '=', $request->carrito_id)->update([
                     'direccion_id' => $request->direccion_id,
-                    'tarjeta' => $request->tarjeta,
+                    'numero_tarjeta' => $numero_tarjeta,
+                    'nombre_tarjeta' => $request->nombre_tarjeta,
                     'compra_estado' => 1,
                     'envio_tipo' => $request->envio_tipo,
                     'envio_estado' => 'Pendiente',
@@ -207,10 +211,6 @@ class CarritoController extends Controller
             $envio_numero = $request->envio_numero;
             $fecha_compra = $request->fecha_compra;
             $id = $request->id;
-            // $request->validate([
-            //     'envio_numero' => 'required',
-            //     'fecha_compra' => 'required'
-            // ]);
 
             return view('cart.finish', compact('envio_numero', 'fecha_compra', 'id'));
             
