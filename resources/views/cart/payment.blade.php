@@ -71,22 +71,22 @@
                                                 <div class="form-outline form-white mb-4">
                                                     <input type="text" id="typeName"
                                                         class="form-control form-control-lg" size="17"
-                                                        placeholder="Nombre en la tarjeta" />
+                                                        placeholder="Nombre en la tarjeta" required/>
                                                 </div>
 
                                                 <label class="form-label" for="typeText">Número de tarjeta</label>
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" id="typeText" name="tarjeta" class="form-control form-control-lg" size="17" placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                                                    <input type="text" name="tarjeta" class="form-control form-control-lg" size="17" placeholder="1234 5678 9012 3457" size="18" id="cr_no" minlength="19" maxlength="19" required/>
                                                 </div>
 
                                                 <div class="row d-flex ps-0">
                                                     <div class="col-md-6">
                                                         <label class="form-label" for="typeExp">Expiración</label>
                                                         <div class="form-outline form-white">
-                                                            <input type="text" id="typeExp"
-                                                                class="form-control form-control-lg" placeholder="MM/YYYY"
-                                                                size="7" id="exp" minlength="7"
-                                                                maxlength="7" />
+                                                            <input type="text"
+                                                                class="form-control form-control-lg" placeholder="MM/YY"
+                                                                size="7" id="exp" minlength="5"
+                                                                maxlength="5" required/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -95,7 +95,7 @@
                                                             <input type="password" id="typeCVV"
                                                                 class="form-control form-control-lg"
                                                                 placeholder="&#9679;&#9679;&#9679;" size="1"
-                                                                minlength="3" maxlength="3" />
+                                                                minlength="3" maxlength="3" required/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -103,7 +103,7 @@
 
                                                 <div class="d-flex justify-content-between">
                                                     <p class="mb-2">Subtotal</p>
-                                                    <p class="mb-2">{{$subtotal}}</p>
+                                                    <p class="mb-2">${{$subtotal}}</p>
                                                 </div>
     
                                                 <div class="d-flex justify-content-between">
@@ -114,7 +114,7 @@
     
                                                 <div class="d-flex justify-content-between mb-4">
                                                     <p class="mb-2">Total (Imp. Incluidos)</p>
-                                                    <p class="mb-2">{{$total}}</p>
+                                                    <p class="mb-2">${{$total}}</p>
                                                     <input type="hidden" name="total" value="{{$total}}">
                                                 </div>
 
@@ -141,4 +141,45 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+    //For Card Number formatted input
+    var cardNum = document.getElementById('cr_no');
+    cardNum.onkeyup = function (e) {
+    if (this.value == this.lastValue) return;
+    var caretPosition = this.selectionStart;
+    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
+    var parts = [];
+    for (var i = 0, len = sanitizedValue.length; i < len; i +=4) { parts.push(sanitizedValue.substring(i, i + 4)); } for (var i=caretPosition - 1; i>= 0; i--) {
+    var c = this.value[i];
+    if (c < '0' || c> '9') {
+    caretPosition--;
+    }
+    }
+    caretPosition += Math.floor(caretPosition / 4);
+    this.value = this.lastValue = parts.join(' ');
+    this.selectionStart = this.selectionEnd = caretPosition;
+    }
+    //For Date formatted input
+    var expDate = document.getElementById('exp');
+    expDate.onkeyup = function (e) {
+    if (this.value == this.lastValue) return;
+    var caretPosition = this.selectionStart;
+    var sanitizedValue = this.value.replace(/[^0-9]/gi, '');
+    var parts = [];
+    for (var i = 0, len = sanitizedValue.length; i < len; i +=2) { parts.push(sanitizedValue.substring(i, i + 2)); } for (var i=caretPosition - 1; i>= 0; i--) {
+    var c = this.value[i];
+    if (c < '0' || c> '9') {
+    caretPosition--;
+    }
+    }
+    caretPosition += Math.floor(caretPosition / 2);
+    this.value = this.lastValue = parts.join('/');
+    this.selectionStart = this.selectionEnd = caretPosition;
+    }
+    });
+    </script>
 @endsection
