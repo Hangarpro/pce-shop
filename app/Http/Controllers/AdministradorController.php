@@ -490,10 +490,18 @@ class AdministradorController extends Controller
                 $usuario = Usuario::find($carrito->usuario_id);
                 $ventas = Venta::where('carrito_id', $carrito->id)->get();
 
+                $envio_tipo = $carrito->envio_tipo;
+                $total = $carrito->total;
+                $subtotal = $total;
+                switch($envio_tipo) {
+                    case 'Regular': $subtotal -= 99; break;
+                    case 'Premium': $subtotal -= 159; break;
+                }
+
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id', $id)->get();
 
-                return view('admin.sales.receipt', compact('usuario', 'direcciones', 'ventas', 'productos'));
+                return view('admin.sales.receipt', compact('usuario', 'direcciones', 'ventas', 'productos', 'carrito', 'subtotal'));
             } else {
                 abort(403);
             }

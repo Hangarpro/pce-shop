@@ -38,10 +38,19 @@ class UsuarioController extends Controller
             if($carrito->usuario_id === $usuario->id) {
                 $direcciones = Direcciones::find($carrito->direccion_id);
                 $ventas = Venta::where('carrito_id', $carrito->id)->get();
+
+                $envio_tipo = $carrito->envio_tipo;
+                $total = $carrito->total;
+                $subtotal = $total;
+                switch($envio_tipo) {
+                    case 'Regular': $subtotal -= 99; break;
+                    case 'Premium': $subtotal -= 159; break;
+                }
+
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
 
-                return view('profile.detailsOrder', compact('usuario', 'direcciones', 'ventas', 'productos'));
+                return view('profile.detailsOrder', compact('usuario', 'direcciones', 'ventas', 'productos', 'carrito', 'subtotal'));
             } else {
                 return redirect()->back();
             }
