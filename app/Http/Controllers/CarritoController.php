@@ -204,14 +204,15 @@ class CarritoController extends Controller
     public function pagado(Carrito $request)
     {
         if(Session::has('loginId')) {
-                $envio_numero = $request->envio_numero;
-                $fecha_compra = $request->fecha_compra;
+            $envio_numero = $request->envio_numero;
+            $fecha_compra = $request->fecha_compra;
+            $id = $request->id;
             // $request->validate([
             //     'envio_numero' => 'required',
             //     'fecha_compra' => 'required'
             // ]);
 
-            return view('cart.finish', compact('envio_numero', 'fecha_compra'));
+            return view('cart.finish', compact('envio_numero', 'fecha_compra', 'id'));
             
         } else {
             return redirect()->route('login.index');
