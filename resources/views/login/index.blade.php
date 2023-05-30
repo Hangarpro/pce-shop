@@ -9,7 +9,7 @@
     <div class="col-md-4 p-5 shadow-sm border rounded-3">
         <div>
             @if(session('info'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="mdi mdi-check-all me-2">{{session('info')}}</i>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>

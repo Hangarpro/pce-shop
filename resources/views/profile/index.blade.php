@@ -147,70 +147,74 @@
                         <a class="btn btn-primary mb-4" href="{{ route('profile.address') }}">Añadir dirección</a>
                     </div>
                     <div class="tab-pane text-center gallery" id="products">
-                        <div class="row">
-                            <label class="">Filtrar por fecha:</label>
-                            <form class="mt-2" method="" action="" onsubmit="return validarFechas()" id="filtro-form">
-                                @csrf
-                                <div class="row g-3">
-                                    <div class="col-md-3 col-sm-6 mx-auto">
-                                        <input type="date" id="fecha1" name="fechaInicio" class="form-control">
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 mx-auto">
-                                        <h4 for="">_</h4>
-                                    </div>
-
-                                    <div class="col-md-3 col-sm-6 mx-auto">
-                                        <input type="date" id="fecha2" name="fechaFinal" class="form-control">
-                                    </div>
-                                    <div class="col-md-3 col-sm-12 mx-auto">
-                                        <button type="submit" name="guardar" class="btn btn-primary">Filtrar</button>
-                                    </div>
-                                </div>
-                            </form>
-
-                            <div class="container-fluid mt-2">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="">
-                                            <div class="">
-                                                <table id="example2" class="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Fecha</th>
-                                                            <th>Total de la venta</th>
-                                                            <th>Productos comprados</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>07/04/2023</td>
-                                                            <td>$1,530.00</td>
-                                                            <td>
-                                                                Imagen - Nombre - Cantidad
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>07/04/2025</td>
-                                                            <td>$1,530.00</td>
-                                                            <td>
-                                                                Imagen - Nombre - Cantidad
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- /.card-body -->
+                        @if (($ventas->count())>0)
+                            <div class="row">
+                                <label class="">Filtrar por fecha:</label>
+                                <form class="mt-2" method="" action="" onsubmit="return validarFechas()" id="filtro-form">
+                                    @csrf
+                                    <div class="row g-3">
+                                        <div class="col-md-3 col-sm-6 mx-auto">
+                                            <input type="date" id="fecha1" name="fechaInicio" class="form-control">
                                         </div>
-                                        <!-- /.card -->
+                                        <div class="col-md-1 col-sm-1 mx-auto">
+                                            <h4 for="">_</h4>
+                                        </div>
 
-                                        <!-- /.card -->
+                                        <div class="col-md-3 col-sm-6 mx-auto">
+                                            <input type="date" id="fecha2" name="fechaFinal" class="form-control">
+                                        </div>
+                                        <div class="col-md-3 col-sm-12 mx-auto">
+                                            <button type="submit" name="guardar" class="btn btn-primary">Filtrar</button>
+                                        </div>
                                     </div>
-                                    <!-- /.col -->
+                                </form>
+
+                                <div class="container-fluid mt-2">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="">
+                                                <div class="">
+
+                                                    <table id="example2" class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Fecha</th>
+                                                                <th>Total de la venta</th>
+                                                                <th>acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($ventas as $venta)
+                                                                <tr>
+                                                                    <td> {{$venta->id}} </td>
+                                                                    <td> {{$venta->fecha}} </td>
+                                                                    <td>${{$venta->ventaTotal}}  </td>
+                                                                    <td>
+                                                                        <a href="">Ver recibo</a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <!-- /.card -->
+
+                                            <!-- /.card -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
                                 </div>
-                                <!-- /.row -->
                             </div>
-                        </div>
-                        <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado compras registradas</p>
+                        @else
+                            <p class="fs-3 fst-italic text-secondary mt-4 mb-4">No se han encontrado compras registradas</p>
+                        @endif
+                        
+                        
                     </div>
                 </div>
 
