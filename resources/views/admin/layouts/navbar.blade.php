@@ -9,11 +9,17 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <a class="nav-link" href="#" title="Editar usuario">
+        <a class="nav-link" href="{{route('admin.users.show',['id'=> $user->id])}}"  title="Editar usuario">
             <i class="far fa-user"></i>
         </a>
-        <a class="nav-link text-danger" href="#" title="Cerrar sesion">
+        {{-- <a class="nav-link text-danger" href="#" title="Cerrar sesion">
             <i class="fas fa-door-closed"></i>
+        </a> --}}
+        <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-door-closed" ></i>
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </ul>
 </nav>

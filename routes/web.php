@@ -88,4 +88,4 @@ Route::post('/usersPass/{id}', [AdministradorController::class, 'update_contrase
 Route::delete('/usersDestroy/{id}', [AdministradorController::class, 'destroy_usuario'])->name('admin.users.destroy');
 Route::get('/sales', [AdministradorController::class, 'ventas'])->name('admin.sales.index');
 
-Route::get('/sales/{id}', [AdministradorController::class, 'show_ventas'])->name('admin.sales.show');
+Route::get('/sales/{id}', [AdministradorController::class, 'show_venta'])->name('admin.sales.show');

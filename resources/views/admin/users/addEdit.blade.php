@@ -12,7 +12,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         @if (isset($usuario))
-                            <h1>Editar usuario</h1>{{$usuario->correo}}
+                            <h1>Editar usuario</h1>
                         @else
                             <h1>Agregar usuario</h1>
                         @endif

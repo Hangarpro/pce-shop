@@ -16,9 +16,9 @@ class UsuarioSeeder extends Seeder
     {
         $usuario = new Usuario([
             'nombre' => 'Administrador',
-            'correo' => 'admin@mail.mx',
+            'correo' => 'admin@gmail.com',
             'rol' => 'Administrador',
-            'contrasena' => Hash::make('pass')
+            'contrasena' => Hash::make('Asssssssss#1')
         ]);
         $usuario->save(); 
     }

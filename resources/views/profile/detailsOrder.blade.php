@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina')
-    Pop Culture Emporium | Pedido [No. de orden]
+    Pop Culture Emporium | Pedido {{$carrito->envio_numero}}
 @endsection
 
 @section('section')
@@ -19,7 +19,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">Historial de compras</li>
-                                        <li class="breadcrumb-item active">Pedido #702-5785766-3794299</li>
+                                        <li class="breadcrumb-item active">Pedido numero {{$carrito->id}}</li>
                                     </ol>
                                 </div>    
                         </div>
@@ -37,23 +37,22 @@
                                         <div class="row g-3">
                                             <div class="col-lg-3 col-6">
                                                 <p class="text-muted mb-2 text-uppercase fw-semibold">N.º de pedido</p>
-                                                <h5 class="fs-14 mb-0">#702-5785766-3794299</h5>
+                                                <h5 class="fs-14 mb-0">#{{$carrito->envio_numero}}</h5>
                                             </div>
                                             <!--end col-->
                                             <div class="col-lg-3 col-6">
                                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Fecha</p>
-                                                <h5 class="fs-14 mb-0"><span id="invoice-date">07 Abr, 2023</span> <small
-                                                        class="text-muted" id="invoice-time">12:21PM</small></h5>
+                                                <h5 class="fs-14 mb-0"><span id="invoice-date">{{$carrito->fecha_compra}}</span></h5>
                                             </div>
                                             <!--end col-->
                                             <div class="col-lg-3 col-6">
                                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Estatus del envío</p>
-                                                <span class="badge text-bg-success fs-12">Entregado</span>
+                                                <span class="badge text-bg-success fs-12">{{$carrito->envio_estado}}</span>
                                             </div>
                                             <!--end col-->
                                             <div class="col-lg-3 col-6">
                                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Total</p>
-                                                <h5 class="fs-14 mb-0">$<span id="total-amount">737.00</span></h5>
+                                                <h5 class="fs-14 mb-0">$<span id="total-amount">{{$ventas[0]->ventaTotal}}</span></h5>
                                             </div>
                                             <!--end col-->
                                         </div>
@@ -67,17 +66,18 @@
                                         <div class="row g-3">
                                             <div class="col-6">
                                                 <h6 class="text-muted text-uppercase fw-semibold mb-3">Dirección de envío</h6>
-                                                <p class="fw-medium mb-2">Tujefe #66, Chametla</p>
-                                                <p class="text-muted mb-1">La Paz, Baja California Sur 28490</p>
-                                                <p class="text-muted mb-1"><span>México</span></p>
-                                                <p class="text-muted mb-0"><span>612 107 2052</span></p>
+                                                <p class="fw-medium mb-2">{{$direcciones->calle}}, {{$direcciones->colonia}}</p>
+                                                <p class="text-muted mb-1">{{$direcciones->ciudad}}, {{$direcciones->estado}}</p>
+                                                <p class="text-muted mb-1">CP: {{$direcciones->cpostal}}</p>
+                                                <p class="text-muted mb-1"><span> {{$direcciones->pais}} </span></p>
+                                                <p class="text-muted mb-0"><span>{{$direcciones->telefono}}</span></p>
                                             </div>
                                             <!--end col-->
                                             <div class="col-6">
                                                 <h6 class="text-muted text-uppercase fw-semibold mb-3">Datos de la paquetería</h6>
                                                 <p class="fw-medium mb-2">DHL</p>
-                                                <p class="text-muted mb-1">Envío Express (2-3 días)</p>
-                                                <p class="text-muted mb-1">N.º de rastreo: #445809362</p>
+                                                <p class="text-muted mb-1">Envío {{$carrito->envio_tipo}}</p>
+                                                <p class="text-muted mb-1">N.º de rastreo: #{{$carrito->envio_numero}}</p>
                                                 <p class="text-muted mb-1"><span>Celular: 55 5345 7000</p>
                                             </div>
                                             <!--end col-->
@@ -102,28 +102,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="products-list">
-                                                    <tr>
-                                                        <th scope="row">01</th>
-                                                        <td class="text-start">
-                                                            <span class="fw-medium">Funko Pop: Football</span>
-                                                            <p class="text-muted mb-0">PSG - Lionel Messi
-                                                            </p>
-                                                        </td>
-                                                        <td>$289.00</td>
-                                                        <td>01</td>
-                                                        <td class="text-end">$289.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">02</th>
-                                                        <td class="text-start">
-                                                            <span class="fw-medium">Funko Pop: Football</span>
-                                                            <p class="text-muted mb-0">PSG - Lionel Messi
-                                                            </p>
-                                                        </td>
-                                                        <td>$289.00</td>
-                                                        <td>01</td>
-                                                        <td class="text-end">$289.00</td>
-                                                    </tr>
+                                                    @foreach ($productos as $producto)
+                                                        <tr>
+                                                            <th scope="row"> {{$producto->id}} </th>
+                                                            <td class="text-start">
+                                                                <span class="fw-medium">Funko Pop: {{$producto->marca}}</span>
+                                                                <p class="text-muted mb-0">{{$producto->nombre}}</p>
+                                                            </td>
+                                                            <td>${{$producto->precio}}</td>
+                                                            <td>{{$producto->cantidad}}</td>
+                                                            <td class="text-end">${{$producto->monto}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    
                                                 </tbody>
                                             </table>
                                             <!--end table-->
@@ -134,15 +125,30 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>Sub Total</td>
-                                                        <td class="text-end">$578.00</td>
+                                                        <td class="text-end">${{$subtotal}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Costo de envío</td>
-                                                        <td class="text-end">$159.00</td>
+                                                        {{-- <td class="text-end">$159.00</td> --}}
+                                                        
+                                                        @switch($carrito->envio_tipo)
+                                                            @case("Regular")
+                                                                <td class="text-end">$99.00</td>
+                                                                @break
+                                                            @case("Premium")
+                                                                <td class="text-end">$159.00</td>
+                                                                @break
+                                                            @case("Gratis")
+                                                            <td class="text-end">Envio gratis</td>
+                                                            @break
+                                                            @default
+                                                                
+                                                        @endswitch
+                                                        
                                                     </tr>
                                                     <tr class="border-top border-top-dashed fs-15">
                                                         <th scope="row">Total</th>
-                                                        <th class="text-end">$737.00</th>
+                                                        <th class="text-end">${{$ventas[0]->ventaTotal}}</th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -151,10 +157,10 @@
                                         <div class="mt-3">
                                             <h6 class="text-muted text-uppercase fw-semibold mb-3">Detalles de pago:</h6>
                                             <p class="text-muted mb-1">Nombre en la tarjeta: <span class="fw-medium"
-                                                    id="card-holder-name">Josh Nichols</span></p>
+                                                    id="card-holder-name">{{$carrito->nombre_tarjeta}}</span></p>
                                             <p class="text-muted mb-1">Número de la tarjeta: <span class="fw-medium"
-                                                    id="card-number">xxx xxxx xxxx 1234</span></p>
-                                            <p class="text-muted">Cargo total: <span class="fw-medium" id="">$ 737.00
+                                                    id="card-number">{{$carrito->numero_tarjeta}}</span></p>
+                                            <p class="text-muted">Cargo total: <span class="fw-medium" id="">$ {{$carrito->total}}
                                                 </span></p>
                                         </div>
                                         <div class="mt-4">

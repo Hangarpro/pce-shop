@@ -62,7 +62,8 @@
                                                 <td> {{$venta->fecha}} </td>
                                                 <td>{{$venta->nombre}} <br> {{$venta->correo}}</td>
                                                 <td>${{$venta->ventaTotal}}</td>
-                                                <td><a href="">Ver recibo</a></td>
+                                                <td><a href="{{ route('admin.sales.show', ['id'=>$venta->id]) }}">Ver recibo</a></td>
+                                                
                                             </tr>
                                         @endforeach
                                     </tbody>
