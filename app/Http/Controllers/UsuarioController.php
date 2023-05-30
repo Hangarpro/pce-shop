@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\Direcciones;
 use App\Models\Usuario;
+use App\Models\Venta;
+use App\Models\Productos;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Session;
 
 class UsuarioController extends Controller
@@ -17,10 +21,32 @@ class UsuarioController extends Controller
         if(Session::has('loginId')) {
             $usuario = Usuario::where('id', '=', Session::get('loginId'))->first();
             $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
+            $ventas = Venta::where('usuario_id', $usuario->id)->get();
 
-            return view('profile.index', compact('usuario', 'direcciones'));
+            return view('profile.index', compact('usuario', 'direcciones', 'ventas'));
         } else {
             return redirect()->route('login.index');
+        } 
+    }
+
+    function profileOrder($id) {
+        //El $id es ventas->carrito_id
+        if(Session::has('loginId')) {
+            $usuario = Usuario::find(Session::get('loginId'));
+            $carrito = Carrito::find($id);
+
+            if($carrito->usuario_id === $usuario->id) {
+                $direccion = find($carrito->direccion_id);
+                $ventas = Venta::where('usuario_id', $usuario->id)->get();
+                $productos = Producto::select( DB::raw('productos.*, compra.*'))
+                    ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
+
+                return view('profile.detailsOrder', compact('usuario', 'direcciones', 'ventas'));
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
         } 
     }
 

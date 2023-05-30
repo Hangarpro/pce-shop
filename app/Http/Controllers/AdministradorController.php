@@ -7,12 +7,14 @@ use App\Models\Compra;
 use App\Models\Direcciones;
 use App\Models\Producto;
 use App\Models\Usuario;
+use App\Models\Venta;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Session;
 
 class AdministradorController extends Controller
@@ -24,13 +26,27 @@ class AdministradorController extends Controller
 
             //$user->rol == 'Administrador' || $user->rol == 'Sistema'
             if(true) {
-                /*$compras = (Carrito::where('compra_estado', '=', 1)->exists()) ? Carrito::where('compra_estado', '=', 1) : null;
-                $usuarios = Usuario::all();
-                $clientes = Carrito::groupBy('usuario_id')->where('compra_estado', '=', 1)->count();*/
+                $usuarios = Usuario::all()->count();
+                \DB::statement("SET SQL_MODE=''");
 
-                //compact('usuario', 'compras', 'usuarios', 'clientes')
+                $clientes = Carrito::where('compra_estado', 1)->groupBy('usuario_id')->count();
+                $ventas_hoy = Carrito::where('compra_estado', 1)->whereDate('fecha_compra', Carbon::today())->count();
+                $ventas_sem = Carrito::where('compra_estado', 1)->whereBetween('fecha_compra', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+                $ventas_gra = Carrito::whereBetween('fecha_compra', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                    ->where('compra_estado', 1)
+                    ->groupBy('fecha_compra')
+                    ->orderBy('fecha_compra', 'DESC')
+                    ->get(array(DB::raw('Date(fecha_compra) as "dia"'), DB::raw('SUM(total) as "ventas"')));
+                
+                $productos = Compra::select( DB::raw('productos.nombre, compra.cantidad'))
+                    ->join('productos', 'productos.id', '=', 'compra.producto_id')
+                    ->join('carrito', 'carrito.id', '=', 'compra.carrito_id')
+                    ->where('carrito.compra_estado', '=', 1)
+                    ->select('nombre', DB::raw('count(*) as cantidad'))
+                    ->groupBy('productos.nombre')
+                    ->get();
 
-                return view('admin.statistics.index');
+                return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'ventas_gra'));
             } else {
                 abort(403);
             }
@@ -454,6 +470,44 @@ class AdministradorController extends Controller
                     $usuario->delete();
 
                 return redirect()->back()->with('info', 'Usuario eliminado correctamente');
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function ventas()
+    {
+        if(Session::has('loginId')) {
+            $user = Usuario::find(Session::get('loginId'));
+
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
+            if(true) {
+                $ventas = Venta::select( DB::raw('ventas.*, usuarios.nombre, usuarios.correo'))
+                    ->join('usuarios', 'usuarios.id', '=', 'ventas.usuario_id')->get();
+
+                return view('admin/sales/index', compact('ventas'));
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect()->route('login.index');
+        } 
+    }
+
+    public function show_venta($id)
+    {
+        if(Session::has('loginId')) {
+            $user = Usuario::find(Session::get('loginId'));
+
+            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
+            if(true) {
+                $productos = Producto::select( DB::raw('productos.*, compra.*'))
+                    ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id', $id)->get();
+
+                return view('admin/sales/show/{id}', compact('productos'));
             } else {
                 abort(403);
             }

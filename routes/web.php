@@ -88,7 +88,4 @@ Route::post('/usersUpdate/{id}', [AdministradorController::class, 'update_usuari
 Route::get('/usersPass/{id}', [AdministradorController::class, 'show_update'])->name('admin.users.password');
 Route::post('/usersPass/{id}', [AdministradorController::class, 'update_contrasena'])->name('admin.users.passwordUpdate');
 Route::delete('/usersDestroy/{id}', [AdministradorController::class, 'destroy_usuario'])->name('admin.users.destroy');
-
-Route::get('/sales', function () {
-    return view('admin/sales/index');
-});
+Route::get('/sales', [AdministradorController::class, 'ventas'])->name('admin.sales.index');

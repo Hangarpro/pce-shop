@@ -144,7 +144,7 @@ class CarritoController extends Controller
                 }
 
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
-                ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
+                    ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
 
                 
                 $direccion = Direcciones::find($request->direccion_id);
@@ -216,27 +216,5 @@ class CarritoController extends Controller
         } else {
             return redirect()->route('login.index');
         }
-    }
-
-    public function historial($min, $max)
-    {
-        if(Session::has('loginId')) {
-            $usuario = Usuario::where('id', Session::get('loginId'))->first();
-            $carritos = Carrito::where('compra_estado', 1)->where('usuario_id', $usuario->id)->whereBetween('fecha_compra', [$min, $max])->get();
-            $compras = Compra::findMany($carritos->id);
-            $productos = DB::table('productos')
-            ->join('compra', function ($join) {
-                $join->on('productos.id', '=', 'compra.producto_id')
-                     ->where('compra.carrito_id', '=', $carritos->id);
-            })->get();
-
-            $direcciones = array();
-                if(Direcciones::where('usuario_id', $usuario->id))
-                    $direcciones = Direcciones::where('usuario_id', $usuario->id)->get();
-
-            return view('profile.index', compact('carritos', 'compras', 'productos', 'direcciones', 'usuario'))->withInput(['tab'=>'productos']);
-        } else {
-            return redirect()->route('login.index');
-        }  
     }
 }

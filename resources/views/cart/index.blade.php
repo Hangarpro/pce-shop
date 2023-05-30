@@ -73,7 +73,7 @@
                     <select id="envio_tipo" name="envio_tipo" onchange="actualizarPrecioTotal()">
                         <option value="" disabled selected>Seleccione una opción</option>
                         <option value="Regular" class="text-muted">Envío Regular - &dollar; 99.00</option>
-                        <option value="Premiun" class="text-muted">Envío Premiun - &dollar; 159.00</option>
+                        <option value="Premium" class="text-muted">Envío Premium - &dollar; 159.00</option>
                     </select>
                 @endif
                 <hr>
