@@ -191,7 +191,7 @@
                                                                     <td> {{$venta->fecha}} </td>
                                                                     <td>${{$venta->ventaTotal}}  </td>
                                                                     <td>
-                                                                        <a href="">Ver recibo</a>
+                                                                        <p><a href="{{ route('order.show', ['id'=>$venta->id]) }}" class="btn btn-sm btn-outline-black">Ver Recibo</a></p>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

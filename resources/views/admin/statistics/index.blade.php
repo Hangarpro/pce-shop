@@ -105,7 +105,7 @@
                                     <!-- Morris chart - Sales -->
                                     <div class="chart tab-pane active" id="revenue-chart"
                                         style="position: relative;">
-                                        <canvas id="ventasxdia"></canvas>
+                                        <canvas id="ventasxdia" ></canvas>
                                     </div>
                                 </div>
                             </div><!-- /.card-body -->
