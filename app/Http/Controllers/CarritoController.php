@@ -40,7 +40,7 @@ class CarritoController extends Controller
                     $direcciones = Direcciones::where('usuario_id', '=', Session::get('loginId'))->get();
                 return view('cart.index', compact('carrito', 'productos', 'direcciones', 'total', 'usuario'));
             } else {
-                return redirect()->route('productos.index');
+                return redirect()->route('productos.index')->with('info', 'Por favor, agregue un producto al carrito');
             }
         } else {
             return redirect()->route('login.index');
