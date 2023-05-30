@@ -40,10 +40,10 @@ class LoginController extends Controller
                             return redirect()->route('productos.index'); break;
 
                         case 'Administrador': 
-                            return redirect()->route('dashboard.index'); break;
+                            return redirect()->route('admin.statistics.index'); break;
 
                         case 'Sistema': 
-                            return redirect()->route('dashboard.index'); break;
+                            return redirect()->route('admin.statistics.index'); break;
 
                         default: 
                             return redirect()->back()->with('info', 'Error en el inicio de sesión'); break;
