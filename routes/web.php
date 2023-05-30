@@ -48,6 +48,7 @@ Route::post('profile/edit1', [UsuarioController::class, 'updateContrasena'])->na
 Route::get('/profile/edit', [UsuarioController::class, 'editProfile'])->name('profile.show');
 Route::post('profile/edit', [UsuarioController::class, 'updateUsuario'])->name('profile.update');
 Route::get('/profile/address', [UsuarioController::class, 'profileAddress'])->name('profile.address');
+Route::get('/profile/order/{id}', [UsuarioController::class, 'profileOrder'])->name('order.show');
 
 //Direcciones
 Route::post('/profile/address', [DireccionesController::class, 'store'])->name('address.store');
@@ -62,9 +63,6 @@ Route::get('/payment', [CarritoController::class, 'show'])->name('carrito.show')
 Route::post('/payment', [CarritoController::class, 'comprar'])->name('carrito.store');
 Route::get('/paid', [CarritoController::class, 'pagado'])->name('carrito.done');
 Route::delete('/carrito/destroy/{id}', [CarritoController::class, 'remover'])->name('carrito.destroy');
-Route::get('/profile/order/{id}', [UsuarioController::class, 'profileOrder'])->name('order.show');
-
-
 
 //Dashboard
 Route::get('/dashboard', [AdministradorController::class, 'index'])->name('admin.statistics.index');
@@ -89,3 +87,5 @@ Route::get('/usersPass/{id}', [AdministradorController::class, 'show_update'])->
 Route::post('/usersPass/{id}', [AdministradorController::class, 'update_contrasena'])->name('admin.users.passwordUpdate');
 Route::delete('/usersDestroy/{id}', [AdministradorController::class, 'destroy_usuario'])->name('admin.users.destroy');
 Route::get('/sales', [AdministradorController::class, 'ventas'])->name('admin.sales.index');
+
+Route::get('/sales/{id}', [AdministradorController::class, 'show_ventas'])->name('admin.sales.show');

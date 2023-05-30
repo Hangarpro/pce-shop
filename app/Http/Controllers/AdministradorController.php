@@ -24,8 +24,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuarios = Usuario::all()->count();
                 \DB::statement("SET SQL_MODE=''");
 
@@ -60,8 +59,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $productos = Producto::all();
 
                 return view('admin.products.index', compact('productos'));
@@ -77,8 +75,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 return view('admin.products.addEdit', compact('user'));
             } else {
                 abort(403);
@@ -93,8 +90,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([
                     'nombre' => 'required',
                     'precio' => 'required',
@@ -135,8 +131,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $producto = Producto::find($id);
 
                 return view('admin.products.addEdit', compact('producto'));
@@ -153,8 +148,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([
                     'nombre' => 'required',
                     'precio' => 'required',
@@ -216,8 +210,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $productos = Producto::all();
 
                 return view('admin.products.update', compact('productos'));
@@ -233,8 +226,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([
                     'id' => 'required',
                     'existencia' => 'required'
@@ -258,8 +250,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $producto = Producto::find($id);
             if($producto)
                 $producto->delete();
@@ -278,8 +269,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuarios = Usuario::all();
 
                 return view('admin.users.index', compact('usuarios'));
@@ -295,8 +285,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 return view('admin.users.addEdit');
             } else {
                 abort(403);
@@ -311,20 +300,17 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([
                     'nombre' => 'required',
                     'correo' => 'required',
-                    //'rol' => 'required',
                     'password' => 'required|confirmed'
                 ]);
         
                 $usuario = Usuario::create([
                     'nombre' => $request->nombre,
                     'correo' => $request->correo,
-                    'rol' => 'Usuario',
-                    //'rol' => $request->rol,
+                    'rol' => 'Administrador',
                     'contrasena' => Hash::make($request->password)
                 ]);
         
@@ -341,8 +327,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuario = Usuario::find($id);
 
                 return view('admin.users.addEdit', compact('usuario'));
@@ -359,8 +344,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([
                     'usuario_id => required',
                     'nombre' => 'required_without:correo',
@@ -408,8 +392,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuario = Usuario::find($id);
 
                 return view('admin.users.changePassword', compact('usuario'));
@@ -426,8 +409,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $request->validate([ 
                     'usuario_id' => 'required',
                     'contrasena' => 'required',
@@ -465,8 +447,7 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $usuario = Usuario::find($id);
                 if($usuario)
                     $usuario->delete();
@@ -485,12 +466,11 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
                 $ventas = Venta::select( DB::raw('ventas.*, usuarios.nombre, usuarios.correo'))
                     ->join('usuarios', 'usuarios.id', '=', 'ventas.usuario_id')->get();
 
-                return view('admin/sales/index', compact('ventas'));
+                return view('admin.sales.index', compact('ventas'));
             } else {
                 abort(403);
             }
@@ -504,12 +484,16 @@ class AdministradorController extends Controller
         if(Session::has('loginId')) {
             $user = Usuario::find(Session::get('loginId'));
 
-            //$user->rol == 'Administrador' || $user->rol == 'Sistema'
-            if(true) {
+            if($user->rol === 'Administrador' || $user->rol === 'Sistema') {
+                $carrito = Carrito::find($id);
+                $direcciones = Direcciones::find($carrito->direccion_id);
+                $usuario = Usuario::find($carrito->usuario_id);
+                $ventas = Venta::where('carrito_id', $carrito->id)->get();
+
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id', $id)->get();
 
-                return view('admin/sales/show/{id}', compact('productos'));
+                return view('admin.sales.receipt', compact('usuario', 'direcciones', 'ventas', 'productos'));
             } else {
                 abort(403);
             }

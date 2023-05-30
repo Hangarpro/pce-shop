@@ -37,11 +37,11 @@ class UsuarioController extends Controller
 
             if($carrito->usuario_id === $usuario->id) {
                 $direcciones = Direcciones::find($carrito->direccion_id);
-                $ventas = Venta::where('usuario_id', $usuario->id)->get();
+                $ventas = Venta::where('carrito_id', $carrito->id)->get();
                 $productos = Producto::select( DB::raw('productos.*, compra.*'))
                     ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
 
-                return view('profile.detailsOrder', compact('usuario', 'direcciones', 'ventas'));
+                return view('profile.detailsOrder', compact('usuario', 'direcciones', 'ventas', 'productos'));
             } else {
                 return redirect()->back();
             }
