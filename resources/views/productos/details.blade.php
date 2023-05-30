@@ -5,17 +5,20 @@
 @endsection
 
 @section('section')
-<section class="py-5">
+<section class="py-2">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src={!! asset($producto[0]->imagen) !!} alt="..." /></div>
+            <div class="col-md-6 thumbnail">
+                <img class="card-img-top mb-5 mb-md-0 principalImg" src={!! asset($producto[0]->imagen) !!} alt="..." />
+                <img class="card-img-top mb-5 mb-md-0 secondaryImg" src={!! asset($producto[0]->imagen_secundaria) !!} alt="..." />
+            </div>
             <div class="col-md-6">
-                <div class="small mb-1"> {{$producto[0]->marca}} </div>
+                <div class="small mb-1 badge rounded-pill {{ getBrandColor($producto[0]->marca) }}"> {{$producto[0]->marca}} </div>
                 <h1 class="display-5 fw-bolder">{{$producto[0]->nombre}}</h1>
-                <div class="fs-5 mb-5">
+                <div class="fs-5 mb-2">
                     <span>${{$producto[0]->precio}}</span>
                 </div>
-                <p class="lead">{{$producto[0]->descripcion}}</p>
+                <p class="lead" style="text-align: justify">{{$producto[0]->descripcion}}</p>
 
                 @if(session()->has('loginId'))      
                     <div class="d-flex row">

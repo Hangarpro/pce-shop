@@ -16,4 +16,22 @@ if(! function_exists('getBadgeColor')) {
         return $color;
     }
 }
+
+if(! function_exists('getBrandColor')) {
+    function getBrandColor($marca)
+    {
+        $color = 'text-bg-secondary';
+        switch($marca) {
+            case 'Marvel':
+                $color = 'text-bg-danger'; break;
+            case 'DC':
+                $color = 'text-bg-primary'; break;
+            case 'Disney':
+                $color = 'text-bg-info'; break;
+            case 'Football':
+                $color = 'text-bg-secondary'; break;
+        }
+        return $color;
+    }
+}
 ?>

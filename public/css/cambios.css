@@ -17,3 +17,12 @@
 .pagination {
     --bs-pagination-hover-color: #405c54;
 }
+.secondaryImg {
+    display: none;
+}
+.thumbnail:hover .principalImg {
+    display: none;
+}
+.thumbnail:hover .secondaryImg {
+    display: block;
+}
