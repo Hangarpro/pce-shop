@@ -30,6 +30,14 @@ if(! function_exists('getBrandColor')) {
                 $color = 'text-bg-info'; break;
             case 'Football':
                 $color = 'text-bg-secondary'; break;
+            case 'Games':
+                $color = 'text-bg-warning'; break;
+            case 'Animation':
+                $color = 'text-bg-success'; break;
+            case 'Star Wars':
+                $color = 'text-bg-dark'; break;
+            case 'Rocks':
+                $color = 'text-bg-light'; break;
         }
         return $color;
     }

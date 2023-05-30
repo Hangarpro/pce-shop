@@ -14,9 +14,6 @@
     <div id="myCarousel" class="carousel slider carousel-fade" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
-            <li data-bs-target="#myCarousel" data-bs-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -70,7 +67,8 @@
         @foreach ($productos as $producto)
         <div class="card mx-auto col-md-3 col-10 mt-3 pt-4">
             <div class="d-flex justify-content-end">
-                <span class="badge rounded-pill text-bg-success float-end">Nuevo</span>
+                <span class="badge rounded-pill {{ getBrandColor($producto->marca) }} float-left me-2">{{$producto->marca}}</span>
+                <span class="badge rounded-pill {{ getBadgeColor($producto->tipo) }} float-end">{{$producto->tipo}}</span> 
             </div>
             <img class='mx-auto img-thumbnail' style="border:none"
                 src="{!! asset($producto->imagen) !!}"
@@ -78,6 +76,8 @@
             <div class="card-body text-center mx-auto">
                 <h5 class="card-title">{{$producto->nombre}}</h5>
                 <p class="card-text">${{$producto->precio}}</p>
+            </div>
+            <div class="card-footer text-center mx-auto bg-body border border-0 mb-3">
                 <a type="button" href="{{ route('productos.show', ['id'=>$producto->id]) }}" class="btn btn-info">Ver producto</a>
             </div>
         </div>
