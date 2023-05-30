@@ -61,10 +61,7 @@ Route::post('/cart', [CarritoController::class, 'enviar'])->name('carrito.send')
 Route::get('/payment', [CarritoController::class, 'show'])->name('carrito.show');
 Route::post('/payment', [CarritoController::class, 'comprar'])->name('carrito.store');
 Route::get('/paid', [CarritoController::class, 'pagado'])->name('carrito.done');
-
-Route::get('/profile/order', function () {
-    return view('profile/detailsOrder');
-});
+Route::get('/profile/order/{id}', [CarritoController::class, 'profileOrder'])->name('order.show');
 
 //Dashboard
 Route::get('/dashboard', [AdministradorController::class, 'index'])->name('admin.statistics.index');

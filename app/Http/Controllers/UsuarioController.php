@@ -30,7 +30,6 @@ class UsuarioController extends Controller
     }
 
     function profileOrder($id) {
-        //El $id es ventas->carrito_id
         if(Session::has('loginId')) {
             $usuario = Usuario::find(Session::get('loginId'));
             $carrito = Carrito::find($id);

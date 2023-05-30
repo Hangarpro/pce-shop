@@ -316,6 +316,7 @@ class AdministradorController extends Controller
                 $request->validate([
                     'nombre' => 'required',
                     'correo' => 'required',
+                    //'rol' => 'required',
                     'password' => 'required|confirmed'
                 ]);
         
@@ -323,6 +324,7 @@ class AdministradorController extends Controller
                     'nombre' => $request->nombre,
                     'correo' => $request->correo,
                     'rol' => 'Usuario',
+                    //'rol' => $request->rol,
                     'contrasena' => Hash::make($request->password)
                 ]);
         
