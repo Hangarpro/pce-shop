@@ -7,6 +7,12 @@
 @section('section')
     <h2 class="mt-2">Todos nuestros productos</h2>
     <!--CARDS-->
+    @if(session('info'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="mdi mdi-check-all me-2">{{session('info')}}</i>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="row ms-1 me-1">
         @foreach ($productos as $num=>$producto)
             @if($num % 3 == 0)
