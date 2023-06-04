@@ -28,7 +28,7 @@ class AdministradorController extends Controller
                 $usuarios = Usuario::all()->count();
                 \DB::statement("SET SQL_MODE=''");
 
-                $clientes = Carrito::where('compra_estado', 1)->groupBy('usuario_id')->count();
+                $clientes = Carrito::select('usuario_id')->distinct()->get()->count();
                 $ventas_hoy = Carrito::where('compra_estado', 1)->whereDate('fecha_compra', Carbon::today())->count();
                 $ventas_sem = Carrito::where('compra_estado', 1)->whereBetween('fecha_compra', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
                 $ventas_gra = Carrito::whereBetween('fecha_compra', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
@@ -41,15 +41,14 @@ class AdministradorController extends Controller
                     ->join('productos', 'productos.id', '=', 'compra.producto_id')
                     ->join('carrito', 'carrito.id', '=', 'compra.carrito_id')
                     ->where('carrito.compra_estado', '=', 1)
-                    ->select('nombre', DB::raw('count(*) as cantidad'))
+                    ->select([DB::raw("productos.nombre as nombre"), DB::raw("SUM(compra.cantidad) as cantidad")])
                     ->groupBy('productos.nombre')
                     ->take(6)->get();
-
+                
                 $fechas_ventas = $ventas_gra->pluck('dia');
                 $monto_ventas = $ventas_gra->pluck('ventas');
                 $nombre_productos = $productos->pluck('nombre');
                 $cantidad_productos = $productos->pluck('cantidad');
-                //return $nombre_p;
                 return view('admin.statistics.index', compact('usuarios', 'clientes', 'ventas_hoy', 'ventas_sem', 'fechas_ventas', 'monto_ventas', 'nombre_productos', 'cantidad_productos', 'user'));
             } else {
                 abort(403);

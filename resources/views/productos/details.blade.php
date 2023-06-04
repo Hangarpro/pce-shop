@@ -7,6 +7,14 @@
 @section('section')
 <section class="py-2">
     <div class="container px-4 px-lg-5 my-5">
+        <div>
+            @if(session('info'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="mdi mdi-check-all me-2">{{session('info')}}</i>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6 thumbnail">
                 <img class="card-img-top mb-5 mb-md-0 principalImg" src={!! asset($producto[0]->imagen) !!} alt="..." />

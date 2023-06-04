@@ -56,14 +56,24 @@ class CarritoController extends Controller
                 'cantidad' => 'required'
             ]);
 
-            if(Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->exists()) {
-                $carrito = Carrito::where('usuario_id', '=', Session::get('loginId'))->where('compra_estado', '=', 0)->first();
+            if(Carrito::where('usuario_id', Session::get('loginId'))->where('compra_estado', 0)->exists()) {
+                $carrito = Carrito::where('usuario_id', Session::get('loginId'))->where('compra_estado', 0)->first();
+                $producto = Producto::find($request->producto_id);
 
-                $compra = Compra::create([
-                    'producto_id' => $request->producto_id,
-                    'carrito_id' => $carrito->id,
-                    'cantidad' => $request->cantidad,
-                    'monto' => $this->obtenerMonto($request->producto_id, $request->cantidad) ]);
+                if(Compra::where('carrito_id', $carrito->id)->where('producto_id', $request->producto_id)->exists()) {
+                    $compra = Compra::where('carrito_id', $carrito->id)->where('producto_id', $request->producto_id)->first();
+                    $compra->increment('cantidad', $request->cantidad);
+                    $compra->increment('monto', $this->obtenerMonto($request->producto_id, $request->cantidad));
+                } else {
+                    $compra = Compra::create([
+                        'producto_id' => $request->producto_id,
+                        'carrito_id' => $carrito->id,
+                        'cantidad' => $request->cantidad,
+                        'monto' => $this->obtenerMonto($request->producto_id, $request->cantidad) ]);
+                }
+
+                Producto::where('id', $producto->id)->update([
+                    'existencia'=> ($producto->existencia - $request->cantidad)]);
             } else {
                 $carrito_id = Carrito::insertGetId([
                     'compra_estado' => 0,
@@ -85,6 +95,12 @@ class CarritoController extends Controller
     {
         if(Session::has('loginId')) {
             $compra = Compra::find($id);
+            $cantidad = $compra->cantidad;
+
+            $producto = Producto::find($compra->producto_id);
+            Producto::where('id', $producto->id)->update([
+                'existencia'=> ($producto->existencia + $cantidad)]);
+
             if($compra)
                 $compra->delete();
 
@@ -136,9 +152,10 @@ class CarritoController extends Controller
                     case 'Premium': $subtotal -= 159; break;
                 }
 
-                $productos = Producto::select( DB::raw('productos.*, compra.*'))
-                    ->join('compra', 'compra.producto_id', '=', 'productos.id')->where('compra.carrito_id',$carrito->id)->get();
-
+                $productos = Compra::select( DB::raw('productos.imagen, productos.nombre, productos.marca, compra.cantidad, compra.monto'))
+                    ->join('productos', 'productos.id', '=', 'compra.producto_id')
+                    ->join('carrito', 'carrito.id', '=', 'compra.carrito_id')
+                    ->where('carrito.id', '=', $carrito->id)->get();
                 
                 $direccion = Direcciones::find($request->direccion_id);
 

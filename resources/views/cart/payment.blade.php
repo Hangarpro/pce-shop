@@ -24,7 +24,7 @@
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="mb-0">Tienes {{$carrito->compra->count()}} productos en tu carrito</p>
+                                            <p class="mb-0">Tienes {{$productos->sum('cantidad');}} productos en tu carrito</p>
                                         </div>
                                     </div>
 
@@ -43,10 +43,10 @@
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center col-12 mb-3 col-md-5">
                                                         <div class="col-4 col-md-3 me-2">
-                                                            <h5 class="fw-normal">1</h5>
+                                                            <h5 class="fw-normal">{{$producto->cantidad}}</h5>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <h5 class="">${{$producto->precio}}</h5>
+                                                            <h5 class="">${{$producto->monto}}</h5>
                                                         </div>
                                                     </div>
                                                 </div>

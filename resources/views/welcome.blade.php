@@ -21,7 +21,7 @@
                     <div class="slider-container">
                         <h2 class="slider-title">Comics Funko Shop</h2>
                         <p class="slider-txt">Los funko de tus personajes favoritos en un solo lugar</p>
-                        <a href="#" class="a-btn">Comprar Ahora</a>
+                        <a href="{{ route('productos.index') }}" class="a-btn">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="slider-container">        
                         <h2 class="slider-title">Comics Funko DC</h2>
                         <p class="slider-txt">Los mejores funko de DC están justo aquí</p>
-                        <a href="#" class="a-btn">Comprar Ahora</a>
+                        <a href="{{ route('productos.index') }}" class="a-btn">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <div class="slider-container">
                         <h2 class="slider-title">Comics Funko Marvel</h2>
                         <p class="slider-txt">Los mejores funko de Marvel están justo aquí</p>
-                        <a href="#" class="a-btn">Comprar Ahora</a>
+                        <a href="{{ route('productos.index') }}" class="a-btn">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <div class="slider-container">
                         <h2 class="slider-title">Próximamente</h2>
                         <p class="slider-txt">Disfruta de cashback del 21 al 24 de noviembre</p>
-                        <a href="#" class="a-btn">Comprar Ahora</a>
+                        <a href="{{ route('productos.index') }}" class="a-btn">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
